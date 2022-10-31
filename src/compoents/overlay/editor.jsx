@@ -24,7 +24,6 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
 
     useEffect(() => {
         //
-        console.log(overlay, "Has Changed");
         artifact.d = overlay.id !== -1 ? artifacts[overlay.id] : new Artifact();
         setArtifact(artifact.d);
 
@@ -33,7 +32,6 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
 
     const levelChange = e => {
         setLevel(e.target.value);
-        setArtifact(artifacts[0]);
     }
 
     const setLevel = (value) => {
@@ -108,7 +106,7 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
             <Substatus id={1} artifact={artifact} setArtifact={setArtifact} updateStatus={updateStatus}/>
             <Substatus id={2} artifact={artifact} setArtifact={setArtifact} updateStatus={updateStatus}/>
             <Substatus id={3} artifact={artifact} setArtifact={setArtifact} updateStatus={updateStatus}/>
-            {err !== "" ? <p className='error'>{err}</p> : null}
+            {err !== "" ? <div className='error'>{err}</div> : null}
             <h3>Estimated Score at (+20)</h3>
             <div className="score">
                 <p>MIN : {minS}</p>

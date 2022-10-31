@@ -1,19 +1,36 @@
-# Getting Started with Create React App
+# Genshin-Artifact-Score-Simulator
+## How to use
+[Demo Page](https://nekodigi.github.io/genshin-score-simulator/)
+### Add artifact
+Press "Add Artifact" to open editor.<br>
+Then fill in the value according to the target artifact.  
+<img src="resource/img/artifact_sample.png" alt="drawing" width="400"/>  
+If it only have 3 sub-stats, upgrade to level 4 in-game, or you can set any value you want.  
+In this case, I put Energy Recharge+5.2% based on other artifact.  
+The original artifact is level 0, but let's assume you upgrade it to level 4 and get the 4th sub-status.
+
+If you already have 4 sub-stats, just put same value as the original artifact.  
+<img src="resource/img/editor_sample.png" alt="drawing" width="400"/> 
+
+After filled up all the values, you will see the estimated artifact score at level 20.  
+Then press "Add" button to finish.
+
+<img src="resource/img/page_sample.png" alt="drawing" width="400"/> 
+
+After you add multiple artifacts, they will be sorted in descending order of average score.  
+Based on simulated score, you can upgrade most promising artifact in-game.  
+
+Also, you can click artifact summary to change the artifact value. This will allow you to re-evaluate after an upgrade.
 
 ## Environment
 
 ### Require
-npm install
-
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+`npm install`
 
 ## Available Scripts
 
 ### `npm run deploy`
-create docs for github pages
-
-In the project directory, you can run:
+create docs for github pages.
 
 ### `npm start`
 
@@ -37,43 +54,3 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
