@@ -2,12 +2,15 @@
 import { Artifact } from "../../structure/class/artifact";
 import { Status } from "../../structure/class/status";
 import ArtifactR from "./artifact";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
 
 function AddArtifact({setOverlay}){
     return( 
         <button className="add_artifact" onClick={() => setOverlay({enable:true, id:-1})}>
             <h2>Add Artifact</h2>
-            <p>ADD<i class="fa-solid fa-plus"></i></p>
+            <FontAwesomeIcon className="add" icon={faPlus}/>
         </button>);
 }
 

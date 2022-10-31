@@ -1,0 +1,185 @@
+@import '../../setting/const.scss';
+
+.editor{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 20px;
+    gap: 18px;
+
+    position: absolute;
+    width: 400px;
+    
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    -webkit-transform: translateY(-50%) translateX(-50%);
+
+
+    background: $window;
+    box-shadow: 0px 8px 5px $shadow;
+    border-radius: 20px;
+    z-index:10;
+
+    .heading{
+        width: 360px;
+        height: 29px;
+
+
+        /* Inside auto layout */
+
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+
+        h2{
+            margin:0;
+            font-size: 24px;
+            line-height: 29px;
+        }
+
+        button{
+            position: absolute;
+            width: 34px;
+            height: 34px;
+            right: 16px;
+            top: 12px;
+
+            background: $red;
+            border-radius: 10px;
+
+            *{
+                font-size: 16px;
+                line-height: 18px;
+
+                color: $white;
+            }
+        }
+    }
+
+    .level_input{
+        display: flex;
+        position:relative;
+        width:100%;
+
+        label{
+            position: absolute;
+            left: 16px;
+            top: 3px;
+            
+            font-size: 12px;
+            line-height: 14px;
+
+            color: $light-gray;
+        }
+
+        input{
+            width:100%;
+            height: 19px;
+
+            padding-left: 16px;
+            padding-top: 16px;
+            padding-bottom: 3px;
+
+            
+            border-radius: 10px;
+
+            font-size: 16px;
+            line-height: 19px;
+
+            color: #FFFFFF;
+        }
+    }
+    
+    input{
+        background: $purple-gray;
+    }
+
+    .substat{
+        display:flex;
+        
+        height: 38px;
+        
+        border-radius: 10px;
+        overflow: hidden;
+
+        align-self: stretch;
+        flex-grow: 0;
+        background: $purple-gray;
+
+        .select_w{
+            position:relative;
+            display:block;
+            select{
+                width:120px;
+                height: 100%;
+                padding: 10px 16px;
+                padding-right:33px;
+                background:$accent;
+            }
+    
+            .arrow{
+                position:absolute;
+                height:19px;
+                width:10px;
+                top: 10px;
+                right: 13px;
+
+                font-weight: 900;
+                font-size: 16px;
+                line-height: 19px;
+            }
+        }
+
+        input{
+            width:100%;
+            align-self: stretch;
+            flex-grow: 0;
+            margin-right:21px;
+
+            
+            text-align: right;
+        }
+    }
+
+    .error{
+        font-weight: 900;
+        font-size: 16px;
+        line-height: 18px;
+        padding: 11px 20px;
+        border-radius: 10px;
+
+        background: $red;
+    }
+
+    h3{
+        color:$light-gray
+    }
+
+    .score{
+        width:100%;
+        display:flex;
+        justify-content: space-between;
+
+        p{
+            flex:0 0 60;
+            color:$light-gray;
+            align-items:stretch;
+        }
+    }
+
+    .conclude{
+        .yes{
+
+        }
+
+        .no{
+            
+        }
+    }
+
+    *{
+        margin:0;
+        padding:0;
+    }
+}

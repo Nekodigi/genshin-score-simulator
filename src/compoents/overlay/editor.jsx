@@ -1,11 +1,15 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Artifact } from '../../structure/class/artifact';
+import '../../style/component/editor/editor.scss';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+
 
 import Substatus from './substatus';
 
 function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, setOverlay}) {
-    const notEnoughSubstatErr = "4 sub-stats are required to estimate 5 star artifact score.";
+    const notEnoughSubstatErr = <p><FontAwesomeIcon icon={faCircleExclamation}/>&nbsp;&nbsp;4 sub-stats are required to estimate 5 star artifact score.</p>;
     //console.log(artifacts[overlay.id]);
     var [artifact, setArtifact_] = useState({d:new Artifact(), state:0});//not good idea
     const [err, setErr] = useState(notEnoughSubstatErr);
@@ -82,40 +86,42 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
             <div className="heading">
                 <h2>{overlay.id === -1 ? "Add Artifact" : "Edit Artifact"}</h2>
                 <button onClick={() => setOverlay({enable:false, id:-1})}>{/*must use ()=>*/}
-                    X
+                    <FontAwesomeIcon className="add" icon={faXmark}/>
                 </button>
                     
             </div>
-            <input 
-                type="text"//number input cannot indentify 01 and 1
-                placeholder="Level"
-                value={artifact.d.level}
-                onChange={levelChange}
-                className="level"
-                onKeyPress={(event) => {//accept only number
-                    if (!/[0-9]/.test(event.key)) {
-                      event.preventDefault();
-                    }
-                  }}
-                min={0}
-                max={20}
-                step={1}
-            />
+            <div className='level_input'>
+                <input 
+                    type="text"//number input cannot indentify 01 and 1
+                    placeholder="Level"
+                    value={artifact.d.level}
+                    onChange={levelChange}
+                    onKeyPress={(event) => {//accept only number
+                        if (!/[0-9]/.test(event.key)) {
+                        event.preventDefault();
+                        }
+                    }}
+                    min={0}
+                    max={20}
+                    step={1}
+                />
+                <label>Level</label>
+            </div>
             <Substatus id={0} artifact={artifact} setArtifact={setArtifact} updateStatus={updateStatus}/>
             <Substatus id={1} artifact={artifact} setArtifact={setArtifact} updateStatus={updateStatus}/>
             <Substatus id={2} artifact={artifact} setArtifact={setArtifact} updateStatus={updateStatus}/>
             <Substatus id={3} artifact={artifact} setArtifact={setArtifact} updateStatus={updateStatus}/>
-            <p>{err}</p>
-            <h3>Estimated Score</h3>
-            <div className="score_sub">
+            {err !== "" ? <p className='error'>{err}</p> : null}
+            <h3>Estimated Score at (+20)</h3>
+            <div className="score">
                 <p>MIN : {minS}</p>
                 <p>AVG : {avgS}</p>
                 <p>MAX : {maxS}</p>
             </div>
             <div className="conclude">
-                <button disabled={!ready} onClick={() => add()}>{overlay.id === -1 ? "+ Add" : "+ Save"}</button>
-                <button onClick={overlay.id === -1 ? () => reset() : () => delete_()} >{overlay.id === -1 ? "Cancel" : "Delete"}</button>
-            </div>
+                <button className='yes' disabled={!ready} onClick={() => add()}>{overlay.id === -1 ? "+ Add" : "+ Save"}</button>
+                <button className='no' onClick={overlay.id === -1 ? () => reset() : () => delete_()} >{overlay.id === -1 ? "Cancel" : "Delete"}</button>
+            </div> 
         </div>
     );
 }

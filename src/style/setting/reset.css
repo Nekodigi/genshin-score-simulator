@@ -7,4 +7,18 @@ button {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
+}
+
+input {
+  outline: none;
+  border: none;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: transparent;
 }/*# sourceMappingURL=reset.css.map */

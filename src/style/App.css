@@ -10,6 +10,20 @@ button {
           appearance: none;
 }
 
+input {
+  outline: none;
+  border: none;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
 * {
   font-family: "Lato", sans-serif;
   font-style: normal;

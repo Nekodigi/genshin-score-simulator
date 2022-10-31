@@ -15,7 +15,7 @@ function Artifact({id, artifact, setOverlay}) {
             </div>
             <div className="border"></div>
             <div className="status">
-                <p>+{artifact.level}</p>
+                <p>(+{artifact.level})</p>
                 <div className="status_sub">
                     <p>{artifact.ss[0].render()}</p>
                     <p>{artifact.ss[1].render()}</p>

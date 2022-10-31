@@ -8,13 +8,36 @@
   align-items: flex-start;
   gap: 30px;
 }
+.artifacts h2 {
+  margin: 0px;
+}
 
 .add_artifact {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 18px 20px;
   gap: 18px;
+  background: #413A42;
+  box-shadow: 0px 8px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
   width: 260px;
   height: 248px;
+}
+.add_artifact .add {
+  position: absolute;
+  width: 89px;
+  height: 178px;
+  left: 85px;
+  top: 35px;
+  font-family: "Rounded Mplus 1c";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 120px;
+  line-height: 178px;
+  color: #999999;
+}
+.add_artifact .add * {
+  color: #999999;
 }/*# sourceMappingURL=page.css.map */

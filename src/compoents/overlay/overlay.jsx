@@ -1,4 +1,4 @@
-
+import '../../style/component/overlay.scss';
 import Editor from "./editor";
 
 
