@@ -1,5 +1,5 @@
 
-import './App.css';
+import './style/App.css';
 import Header from './compoents/header';
 import Page from './compoents/page';
 import Overlay from './compoents/overlay/overlay';

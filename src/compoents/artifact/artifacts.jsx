@@ -4,10 +4,11 @@ import { Status } from "../../structure/class/status";
 import ArtifactR from "./artifact";
 
 function AddArtifact({setOverlay}){
-    return( <div className="add_artifact">
-        <h2>Add Artifact</h2>
-        <button onClick={() => setOverlay({enable:true, id:-1})}>+</button>
-    </div>);
+    return( 
+        <button className="add_artifact" onClick={() => setOverlay({enable:true, id:-1})}>
+            <h2>Add Artifact</h2>
+            <p>ADD<i class="fa-solid fa-plus"></i></p>
+        </button>);
 }
 
 function Artifacts({artifacts, addArtifact, setOverlay}){
@@ -22,8 +23,8 @@ function Artifacts({artifacts, addArtifact, setOverlay}){
         <div className="artifacts">
             
             {artifacts.map((artifact, i) => <ArtifactR key={i} id={i} artifact={artifact} setOverlay={setOverlay}/>)}
-            <button onClick={add} >ADD TEST</button>
-            <AddArtifact setOverlay={setOverlay}/>
+            {/* <button onClick={add} >ADD TEST</button> */}
+            <AddArtifact addArtifact={addArtifact} setOverlay={setOverlay}/>
             
         </div>
     );

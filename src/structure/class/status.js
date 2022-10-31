@@ -1,6 +1,6 @@
 const field = require("../const/field").field;
 
-class Status{
+export class Status{
     constructor(field_, value, preValue){
         this.field = field_ ? field_ : "ERR";
         this.value = value ? value : 0;
@@ -72,4 +72,4 @@ class Status{
     }
 }
 
-module.exports.Status = Status;
+//module.exports.Status = Status;

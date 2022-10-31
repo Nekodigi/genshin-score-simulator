@@ -1,0 +1,64 @@
+.artifact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 18px 20px;
+  gap: 18px;
+  width: 260px;
+  height: 248px;
+  background: #413A42;
+  box-shadow: 0px 8px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.artifact h2 {
+  margin: 0;
+}
+.artifact .score {
+  display: flex;
+  gap: 18px;
+  width: 100%;
+  flex-direction: column;
+}
+.artifact .score * {
+  margin: 0;
+  text-align: left;
+}
+.artifact .score .score_sub {
+  display: flex;
+  gap: 18px;
+  flex-direction: row;
+}
+.artifact .score .score_sub * {
+  text-align: left;
+  color: #999999;
+  flex: 1 1 100px;
+}
+.artifact .border {
+  width: 100%;
+  border-bottom: solid 1px #FFFFFF;
+}
+.artifact .status {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  flex-direction: column;
+}
+.artifact .status * {
+  margin: 0;
+  text-align: left;
+}
+.artifact .status .status_sub {
+  display: flex;
+  gap: 8px 18px;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.artifact .status .status_sub * {
+  text-align: left;
+  color: #999999;
+  flex: 1 1 100px;
+}/*# sourceMappingURL=artifact.css.map */

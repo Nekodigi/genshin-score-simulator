@@ -1,12 +1,10 @@
-
+import '../../style/component/artifact.scss';
 
 function Artifact({id, artifact, setOverlay}) {
     artifact.eval();
 
     return (
-        <button onClick={() => setOverlay({enable:true, id:id})}>
-        <div className="artifact">
-            {}
+        <button className="artifact" onClick={() => setOverlay({enable:true, id:id})}>
             <h2>#{id+1}</h2>
             <div className="score">
                 <p>AVG : {artifact.avg.score()}</p>
@@ -15,6 +13,7 @@ function Artifact({id, artifact, setOverlay}) {
                     <p>MAX : {artifact.max.score()}</p>
                 </div>
             </div>
+            <div className="border"></div>
             <div className="status">
                 <p>+{artifact.level}</p>
                 <div className="status_sub">
@@ -24,7 +23,6 @@ function Artifact({id, artifact, setOverlay}) {
                     <p>{artifact.ss[3].render()}</p>
                 </div>
             </div>
-        </div>
         </button>
     );
 }

@@ -1,7 +1,7 @@
-const { Status } = require("./status");
+import { Status } from "./status";
 //const field = require("../const/field").field;
 
-class Artifact{
+export class Artifact{
     constructor(ss, level, doEval){
         this.ss = ss ? ss : [new Status(),new Status(),new Status(),new Status()];
         this.level = level ? level : 0;
@@ -95,4 +95,4 @@ class Artifact{
     }
 }
 
-module.exports.Artifact = Artifact;
+//module.exports.Artifact = Artifact;

@@ -1,3 +1,4 @@
+import '../style/component/page.scss';
 import Artifacts from "./artifact/artifacts";
 
 function Page({artifacts, addArtifact, setOverlay}) {

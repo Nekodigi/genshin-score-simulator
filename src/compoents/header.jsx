@@ -1,4 +1,4 @@
-
+import '../style/component/header.scss';
 
 function Header() {
 

@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/genshin-score-simulator/static/css/main.68e9be62.css",
+    "main.js": "/genshin-score-simulator/static/js/main.3f348118.js",
+    "index.html": "/genshin-score-simulator/index.html",
+    "main.68e9be62.css.map": "/genshin-score-simulator/static/css/main.68e9be62.css.map",
+    "main.3f348118.js.map": "/genshin-score-simulator/static/js/main.3f348118.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.68e9be62.css",
+    "static/js/main.3f348118.js"
+  ]
+}
