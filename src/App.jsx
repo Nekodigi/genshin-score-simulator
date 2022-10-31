@@ -8,8 +8,8 @@ import { Artifact } from './structure/class/artifact';
 import { Status } from './structure/class/status';
 
 function App() {
-  const [overlay, setOverlay] = useState({enable:true, id:-1});
-  const [artifacts, setArtifacts] = useState([new Artifact([new Status("HP ", 256), new Status("HP%", 5.3), new Status("CrD", 5.6), new Status("ElM", 25)], 5, true),new Artifact([new Status("HP ", 256), new Status("HP%", 5.3), new Status("CrD", 5.6), new Status("ElM", 25)], 5, true),new Artifact([new Status("HP ", 256), new Status("HP%", 5.3), new Status("CrD", 5.6), new Status("ElM", 25)], 5, true),new Artifact([new Status("HP ", 256), new Status("HP%", 5.3), new Status("CrD", 5.6), new Status("ElM", 25)], 5, true)]);
+  const [overlay, setOverlay] = useState({enable:false, id:-1});
+  const [artifacts, setArtifacts] = useState([]);
 
   const addArtifact = (artifact) => {//arrow function wrapped, auto desc sorted.
     setArtifacts(() => [...artifacts, artifact].sort((a, b) => b.avg.score()-a.avg.score()));
