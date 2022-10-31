@@ -22,10 +22,9 @@ Based on simulated score, you can upgrade most promising artifact in-game.
 
 Also, you can click artifact summary to change the artifact value. This will allow you to re-evaluate after an upgrade.
 
-## Environment
+## Require
 
-### Require
-`npm install`
+### `npm install`
 
 ## Available Scripts
 
