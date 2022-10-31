@@ -1,20 +1,29 @@
 @import '../setting/const.scss';
 
 .page{
-    
     padding: 30px;
 }
 
 .artifacts{
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    flex-wrap: wrap;
     gap: 30px;
 
     h2{
         margin:0px;
     }
 }
+
+.artifacts::before, .artifacts::after {
+    content: '';
+    height: 0;
+    border: none;
+    padding: 0;
+    margin: 0 1em 0 0;
+    flex: 1 1 260px;
+    order: 999;                /*  they need to be last  */
+  }
 
 .add_artifact{
     position: relative;
@@ -24,12 +33,12 @@
     align-items: flex-start;
     padding: 18px 20px;
     gap: 18px;
+    flex: 1 1 260px;
 
     background: $window;
     box-shadow: 0px 8px 5px $shadow;
     border-radius: 20px;
 
-    width: 260px;
     height: 248px;
 
     .add{
@@ -37,7 +46,9 @@
     
         width: 89px;
         height: 178px;
-        left: 85px;
+        left:0;
+        right:0;
+        margin:auto;
         top: 35px;
     
         font-family: 'Rounded Mplus 1c';

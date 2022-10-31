@@ -6,19 +6,16 @@
     align-items: flex-start;
     padding: 18px 20px;
     gap: 18px;
-
-    width: 260px;
     height: 248px;
 
+    
     background: $window;
     box-shadow: 0px 8px 5px $shadow;
     border-radius: 20px;
 
     /* Inside auto layout */
 
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+    flex: 1 1 260px;
     
     h2{
         margin:0;
@@ -61,7 +58,8 @@
             text-align: left;
         }
         .status_sub {
-            display:flex;
+            display:grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 8px 18px;
             flex-direction: row;
             flex-wrap: wrap;

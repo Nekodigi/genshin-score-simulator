@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Artifact } from '../../structure/class/artifact';
 import '../../style/component/editor/editor.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faCircleExclamation, faPlus, faSave, faCancel, faDeleteLeft, faTrash, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 
 import Substatus from './substatus';
@@ -64,20 +64,17 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
 
     const reset = () => {
         setArtifact(new Artifact());
+        setOverlay({id:-1, enable:false});
         updateStatus();
     }
 
     const delete_ = () => {
         deleteArtifact(overlay.id);
-        setOverlay({id:-1, enable:false});
         reset();
     }
 
     const add = () => {
         overlay.id === -1 ? addArtifact(artifact.d) : setArtifactP(overlay.id, artifact.d);
-
-        setArtifact(new Artifact());
-        setOverlay({id:-1, enable:false});
         reset();
     }
 
@@ -119,8 +116,8 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
                 <p>MAX : {maxS}</p>
             </div>
             <div className="conclude">
-                <button className='yes' disabled={!ready} onClick={() => add()}>{overlay.id === -1 ? "+ Add" : "+ Save"}</button>
-                <button className='no' onClick={overlay.id === -1 ? () => reset() : () => delete_()} >{overlay.id === -1 ? "Cancel" : "Delete"}</button>
+                <button className='no' onClick={overlay.id === -1 ? () => reset() : () => delete_()} >{overlay.id === -1 ? <p><FontAwesomeIcon icon={faCancel} />&nbsp;&nbsp;Cancel</p> : <p><FontAwesomeIcon icon={faTrashCan} />&nbsp;&nbsp;Delete</p>}</button>
+                <button className='yes' disabled={!ready} onClick={() => add()}>{overlay.id === -1 ? <p><FontAwesomeIcon icon={faPlus} />&nbsp;&nbsp;Add</p> : <p><FontAwesomeIcon icon={faSave} />&nbsp;&nbsp;Save</p>}</button>
             </div> 
         </div>
     );

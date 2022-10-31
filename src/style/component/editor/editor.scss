@@ -169,12 +169,33 @@
     }
 
     .conclude{
-        .yes{
+        display: flex;
+        flex-direction: row-re;
+        align-items: flex-start;
+        gap: 18px;
 
+        align-self: flex-end;
+
+        button{
+
+            padding: 12px 20px;
+            font-weight: 900;
+            font-size: 16px;
+            line-height: 18px;
+            border-radius: 10px;
+        }
+
+        .yes{
+            background:$green;
         }
 
         .no{
-            
+            background:$red;
+        }
+
+        button:disabled{
+            background:$dark-gray;
+            *{color:$gray;}
         }
     }
 
