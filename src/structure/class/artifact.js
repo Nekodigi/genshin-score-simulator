@@ -2,9 +2,10 @@ import { Status } from "./status";
 //const field = require("../const/field").field;
 
 export class Artifact{
-    constructor(ss, level, doEval){
+    constructor(ss, level, preLevel, doEval){
         this.ss = ss ? ss : [new Status(),new Status(),new Status(),new Status()];
         this.level = level ? level : 0;
+        this.preLevel = preLevel ? preLevel : (this.level === 0 ? "" : this.level);
         this.upgradeLeftByLevel();
         if(doEval !== undefined)this.eval();
     }
@@ -15,6 +16,22 @@ export class Artifact{
         var ss3 = Status.fromString(strs[2]);
         var ss4 = Status.fromString(strs[3]);
         return new Artifact([ss1, ss2, ss3, ss4], level);
+    }
+
+    setLevelByStr(raw){
+        if(typeof raw === "string"){
+            //console.log("S"+raw);
+            var value_ = raw==="" ? raw : (isNaN(parseFloat(raw)) ? 0 : Math.max(0, Math.min(20, parseFloat(raw))));
+            //value_ = isNaN(value_) ? 0 : value_;
+            //console.log(value_);
+            this.preLevel = value_;
+            this.level = parseFloat(raw);
+        }else if(typeof raw === "number"){
+            this.preLevel = raw;
+            this.level = raw;
+        }else{
+            console.log("Status init error");
+        }
     }
 
     clone(doEval){

@@ -4,7 +4,7 @@ export class Status{
     constructor(field_, value, preValue){
         this.field = field_ ? field_ : "ERR";
         this.value = value ? value : 0;
-        this.preValue = preValue ? preValue : this.value;
+        this.preValue = preValue ? preValue : (this.value === 0 ? "" : this.value);
         this.w = field[this.field].w;
         this.table = field[this.field].table;
     }
@@ -25,7 +25,7 @@ export class Status{
     setValueByStr(raw){
         if(typeof raw === "string"){
             //console.log("S"+raw);
-            var value_ = raw.slice(-1) !== "." ? (isNaN(parseFloat(raw)) ? 0 : parseFloat(raw)) : raw;
+            var value_ = (raw==="" || raw.slice(-1) === ".") ? raw : (isNaN(parseFloat(raw)) ? 0 : parseFloat(raw));
             //value_ = isNaN(value_) ? 0 : value_;
             //console.log(value_);
             this.preValue = value_;

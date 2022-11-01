@@ -35,8 +35,9 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
     }
 
     const setLevel = (value) => {
-        value = Math.max(0, Math.min(20, value));
-        artifact.d.level = value;
+        //value = Math.max(0, Math.min(20, value));
+        //artifact.d.level = value;
+        artifact.d.setLevelByStr(value);
         setArtifact(artifact.d);
         updateStatus();
     }
@@ -88,8 +89,8 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
             <div className='level_input'>
                 <input 
                     type="text"//number input cannot indentify 01 and 1
-                    placeholder="Level"
-                    value={artifact.d.level}
+                    placeholder="0"
+                    value={artifact.d.preLevel}
                     onChange={levelChange}
                     onKeyPress={(event) => {//accept only number
                         if (!/[0-9]/.test(event.key)) {

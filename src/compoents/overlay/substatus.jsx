@@ -65,6 +65,7 @@ const Substatus = ({id, artifact, setArtifact, updateStatus}) =>{
                     min={0}
                     onChange={valueChange}
                     className="substat1"
+                    placeholder="0"
                     onKeyPress={(event) => {//accept only number
                         if (!/[\d.]/.test(event.key)) {
                             console.log(event.key);

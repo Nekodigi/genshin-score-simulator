@@ -95,6 +95,10 @@
         background: $purple-gray;
     }
 
+    input::placeholder{
+        color:$light-gray;
+    }
+
     .substat{
         display:flex;
         
