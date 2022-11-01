@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/genshin-score-simulator/static/css/main.9de00782.css",
-    "main.js": "/genshin-score-simulator/static/js/main.0e4e2412.js",
+    "main.js": "/genshin-score-simulator/static/js/main.40f97637.js",
     "index.html": "/genshin-score-simulator/index.html",
     "main.9de00782.css.map": "/genshin-score-simulator/static/css/main.9de00782.css.map",
-    "main.0e4e2412.js.map": "/genshin-score-simulator/static/js/main.0e4e2412.js.map"
+    "main.40f97637.js.map": "/genshin-score-simulator/static/js/main.40f97637.js.map"
   },
   "entrypoints": [
     "static/css/main.9de00782.css",
-    "static/js/main.0e4e2412.js"
+    "static/js/main.40f97637.js"
   ]
 }
