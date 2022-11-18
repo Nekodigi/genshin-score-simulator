@@ -4,7 +4,7 @@ import { Artifact } from '../../structure/class/artifact';
 import '../../style/component/editor/editor.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faCircleExclamation, faPlus, faSave, faCancel, faDeleteLeft, faTrash, faTrashCan } from "@fortawesome/free-solid-svg-icons";
-
+import Tesseract from 'tesseract.js';
 
 import Substatus from './substatus';
 
@@ -30,6 +30,35 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
         updateStatus();
     }, [overlay]);
 
+    const uploadImage = (files) => {
+        console.log(files[0]);
+        let path = URL.createObjectURL(files[0]);
+        setArtifactFromImage(path);
+    } 
+
+    const setArtifactFromImage = (path) => {
+        Tesseract.recognize(path,'eng').catch (err => {console.error(err);})
+        .then(result => {
+            console.log(result.data);
+            let text = result.data.text
+            let artifact_ = Artifact.fromString(text);
+            setArtifact(artifact_);
+            console.log(artifact.d);
+        })
+    }
+    
+    useEffect(() => {
+        const pasteFunc = (e) => uploadImage(e.clipboardData.files)
+        window.addEventListener('paste', pasteFunc);
+        return () => {
+            window.removeEventListener('paste', pasteFunc)
+        }
+    }, [uploadImage])
+
+    useEffect(() => {
+        updateStatus();
+    }, [artifact])
+
     const levelChange = e => {
         setLevel(e.target.value);
     }
@@ -39,7 +68,7 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
         //artifact.d.level = value;
         artifact.d.setLevelByStr(value);
         setArtifact(artifact.d);
-        updateStatus();
+
     }
 
     const updateStatus = () => {
@@ -64,7 +93,6 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
     const reset = () => {
         setArtifact(new Artifact());
         setOverlay({id:-1, enable:false});
-        updateStatus();
     }
 
     const delete_ = () => {
@@ -78,6 +106,7 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
     }
 
     return (
+        <div className='outEditor'>
         <div className="editor">
             <div className="heading">
                 <h2>{overlay.id === -1 ? "Add Artifact" : "Edit Artifact"}</h2>
@@ -103,10 +132,10 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
                 />
                 <label>Level</label>
             </div>
-            <Substatus id={0} artifact={artifact} setArtifact={setArtifact} updateStatus={updateStatus}/>
-            <Substatus id={1} artifact={artifact} setArtifact={setArtifact} updateStatus={updateStatus}/>
-            <Substatus id={2} artifact={artifact} setArtifact={setArtifact} updateStatus={updateStatus}/>
-            <Substatus id={3} artifact={artifact} setArtifact={setArtifact} updateStatus={updateStatus}/>
+            <Substatus id={0} artifact={artifact} setArtifact={setArtifact}/>
+            <Substatus id={1} artifact={artifact} setArtifact={setArtifact}/>
+            <Substatus id={2} artifact={artifact} setArtifact={setArtifact}/>
+            <Substatus id={3} artifact={artifact} setArtifact={setArtifact}/>
             {err !== "" ? <div className='error'>{err}</div> : null}
             <h3>Estimated Score at (+20)</h3>
             <div className="score">
@@ -118,6 +147,7 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
                 <button className='no' onClick={overlay.id === -1 ? () => reset() : () => delete_()} >{overlay.id === -1 ? <p><FontAwesomeIcon icon={faCancel} />&nbsp;&nbsp;Cancel</p> : <p><FontAwesomeIcon icon={faTrashCan} />&nbsp;&nbsp;Delete</p>}</button>
                 <button className='yes' disabled={!ready} onClick={() => add()}>{overlay.id === -1 ? <p><FontAwesomeIcon icon={faPlus} />&nbsp;&nbsp;Add</p> : <p><FontAwesomeIcon icon={faSave} />&nbsp;&nbsp;Save</p>}</button>
             </div> 
+        </div>
         </div>
     );
 }

@@ -7,7 +7,7 @@ module.exports.field = {
     "DE%":{w:0, name:"DEF%", table:[5.10 , 5.83 , 6.56 , 7.29]},
     "ElM":{w:0, name:"EM", table:[16.32 , 18.65 , 20.98 , 23.31]},
     "EnR":{w:0, name:"ER%", table:[4.53 , 5.18 , 5.83 , 6.48]},
-    "CrR":{w:2, name:"Crit Rate%", table:[2.72 , 3.11 , 3.50 , 3.89]},
-    "CrD":{w:1, name:"Crit DMG%", table:[5.44 , 6.22 , 6.99 , 7.77]},
+    "CRR":{w:2, name:"CRIT Rate%", table:[2.72 , 3.11 , 3.50 , 3.89]},
+    "CRD":{w:1, name:"CRIT DMG%", table:[5.44 , 6.22 , 6.99 , 7.77]},
     "ERR":{w:0, name:"No sub-stat", table:[0,0,0,0]}
 }

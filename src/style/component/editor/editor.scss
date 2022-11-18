@@ -1,22 +1,22 @@
 @import '../../setting/const.scss';
 
+.outEditor{
+    background: $window;
+    box-shadow: 0px 8px 5px $shadow;
+    border-radius: 20px;
+
+    max-width: 400px;
+    width:100%;
+
+    z-index:10;
+}
+
 .editor{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: 18px 20px;
     gap: 18px;
-
-    position: absolute;
-    max-width: 400px;
-    
-    
-
-
-    background: $window;
-    box-shadow: 0px 8px 5px $shadow;
-    border-radius: 20px;
-    z-index:10;
 
     .heading{
         width: 100%;

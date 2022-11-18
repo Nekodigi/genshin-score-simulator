@@ -10,7 +10,10 @@ export class Artifact{
         if(doEval !== undefined)this.eval();
     }
 
-    static fromString(strs, level){
+    static fromString(str, level){
+        var strs = str.split("\n");
+        strs = strs.filter(str => str !== '');
+        console.log(strs);
         var ss1 = Status.fromString(strs[0]);
         var ss2 = Status.fromString(strs[1]);
         var ss3 = Status.fromString(strs[2]);

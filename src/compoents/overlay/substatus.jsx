@@ -2,19 +2,17 @@ import { field } from '../../structure/const/field'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
-const Substatus = ({id, artifact, setArtifact, updateStatus}) =>{
+const Substatus = ({id, artifact, setArtifact,}) =>{
 
     const setValue = (raw) => {
         artifact.d.ss[id].setValueByStr(raw);
         setArtifact(artifact.d);
-        updateStatus();
     }
 
     const setF = (value) => {
         //status.field = value;
         artifact.d.ss[id].field = value;
         setArtifact(artifact.d);
-        updateStatus();
     }
 
     const valueChange = e => {
@@ -51,8 +49,8 @@ const Substatus = ({id, artifact, setArtifact, updateStatus}) =>{
                 <option value="DE%">{field["DE%"].name}</option>
                 <option value="ElM">{field["ElM"].name}</option>
                 <option value="EnR">{field["EnR"].name}</option>
-                <option value="CrR">{field["CrR"].name}</option>
-                <option value="CrD">{field["CrD"].name}</option>
+                <option value="CRR">{field["CRR"].name}</option>
+                <option value="CRD">{field["CRD"].name}</option>
                 <option value="ERR">{field["ERR"].name}</option>
                 
             </select>

@@ -3,9 +3,8 @@ import './style/App.css';
 import Header from './compoents/header';
 import Page from './compoents/page';
 import Overlay from './compoents/overlay/overlay';
-import { useState } from 'react';
-import { Artifact } from './structure/class/artifact';
-import { Status } from './structure/class/status';
+import { useState, useRef } from 'react';
+
 
 function App() {
   const [overlay, setOverlay] = useState({enable:false, id:-1});
