@@ -26,7 +26,8 @@
     "rm": "rm -rf docs",
     "mv": "mv build docs",
     "git": "git add . && git commit -m 'docs update' && git push origin main",
-    "deploy": "npm run rm && npm run build && npm run mv && npm run git"
+    "deploy:linux": "npm run rm && npm run build && npm run mv && npm run git",
+    "deploy:win": "yarn build && move build docs && npm run git"
   },
   "eslintConfig": {
     "extends": [
