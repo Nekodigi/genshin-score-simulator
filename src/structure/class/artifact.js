@@ -18,6 +18,16 @@ export class Artifact{
         return new Artifact([ss1, ss2, ss3, ss4], level);
     }
 
+    toJson(){
+        return JSON.stringify(this);
+    }
+
+    static fromJson(json){
+        var artifact = Object.assign(new Artifact(),JSON.parse(json));
+        artifact.ss = [Status.fromObj(artifact.ss[0]), Status.fromObj(artifact.ss[1]), Status.fromObj(artifact.ss[2]), Status.fromObj(artifact.ss[3])]
+        return artifact;
+    }
+
     setLevelByStr(raw){
         if(typeof raw === "string"){
             //console.log("S"+raw);

@@ -22,6 +22,14 @@ export class Status{
         return new Status(name, value);
     }
 
+    toJson(){
+        return JSON.stringify(this);
+    }
+
+    static fromObj(json){
+        return Object.assign(new Status(),json);
+    }
+
     setValueByStr(raw){
         if(typeof raw === "string"){
             //console.log("S"+raw);
