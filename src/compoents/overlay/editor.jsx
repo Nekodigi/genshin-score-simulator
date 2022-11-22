@@ -43,7 +43,7 @@ function Editor({artifacts, deleteArtifact, setArtifactP, addArtifact, overlay, 
             let text = result.data.text
             let artifact_ = Artifact.fromString(text);
             setArtifact(artifact_);
-            console.log(artifact.d);
+            console.log(text);
         })
     }
     
