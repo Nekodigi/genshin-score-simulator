@@ -1,3 +1,4 @@
+import { field } from "../const/field";
 import { Status } from "./status";
 //const field = require("../const/field").field;
 
@@ -13,11 +14,10 @@ export class Artifact{
     static fromString(str, level){
         var strs = str.split("\n");
         strs = strs.filter(str => str !== '');
-        console.log(strs);
         var ss1 = Status.fromString(strs[0]);
         var ss2 = Status.fromString(strs[1]);
         var ss3 = Status.fromString(strs[2]);
-        var ss4 = Status.fromString(strs[3]);
+        var ss4 = strs.length >= 4 ? Status.fromString(strs[3]) : new Status();
         return new Artifact([ss1, ss2, ss3, ss4], level);
     }
 

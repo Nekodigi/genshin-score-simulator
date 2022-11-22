@@ -16,6 +16,7 @@ export class Status{
         var name = datas[0].substring(0, 3);
         name = ext ? name.substring(0, 2)+ext : name;
         var value = Number(datas[1].replace("%", ""));
+        if(name.length === 2)name += " ";
         //console.log(name);
         //console.log(value);
 

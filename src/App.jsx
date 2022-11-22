@@ -3,11 +3,12 @@ import './style/App.scss';
 import Header from './compoents/header';
 import Page from './compoents/page';
 import Overlay from './compoents/overlay/overlay';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { Artifact } from './structure/class/artifact';
 
 
 //var art = new Artifact([new Status("HP ", 0), new Status("AT%", 0), new Status("CrD", 0), new Status("CrR", 0)], 0);
-var art = Artifact.fromString(["HP+0", "ATK+0%", "CRIT DMG+0%", "CRIT Rate+0%"], 0);
+var art = Artifact.fromString("HP+0\nATK+0%\nCRIT DMG+0%");//\nCRIT Rate+0%
 var json = art.toJson();
 console.log(art)
 console.log(json);
@@ -34,6 +35,10 @@ function App() {
     setArtifacts(artifacts_.sort((a, b) => b.avg.score()-a.avg.score()));
   }
 
+  useEffect(() => {
+    const json = artifacts.map(a => a.toJson());
+    console.log(json);
+  },[artifacts])
 
 
   return (
