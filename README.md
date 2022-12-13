@@ -1,4 +1,5 @@
 # Genshin-Artifact-Score-Simulator
+![Genshin Artifact Score Estimator](https://user-images.githubusercontent.com/38092328/207196583-86a3d01a-9097-4a83-b2cc-a8435d886f51.png)
 ## How to use
 [Demo Page](https://nekodigi.github.io/genshin-score-simulator/)
 ### Add artifact
