@@ -12,12 +12,4 @@ const substatDef = {
   ERR: { weight: 0, name: "No sub-stat", table: [0, 0, 0, 0] },
 } as const;
 
-type substatValue = {
-  key: substatKeys;
-  value: number;
-};
-
-type substatKeys = keyof typeof substatDef;
-
 export { substatDef };
-export type { substatKeys, substatValue };
