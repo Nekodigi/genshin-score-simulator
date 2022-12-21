@@ -1,0 +1,73 @@
+@import '../setting/const.scss';
+
+.artifact{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 20px;
+    gap: 18px;
+    height: 248px;
+
+    
+    background: $window;
+    box-shadow: 0px 8px 5px $shadow;
+    border-radius: 20px;
+
+    /* Inside auto layout */
+
+    flex: 1 1 260px;
+    
+    h2{
+        margin:0;
+    }
+
+    .score{
+        display:flex;
+        gap: 18px;
+        width: 100%;
+        flex-direction: column;
+        * {
+            margin: 0;
+            text-align: left;
+        }
+        .score_sub {
+            display:flex;
+            gap: 18px;
+            flex-direction: row;
+            *{
+                text-align: left;
+                color:$gray;
+                flex: 1 1 100px;
+            }
+        }
+    }
+
+    .border{
+        width: 100%;
+        border-bottom: solid 1px $white;
+    }
+
+    .status{
+        display:flex;
+        gap: 8px;
+        width: 100%;
+        
+        flex-direction: column;
+        * {
+            margin: 0;
+            text-align: left;
+        }
+        .status_sub {
+            display:grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px 18px;
+            flex-direction: row;
+            flex-wrap: wrap;
+            *{
+                text-align: left;
+                color:$gray;
+                flex: 1 1 100px;
+            }
+        }
+    }
+}
