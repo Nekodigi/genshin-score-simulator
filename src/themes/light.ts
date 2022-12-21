@@ -1,13 +1,13 @@
 import { grey } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
-const darkTheme = createTheme({
+const lightTheme = createTheme({
   palette: {
-    mode: "dark",
+    mode: "light",
     text: {
-      primary: "#fff",
+      primary: "#000",
       secondary: grey[500],
     },
   },
 });
-export { darkTheme };
+export { lightTheme };

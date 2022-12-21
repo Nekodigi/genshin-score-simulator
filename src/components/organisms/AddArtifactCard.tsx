@@ -4,12 +4,12 @@ import { useContext } from "react";
 import { EditorContext } from "../../utils/contexts/EditorContext";
 
 export const AddArtifactCard = () => {
-  const { setOpen } = useContext(EditorContext);
+  const { change } = useContext(EditorContext);
 
   return (
     <Card
       sx={{ flex: "1 1 304px", maxWidth: 420, height: 240 }}
-      onClick={() => setOpen(true)}
+      onClick={() => change(true)}
     >
       <CardContent>
         <Typography variant="h5" component="div" gutterBottom>

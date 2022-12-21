@@ -5,7 +5,7 @@ type ArtifactsActionType = "ADD" | "DELETE" | "UPDATE";
 
 type ArtifactsAction = {
   type: ArtifactsActionType;
-  artifact: ArtifactValue;
+  artifact?: ArtifactValue;
   id?: number;
 };
 
@@ -16,19 +16,21 @@ export const ArtifactsReducer = (
   const { type, artifact, id } = action;
   switch (type) {
     case "ADD":
-      state.push(artifact);
-      //auto desc sort by score
-      state = state.sort(
-        (a, b) =>
-          new Artifact(b).getScores().avgScore -
-          new Artifact(a).getScores().avgScore
-      );
-      return [...state]; //to assert it's updated
+      if (artifact !== undefined) {
+        state.push(artifact);
+        //auto desc sort by score
+        state = state.sort(
+          (a, b) =>
+            new Artifact(b).getScores().avgScore -
+            new Artifact(a).getScores().avgScore
+        );
+        return [...state]; //to assert it's updated
+      } else throw new Error("DELETE : artifact missing");
     case "UPDATE":
-      if (id !== undefined) {
+      if (id !== undefined && artifact !== undefined) {
         state[id] = artifact;
         return [...state];
-      } else throw new Error("UPDATE : id missing");
+      } else throw new Error("UPDATE : id or artifact missing");
     case "DELETE":
       if (id !== undefined) {
         state.splice(id, 1);

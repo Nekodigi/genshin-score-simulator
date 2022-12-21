@@ -2,6 +2,7 @@ import { Card, CardContent, Divider, Typography } from "@mui/material";
 import { useContext, useMemo } from "react";
 import { Artifact } from "../../utils/class/Artifact";
 import { Substat } from "../../utils/class/Substat";
+import { ArtifactsContext } from "../../utils/contexts/ArtifactsContext";
 import { EditorContext } from "../../utils/contexts/EditorContext";
 import { ArtifactValue } from "../../utils/types/Artifact";
 import { TwoCellText } from "../molecules/TwoCellText";
@@ -14,7 +15,8 @@ type ArtifactCardProps = {
 
 const ArtifactCard = (props: ArtifactCardProps) => {
   const { place, targetId, artifact } = props;
-  const { setOpen, setTarget } = useContext(EditorContext);
+  const { artifacts } = useContext(ArtifactsContext);
+  const { change } = useContext(EditorContext);
 
   const scores = useMemo(() => new Artifact(artifact).getScores(), [artifact]);
 
@@ -22,10 +24,7 @@ const ArtifactCard = (props: ArtifactCardProps) => {
     // minWidth: 304, flexGrow: 1, height: 240
     <Card
       sx={{ flex: "1 1 304px", height: 240 }}
-      onClick={() => {
-        setTarget(targetId);
-        setOpen(true);
-      }}
+      onClick={() => change(true, targetId)}
     >
       <CardContent>
         <Typography variant="h5" component="div" gutterBottom>

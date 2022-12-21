@@ -13,11 +13,11 @@ type NumberInputProps = {
 
 export const NumberInput = (props: NumberInputProps) => {
   const { min, max, setValue, value, isInt, sx, textFieldProps } = props;
-  const [preValue, setPreValue] = useState("0");
+  const [preValue, setPreValue] = useState(value ? String(value) : "0");
 
   useEffect(() => {
+    //used when ctrl+v artifact input
     setPreValue(String(value));
-    console.log(`VALUE${value}`);
   }, [value]);
 
   const onChange = (
@@ -29,7 +29,6 @@ export const NumberInput = (props: NumberInputProps) => {
     let moreThenMin = Math.max(num, min);
     let processed = max ? Math.min(moreThenMin, max) : moreThenMin;
     setValue(processed);
-    console.log(String(processed));
     setPreValue(String(processed));
   };
 

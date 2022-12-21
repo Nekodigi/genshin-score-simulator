@@ -1,5 +1,10 @@
-import { Alert, Box, Modal, Typography, Button } from "@mui/material";
-import { AddRounded, DoDisturbRounded } from "@mui/icons-material";
+import { Alert, Box, Modal, Typography, Button, SxProps } from "@mui/material";
+import {
+  AddRounded,
+  DeleteForeverRounded,
+  DoDisturbRounded,
+  SaveRounded,
+} from "@mui/icons-material";
 import { NumberInput } from "../atoms/NumberInput";
 import React, { useState, useMemo, useContext, useEffect } from "react";
 import { SubstatInput } from "../molecules/SubstatInput";
@@ -7,9 +12,11 @@ import { ArtifactValue } from "../../utils/types/Artifact";
 import { Artifact } from "../../utils/class/Artifact";
 import { EditorContext } from "../../utils/contexts/EditorContext";
 import { ArtifactsContext } from "../../utils/contexts/ArtifactsContext";
+import Tesseract from "tesseract.js";
 
-const style = {
+const style: SxProps = {
   position: "absolute" as "absolute",
+  outline: "none",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -20,22 +27,11 @@ const style = {
 };
 
 export const ArtifactEditor = () => {
-  const [artifact, setArtifact] = useState<ArtifactValue>(
-    new Artifact().toValue()
-  );
   const { artifacts, setArtifacts } = useContext(ArtifactsContext);
-  let { open, setOpen, target } = useContext(EditorContext);
+  let { open, target, artifact, setArtifact, change } =
+    useContext(EditorContext);
 
   const scores = useMemo(() => new Artifact(artifact).getScores(), [artifact]);
-
-  //TODO: DEFINE open wrapper and include this
-  useEffect(() => {
-    if (target !== null) {
-      //possiblly contain 0
-      console.log(artifacts, target);
-      setArtifact(artifacts[target]);
-    }
-  }, [target, artifacts]);
 
   const error = useMemo(() => {
     let allSubstate = true;
@@ -53,12 +49,34 @@ export const ArtifactEditor = () => {
     } else {
       setArtifacts({ type: "ADD", artifact: artifact });
     }
-    setArtifact(new Artifact().toValue());
-    setOpen(false);
+    change(false);
   };
 
+  useEffect(() => {
+    const uploadImage = (files) => {
+      console.log(files[0]);
+      let path = URL.createObjectURL(files[0]);
+      setArtifactFromImage(path);
+    };
+
+    const setArtifactFromImage = async (path) => {
+      let result = await Tesseract.recognize(path, "eng");
+      console.log(result.data);
+      let text = result.data.text;
+      let artifact_ = Artifact.fromString(text);
+      setArtifact(artifact_);
+      console.log(text);
+    };
+
+    const pasteFunc = (e) => uploadImage(e.clipboardData.files);
+    window.addEventListener("paste", pasteFunc);
+    return () => {
+      window.removeEventListener("paste", pasteFunc);
+    };
+  }, []);
+
   return (
-    <Modal open={open} onClose={() => setOpen(false)}>
+    <Modal open={open} onClose={() => change(false)}>
       <Box sx={style}>
         <Typography variant="h6" component="h2" gutterBottom>
           Add Artifact
@@ -68,16 +86,11 @@ export const ArtifactEditor = () => {
           min={0}
           max={20}
           value={artifact.level}
-          setValue={
-            (value) =>
-              setArtifact((prev) => ({
-                ...prev,
-                level: value,
-              }))
-            // setArtifact((prev) => {
-            //   prev.level = value;
-            //   return { ...prev };
-            // })
+          setValue={(value) =>
+            setArtifact((prev) => ({
+              ...prev,
+              level: value,
+            }))
           }
           isInt={true}
           sx={{ mb: 2 }}
@@ -93,6 +106,7 @@ export const ArtifactEditor = () => {
                   return { ...prev };
                 })
               }
+              key={index}
               key_={artifact.substats[index].key}
               setKey={(key) =>
                 setArtifact((prev) => {
@@ -127,19 +141,27 @@ export const ArtifactEditor = () => {
           <Button
             variant="contained"
             color="error"
-            onClick={() => setOpen(false)}
-            startIcon={<DoDisturbRounded />}
+            onClick={() => {
+              if (target === null) change(false);
+              else {
+                setArtifacts({ type: "DELETE", id: target });
+                change(false);
+              }
+            }}
+            startIcon={
+              target === null ? <DoDisturbRounded /> : <DeleteForeverRounded />
+            }
           >
-            Cancel
+            {target === null ? "CANCEL" : "DELETE"}
           </Button>
           <Button
             variant="contained"
             color="success"
             disabled={error !== undefined}
             onClick={() => complete()}
-            startIcon={<AddRounded />}
+            startIcon={target === null ? <AddRounded /> : <SaveRounded />}
           >
-            Add
+            {target === null ? "ADD" : "SAVE"}
           </Button>
         </Box>
       </Box>
