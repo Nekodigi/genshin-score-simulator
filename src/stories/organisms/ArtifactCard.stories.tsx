@@ -17,7 +17,6 @@ export const Default = Template.bind({});
 
 Default.args = {
   place: 1,
-  score: { minScore: 1, avgScore: 2, maxScore: 3 },
   artifact: {
     level: 0,
     substats: [

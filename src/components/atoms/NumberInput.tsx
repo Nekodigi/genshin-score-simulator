@@ -1,18 +1,24 @@
 import { SxProps, TextField, TextFieldProps } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type NumberInputProps = {
   min: number;
   max?: number;
   setValue: (value: number) => void;
+  value?: number;
   isInt?: boolean;
   sx?: SxProps;
   textFieldProps?: TextFieldProps;
 };
 
 export const NumberInput = (props: NumberInputProps) => {
-  const { min, max, setValue, isInt, sx, textFieldProps } = props;
-  const [preValue, setPreValue] = useState("");
+  const { min, max, setValue, value, isInt, sx, textFieldProps } = props;
+  const [preValue, setPreValue] = useState("0");
+
+  useEffect(() => {
+    setPreValue(String(value));
+    console.log(`VALUE${value}`);
+  }, [value]);
 
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
