@@ -13,16 +13,11 @@ export const ArtifactList = () => {
   }, [artifacts]);
 
   return (
-    <Box
-      display="flex"
-      flexDirection="row"
-      flexWrap="wrap"
-      gap={1}
-      m={1}
-      minHeight="100vh"
-    >
-      {artifactsRendered}
-      <AddArtifactCard />
+    <Box minHeight="100vh">
+      <Box display="flex" flexDirection="row" flexWrap="wrap" gap={1} m={1}>
+        {artifactsRendered}
+        <AddArtifactCard />
+      </Box>
     </Box>
   );
 };
