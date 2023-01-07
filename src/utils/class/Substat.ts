@@ -12,8 +12,13 @@ export class Substat {
   constructor(props: SubstatValue = { key: "ERR", value: 0 }) {
     this.key = props.key;
     this.value = props.value;
-    this.weight = substatDef[props.key].weight;
-    this.valueTable = substatDef[props.key as string].table;
+    if (substatDef[props.key] === undefined) {
+      this.weight = 0;
+      this.valueTable = substatDef["ERR"].table as any;
+    } else {
+      this.weight = substatDef[props.key].weight;
+      this.valueTable = substatDef[props.key as string].table;
+    }
   }
 
   static plain(): SubstatValue {
@@ -32,7 +37,10 @@ export class Substat {
     var value = Number(datas[1].replace("%", "")); //10% => 10
     if (key.length === 2) key += " "; //HP => "HP "
 
-    return { key: key as SubstatKeys, value };
+    let sk = Object.keys(substatDef).filter(
+      (substatKey) => substatDef[substatKey].abri === key
+    )[0];
+    return { key: sk as SubstatKeys, value };
   }
 
   toJson(): string {
