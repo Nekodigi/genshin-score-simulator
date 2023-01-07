@@ -23,7 +23,7 @@ const ArtifactCard = (props: ArtifactCardProps) => {
   return (
     // minWidth: 304, flexGrow: 1, height: 240
     <Card
-      sx={{ flex: "1 1 304px", height: 240 }}
+      sx={{ flex: "1 1 304px", maxWidth: 400, height: 240 }}
       onClick={() => change(true, targetId)}
     >
       <CardContent>

@@ -14,6 +14,8 @@ import { ThemeProvider } from "@mui/material";
 import { lightTheme } from "./themes/light";
 import { ThemeContext } from "./utils/contexts/ThemeContext";
 
+import { Footer } from "./components/organisms/Footer";
+
 function App() {
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") === "true" ? darkTheme : lightTheme
@@ -58,6 +60,7 @@ function App() {
               <Header />
               <ArtifactEditor />
               <ArtifactList />
+              <Footer />
             </EditorContext.Provider>
           </ArtifactsContext.Provider>
         </ThemeProvider>

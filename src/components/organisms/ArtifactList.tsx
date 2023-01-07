@@ -13,7 +13,14 @@ export const ArtifactList = () => {
   }, [artifacts]);
 
   return (
-    <Box display="flex" flexDirection="row" flexWrap="wrap" gap={1} m={1}>
+    <Box
+      display="flex"
+      flexDirection="row"
+      flexWrap="wrap"
+      gap={1}
+      m={1}
+      minHeight="100vh"
+    >
       {artifactsRendered}
       <AddArtifactCard />
     </Box>

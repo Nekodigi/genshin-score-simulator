@@ -8,7 +8,7 @@ export const AddArtifactCard = () => {
 
   return (
     <Card
-      sx={{ flex: "1 1 304px", maxWidth: 420, height: 240 }}
+      sx={{ flex: "1 1 304px", maxWidth: 400, height: 240 }}
       onClick={() => change(true)}
     >
       <CardContent>
