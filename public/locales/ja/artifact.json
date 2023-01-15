@@ -1,0 +1,15 @@
+{
+  "substatusAbbr": {
+    "hp": "HP",
+    "atk": "攻撃力",
+    "def": "防御力",
+    "hp_": "HP%",
+    "atk_": "攻撃力%",
+    "def_": "防御力%",
+    "eleMas": "元素熟知",
+    "enerRech_": "チャージ%",
+    "critRate_": "会心率%",
+    "critDMG_": "会心ダメ%",
+    "ERR": "サブステータス"
+  }
+}

@@ -1,4 +1,14 @@
-import { Alert, Box, Modal, Typography, Button, SxProps } from "@mui/material";
+/** @jsxImportSource @emotion/react */
+
+import {
+  Alert,
+  Box,
+  Modal,
+  Typography,
+  Button,
+  SxProps,
+  useTheme,
+} from "@mui/material";
 import {
   AddRounded,
   DeleteForeverRounded,
@@ -8,11 +18,20 @@ import {
 import { NumberInput } from "../atoms/NumberInput";
 import React, { useState, useMemo, useContext, useEffect } from "react";
 import { SubstatInput } from "../molecules/SubstatInput";
-import { ArtifactValue } from "../../utils/types/Artifact";
 import { Artifact } from "../../utils/class/Artifact";
 import { EditorContext } from "../../utils/contexts/EditorContext";
 import { ArtifactsContext } from "../../utils/contexts/ArtifactsContext";
 import Tesseract from "tesseract.js";
+import { fontTypes } from "../../utils/styles/fonts";
+import { NumberOption } from "../molecules/NumberOption";
+import { IconTextButton } from "../molecules/IconTextButton";
+import {
+  faAdd,
+  faBan,
+  faFloppyDisk,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 
 const style: SxProps = {
   position: "absolute" as "absolute",
@@ -20,16 +39,20 @@ const style: SxProps = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  maxWidth: 390,
+  width: "100vw",
   bgcolor: "background.paper",
   boxShadow: 24,
-  p: 4,
+  p: 2,
 };
 
 export const ArtifactEditor = () => {
   const { artifacts, setArtifacts } = useContext(ArtifactsContext);
+  const theme = useTheme();
+  const { t } = useTranslation(["editor", "common"]);
   let { open, target, artifact, setArtifact, change } =
     useContext(EditorContext);
+  const [level, setLevel] = useState(0);
 
   const scores = useMemo(() => new Artifact(artifact).getScores(), [artifact]);
 
@@ -38,14 +61,18 @@ export const ArtifactEditor = () => {
     artifact.substats.forEach((ss) => {
       if (ss.key === "ERR") allSubstate = false;
     });
-    if (!allSubstate)
-      return "4 sub-stats are required to estimate 5 star artifact score.";
-    else return undefined;
+    //if (!allSubstate) return "Accurate score prediction requires 4 sub-stats.";
+    //else return undefined;
+    return undefined;
   }, [artifact]);
 
   const complete = () => {
     if (target !== null) {
-      setArtifacts({ type: "UPDATE", artifact: artifact, id: target });
+      setArtifacts({
+        type: "UPDATE",
+        artifact: artifact,
+        id: target,
+      });
     } else {
       setArtifacts({ type: "ADD", artifact: artifact });
     }
@@ -77,14 +104,20 @@ export const ArtifactEditor = () => {
 
   return (
     <Modal open={open} onClose={() => change(false)}>
-      <Box sx={style}>
-        <Typography variant="h6" component="h2" gutterBottom>
-          Add Artifact
+      <Box
+        sx={style}
+        display="flex"
+        flexDirection="column"
+        gap={1.5}
+        style={{ background: theme.palette.local.modal }}
+      >
+        <Typography css={fontTypes(theme).title}>
+          {t("editor.title")}
         </Typography>
-        {/* TODO: useArtifact value */}
-        <NumberInput
-          min={0}
-          max={20}
+        <Typography css={fontTypes(theme).subtitle}>
+          {t("editor.level")}
+        </Typography>
+        <NumberOption
           value={artifact.level}
           setValue={(value) =>
             setArtifact((prev) => ({
@@ -92,9 +125,13 @@ export const ArtifactEditor = () => {
               level: value,
             }))
           }
-          isInt={true}
-          sx={{ mb: 2 }}
+          options={[0, 4, 8, 12, 16, 20]}
+          displayRaw
         />
+        <Typography css={fontTypes(theme).subtitle}>
+          {t("editor.substatus")}
+        </Typography>
+        {/* TODO: useArtifact value */}
 
         {[0, 1, 2, 3].map((index) => {
           return (
@@ -119,28 +156,63 @@ export const ArtifactEditor = () => {
         })}
 
         {error ? (
-          <Alert severity="error" sx={{ mb: 1 }}>
+          <Alert
+            variant="filled"
+            severity="warning"
+            css={[fontTypes(theme).disc, { color: theme.palette.com.white }]}
+            sx={{ px: 1 }}
+          >
             {error}
           </Alert>
         ) : undefined}
-        <Typography variant="h6" component="h2" gutterBottom>
-          Estimated Score at (+20)
+
+        {/* <Typography css={fontTypes(theme).subtitle}>Auto fill</Typography> */}
+        <Typography css={fontTypes(theme).subtitle}>
+          {t("editor.estimScore")}
         </Typography>
+        <Box display="flex" alignItems="center" gap={1}>
+          <Typography css={[fontTypes(theme).title]}>
+            {`${scores.minScore.toFixed(1)} ~`}
+          </Typography>
+          <Box
+            display="flex"
+            sx={{
+              background:
+                theme.palette.com.scale[
+                  Math.min(10 + Math.floor(scores.avgScore / 10) * 10, 60)
+                ],
+              px: 1,
+              py: 0.5,
+              borderRadius: 1,
+            }}
+            alignSelf="flex-start"
+          >
+            <Typography
+              css={[fontTypes(theme).title, { color: theme.palette.com.black }]}
+            >
+              {scores.avgScore.toFixed(1)}
+            </Typography>
+          </Box>
+          <Typography css={[fontTypes(theme).title]}>
+            {`~ ${scores.maxScore.toFixed(1)}`}
+          </Typography>
+        </Box>
 
         <Box
+          bottom={16}
+          right={16}
           display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-          sx={{ mb: 2 }}
+          justifyContent="flex-end"
+          gap={1}
         >
-          <Typography>MIN : {scores.minScore.toFixed(1)}</Typography>
-          <Typography>AVG : {scores.avgScore.toFixed(1)}</Typography>
-          <Typography>MAX : {scores.maxScore.toFixed(1)}</Typography>
-        </Box>
-        <Box display="flex" justifyContent="space-between">
-          <Button
-            variant="contained"
-            color="error"
+          <IconTextButton
+            text={
+              target === null
+                ? t("common:action.cancel")
+                : t("common:action.delete")
+            }
+            icon={target === null ? faBan : faTrash}
+            color={theme.palette.error.dark}
             onClick={() => {
               if (target === null) change(false);
               else {
@@ -148,21 +220,15 @@ export const ArtifactEditor = () => {
                 change(false);
               }
             }}
-            startIcon={
-              target === null ? <DoDisturbRounded /> : <DeleteForeverRounded />
+          />
+          <IconTextButton
+            text={
+              target === null ? t("common:action.add") : t("common:action.save")
             }
-          >
-            {target === null ? "CANCEL" : "DELETE"}
-          </Button>
-          <Button
-            variant="contained"
-            color="success"
-            disabled={error !== undefined}
+            icon={target === null ? faAdd : faFloppyDisk}
+            color={theme.palette.success.dark}
             onClick={() => complete()}
-            startIcon={target === null ? <AddRounded /> : <SaveRounded />}
-          >
-            {target === null ? "ADD" : "SAVE"}
-          </Button>
+          />
         </Box>
       </Box>
     </Modal>

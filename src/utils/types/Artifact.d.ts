@@ -3,6 +3,7 @@ import { SubstatValue } from "./Substat";
 type ArtifactValue = {
   substats: SubstatValue[];
   level: number;
+  id?: number;
 };
 
 type Scores = {

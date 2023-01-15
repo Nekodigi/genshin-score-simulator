@@ -8,7 +8,7 @@ export const ArtifactList = () => {
   const { artifacts } = useContext(ArtifactsContext);
   const artifactsRendered = useMemo(() => {
     return artifacts.map((artifact, id) => (
-      <ArtifactCard targetId={id} key={id} place={id + 1} artifact={artifact} />
+      <ArtifactCard targetId={id} key={id} artifact={artifact} />
     ));
   }, [artifacts]);
 

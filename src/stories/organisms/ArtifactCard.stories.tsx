@@ -1,6 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import ArtifactCard from "../../components/organisms/ArtifactCard";
+import { ArtifactCardLegacy } from "../../components/organisms/ArtifactCardLegacy";
 
 export default {
   title: "Organisms/ArtifactCard",
@@ -16,7 +17,6 @@ const Template: ComponentStory<typeof ArtifactCard> = (args) => (
 export const Default = Template.bind({});
 
 Default.args = {
-  place: 1,
   artifact: {
     level: 0,
     substats: [

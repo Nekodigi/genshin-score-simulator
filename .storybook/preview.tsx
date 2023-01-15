@@ -9,6 +9,7 @@ export const parameters = {
 };
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import React from "react";
 import { darkTheme } from "../src/themes/dark";
 /* snipped for brevity */
 

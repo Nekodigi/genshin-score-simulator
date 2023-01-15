@@ -1,0 +1,35 @@
+{
+  "artifact": {
+    "artifacts": "Artifacts",
+    "substatus": "Substatus",
+    "level": "Level",
+    "score": "Score"
+  },
+  "filter": {
+    "title": "Filter",
+    "filtered": "Filtered"
+  },
+  "formula": {
+    "title": "Formula"
+  },
+  "artifacts": {
+    "title": "Artifacts",
+    "sortBy": "Sort by",
+    "addNew": "Add New Artifact"
+  },
+  "editor": {
+    "title": "Artifact Editor",
+    "level": "Level",
+    "substatus": "Substatus",
+    "estimScore": "Score Prediction (+20)"
+  },
+  "filters": {
+    "minScore": "MIN Score",
+    "avgScore": "AVG Score",
+    "maxScore": "MAX Score"
+  },
+  "order": {
+    "desc": "Descending",
+    "asc": "Ascending"
+  }
+}

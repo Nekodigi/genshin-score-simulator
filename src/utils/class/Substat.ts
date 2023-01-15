@@ -11,7 +11,7 @@ export class Substat {
 
   constructor(props: SubstatValue = { key: "ERR", value: 0 }) {
     this.key = props.key;
-    this.value = props.value;
+    this.value = isNaN(props.value) ? 0 : props.value;
     if (substatDef[props.key] === undefined) {
       this.weight = 0;
       this.valueTable = substatDef["ERR"].table as any;

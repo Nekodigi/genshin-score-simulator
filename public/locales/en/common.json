@@ -1,0 +1,21 @@
+{
+  "header": {
+    "title": "Artifact Sim"
+  },
+  "action": {
+    "reset": "Reset",
+    "cancel": "Cancel",
+    "add": "Add",
+    "clear": "Clear",
+    "delete": "Delete",
+    "save": "Save"
+  },
+  "sidebar": {
+    "artifact": "Artifact",
+    "guide": "Guide",
+    "import": "Import",
+    "darkMode": "Dark Mode",
+    "proMode": "Pro Mode",
+    "language": "Language"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "artifact": {
+    "artifacts": "聖遺物",
+    "substatus": "サブステータス",
+    "level": "レベル",
+    "score": "スコア"
+  },
+  "filter": {
+    "title": "フィルター",
+    "filtered": "厳選後"
+  },
+  "formula": {
+    "title": "計算式"
+  },
+  "artifacts": {
+    "title": "聖遺物",
+    "sortBy": "並び替え",
+    "addNew": "聖遺物を追加"
+  },
+  "editor": {
+    "title": "聖遺物エディタ",
+    "level": "レベル",
+    "substatus": "サブステータス",
+    "estimScore": "スコア予測 (+20)"
+  },
+  "filters": {
+    "minScore": "最低スコア",
+    "avgScore": "平均スコア",
+    "maxScore": "最高スコア"
+  },
+  "order": {
+    "desc": "大きい順",
+    "asc": "小さい順"
+  }
+}

@@ -1,20 +1,27 @@
-import { grey } from "@mui/material/colors";
+import { grey, indigo } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 import { themeCommon } from "./theme";
+
+let black = "#212121";
+let gray = "#757575";
 
 const lightTheme = createTheme({
   palette: {
     mode: "light",
     com: themeCommon,
+    primary: indigo,
     local: {
-      black: "#000000",
+      bg: "#EEEEEE",
+      modal: "F5F5F5",
+      paper: "#FFFFFF",
       white: "#FFFFFF",
-      gray: "#8C8C8C",
-      whiteDark: "#D1D1D1",
+      black: black,
+      gray: gray,
+      nekodigi: "linear-gradient(117.75deg, #CC208E 16.15%, #6713D2 87.96%);",
     },
     text: {
-      primary: "#000",
-      secondary: "#8C8C8C",
+      primary: black,
+      secondary: gray,
     },
   },
 });

@@ -1,0 +1,21 @@
+{
+  "header": {
+    "title": "聖遺物 Sim"
+  },
+  "action": {
+    "reset": "リセット",
+    "cancel": "キャンセル",
+    "add": "追加",
+    "clear": "クリア",
+    "delete": "削除",
+    "save": "保存"
+  },
+  "sidebar": {
+    "artifact": "聖遺物",
+    "guide": "ガイド",
+    "import": "インポート",
+    "darkMode": "ダークモード",
+    "proMode": "Proモード",
+    "language": "言語"
+  }
+}

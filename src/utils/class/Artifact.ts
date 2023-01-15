@@ -72,8 +72,16 @@ export class Artifact {
     );
   }
 
+  //should consider number of substatus
   upgradeLeftByLevel() {
-    this.upgradeLeft = Math.ceil((20 - this.level) / 4);
+    //upgrade used to fill rest substatus
+    let substatFillConsume =
+      4 -
+      this.substats.reduce(
+        (acum, substat) => (substat.key !== "ERR" ? acum + 1 : acum),
+        0
+      );
+    this.upgradeLeft = Math.ceil((20 - this.level) / 4) - substatFillConsume;
   }
 
   upgradeMax() {

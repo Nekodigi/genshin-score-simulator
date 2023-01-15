@@ -43,10 +43,10 @@ export const Footer = () => {
             sx={{
               py: 1.75,
               px: 2,
-              color: theme.palette.local.black,
+              color: theme.palette.text.primary,
 
               borderTop: `1px solid`,
-              borderColor: theme.palette.local.whiteDark,
+              borderColor: theme.palette.local.paper,
             }}
           >
             <Nekodigi useLogo={true} />

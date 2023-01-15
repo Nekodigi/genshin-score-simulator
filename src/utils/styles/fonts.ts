@@ -1,7 +1,8 @@
 import { css } from "@emotion/react";
+import { Theme } from "@mui/material";
 
 export const fontFamilies = {
-  Jp: css({ fontFamily: "Noto Sans JP" }),
+  Jp: css({ fontFamily: `"Roboto", "Noto Sans JP"` }),
 };
 
 export const fontSizes = {
@@ -29,4 +30,29 @@ export const fontSizes = {
     fontSize: 12,
     lineHeight: "17px",
   }),
+};
+
+export const fontTypes = (theme: Theme) => {
+  return {
+    title: css([
+      fontSizes.px24,
+      fontFamilies.Jp,
+      { fontWeight: 700, color: theme.palette.text.primary },
+    ]),
+    subtitle: css([
+      fontSizes.px18,
+      fontFamilies.Jp,
+      { fontWeight: 700, color: theme.palette.text.secondary },
+    ]),
+    body: css([
+      fontSizes.px16,
+      fontFamilies.Jp,
+      { fontWeight: 500, color: theme.palette.text.secondary },
+    ]),
+    disc: css([
+      fontSizes.px14,
+      fontFamilies.Jp,
+      { fontWeight: 500, color: theme.palette.text.primary },
+    ]),
+  };
 };
