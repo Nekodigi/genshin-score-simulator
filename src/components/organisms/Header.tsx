@@ -26,7 +26,7 @@ import { ArtifactSim } from "../atoms/ArtifactSim";
 
 const Header = () => {
   const { setArtifacts } = useContext(ArtifactsContext);
-  const { setOpenDrawer } = useContext(EditorContext);
+  const { drawer } = useContext(EditorContext);
 
   const theme = useTheme();
 
@@ -91,7 +91,7 @@ const Header = () => {
             <input hidden onChange={addFile} type="file" accept=".json" />
           </IconButton>
         </Tooltip> */}
-            <IconButton aria-label="menu" onClick={() => setOpenDrawer(true)}>
+            <IconButton aria-label="menu" onClick={() => drawer.setOpen(true)}>
               <FontAwesomeIcon icon={faBars} css={fontTypes(theme).title} />
             </IconButton>
           </Toolbar>

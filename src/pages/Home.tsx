@@ -31,9 +31,10 @@ export const Home = () => {
         </Typography>
         <Link to="/editor" style={{ textDecoration: "none" }}>
           <IconTextButton
-            text={t("toEditor.openEditor")}
+            text={t("toEditor.openEditor")!}
             color={theme.palette.success.dark}
             icon={faArrowUpRightFromSquare}
+            style={{ width: "100%" }}
           />
         </Link>
         <Typography css={fontTypes(theme).title}>

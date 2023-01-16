@@ -8,8 +8,21 @@
     "def_": "DEF%",
     "eleMas": "EM",
     "enerRech_": "ER%",
-    "critRate_": "Crit Rate%",
-    "critDMG_": "Crit DMG%",
-    "ERR": "Substatus"
+    "critRate_": "CRIT Rate%",
+    "critDMG_": "CRIT DMG%",
+    "ERR": "Substat"
+  },
+  "substatusFull": {
+    "hp": "HP",
+    "atk": "ATK",
+    "def": "DEF",
+    "hp_": "HP%",
+    "atk_": "ATK%",
+    "def_": "DEF%",
+    "eleMas": "Elemental Mastery",
+    "enerRech_": "Energy Recharge%",
+    "critRate_": "CRIT Rate%",
+    "critDMG_": "CRIT DMG%",
+    "ERR": ""
   }
 }

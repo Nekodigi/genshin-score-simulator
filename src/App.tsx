@@ -1,14 +1,22 @@
 import CssBaseline from "@mui/material/CssBaseline";
-import React, { useContext, useEffect, useReducer, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+  Suspense,
+} from "react";
 import { ArtifactEditor } from "./components/organisms/ArtifactEditor";
 import Header from "./components/organisms/Header";
 
 import { darkTheme } from "./themes/dark";
-import { EditorContext } from "./utils/contexts/EditorContext";
+import {
+  EditorContext,
+  EditorContextProps,
+} from "./utils/contexts/EditorContext";
 import { ArtifactsContext } from "./utils/contexts/ArtifactsContext";
 import { ArtifactValue } from "./utils/types/Artifact";
 import { ArtifactsReducer } from "./utils/reducers/Artifact";
-import { ArtifactList } from "./components/organisms/ArtifactList";
 import { Artifact } from "./utils/class/Artifact";
 import { Box, Container, ThemeProvider, useTheme } from "@mui/material";
 import { lightTheme } from "./themes/light";
@@ -28,6 +36,7 @@ import { Editor } from "./pages/Editor";
 import { SubstatValue, SubstatWeight } from "./utils/types/Substat";
 import { Filter } from "./utils/types/Filter";
 import { Sort } from "./utils/types/Sort";
+import { ArtifactImporter } from "./components/organisms/ArtifactImporter";
 
 function App() {
   if (localStorage.getItem("theme") === null)
@@ -37,8 +46,9 @@ function App() {
   );
   const themeValue = { theme, setTheme };
 
-  const [open, setOpen] = useState(true);
+  const [openEditor, setOpenEditor] = useState(true);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [openImporter, setOpenImporter] = useState(false);
   const [target, setTarget] = useState<number | null>(null);
   const [filter, setFilter] = useState({
     level: [0, 20],
@@ -63,28 +73,36 @@ function App() {
   const [artifact, setArtifact] = useState<ArtifactValue>(
     new Artifact().toValue()
   );
-  const change = (open: boolean, id?: number) => {
+  const changeEditor = (open: boolean, id?: number) => {
     if (id !== undefined) {
       setTarget(id);
       console.log(id);
       setArtifact(artifacts[id]);
-      setOpen(open);
+      setOpenEditor(open);
     } else {
       setTarget(null);
       setArtifact(new Artifact().toValue());
-      setOpen(open);
+      setOpenEditor(open);
     }
   };
-  const editorValue = {
-    open,
-    setOpen,
-    openDrawer,
-    setOpenDrawer,
-    target,
-    setTarget,
-    artifact,
-    setArtifact,
-    change,
+  let editorValue: EditorContextProps = {
+    editor: {
+      open: openEditor,
+      setOpen: setOpenEditor,
+      target,
+      setTarget,
+      artifact,
+      setArtifact,
+      change: changeEditor,
+    },
+    drawer: {
+      open: openDrawer,
+      setOpen: setOpenDrawer,
+    },
+    importer: {
+      open: openImporter,
+      setOpen: setOpenImporter,
+    },
     weight,
     setWeight,
     filter,
@@ -124,6 +142,7 @@ function App() {
               <CssBaseline />
               <Header />
               <PageDrawer />
+              <ArtifactImporter />
               <Content />
               <Footer />
             </Box>
@@ -142,14 +161,12 @@ const Content = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/editor" element={<Editor />} />
           <Route
-            path="/legacy"
+            path="/editor"
             element={
-              <div>
-                <ArtifactEditor />
-                <ArtifactList />
-              </div>
+              <Suspense>
+                <Editor />
+              </Suspense>
             }
           />
           <Route path="*" element={<Navigate to={"/"} />} />

@@ -29,7 +29,7 @@ const ArtifactCard = (props: ArtifactCardProps) => {
   const { targetId, artifact } = props;
   const theme = useTheme();
   const { artifacts } = useContext(ArtifactsContext);
-  const { change, sort } = useContext(EditorContext);
+  const { editor, sort } = useContext(EditorContext);
 
   const scores = useMemo(() => new Artifact(artifact).getScores(), [artifact]);
 
@@ -38,7 +38,7 @@ const ArtifactCard = (props: ArtifactCardProps) => {
     <Grid item xs={12} sm={6} md={4}>
       <Card
         // sx={{ flex: "1 1 304px", maxWidth: 400 }}
-        onClick={() => change(true, targetId)}
+        onClick={() => editor.change(true, targetId)}
       >
         <Box
           display="flex"

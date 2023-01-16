@@ -4,16 +4,25 @@ import { Filter } from "../types/Filter";
 import { Sort } from "../types/Sort";
 import { SubstatWeight } from "../types/Substat";
 
-type EditorContextProps = {
-  open: boolean;
-  setOpen: (value: boolean) => void;
-  openDrawer: boolean;
-  setOpenDrawer: (value: boolean) => void;
-  target: number | null;
-  setTarget: (value: number | null) => void;
-  artifact: ArtifactValue;
-  setArtifact: React.Dispatch<React.SetStateAction<ArtifactValue>>;
-  change: (open: boolean, id?: number) => void;
+export type EditorContextProps = {
+  editor: {
+    open: boolean;
+    setOpen: (value: boolean) => void;
+    target: number | null;
+    setTarget: (value: number | null) => void;
+    artifact: ArtifactValue;
+    setArtifact: React.Dispatch<React.SetStateAction<ArtifactValue>>;
+    change: (open: boolean, id?: number) => void;
+  };
+  drawer: {
+    open: boolean;
+    setOpen: (value: boolean) => void;
+  };
+  importer: {
+    open: boolean;
+    setOpen: (value: boolean) => void;
+  };
+
   weight: SubstatWeight;
   setWeight: (value: SubstatWeight) => void;
   filter: Filter;

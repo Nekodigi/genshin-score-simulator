@@ -22,10 +22,12 @@ export const ArtifactFilter = (
   if (score === undefined) score = new Artifact(artifact).getScores().avgScore;
   let ok = true;
   ok =
-    ok && filter.level[0] < artifact.level && artifact.level < filter.level[1];
+    ok &&
+    filter.level[0] <= artifact.level &&
+    artifact.level <= filter.level[1];
   ok =
     ok &&
-    filter.score[0] < score &&
+    filter.score[0] <= score &&
     (filter.score[1] === 61 ? true : score < filter.score[1]);
   return ok;
 };

@@ -42,7 +42,7 @@ import { toSortKeyScore } from "../utils/func/Sort";
 export const Editor = () => {
   const theme = useTheme();
   const { t } = useTranslation(["editor", "common"]);
-  const { change, sort, setSort, filter, setFilter } =
+  const { editor, sort, setSort, filter, setFilter } =
     useContext(EditorContext);
   const { artifacts } = useContext(ArtifactsContext);
 
@@ -62,7 +62,7 @@ export const Editor = () => {
   }, [artifacts, sort, filter]);
 
   return (
-    <Suspense>
+    <Box>
       <ArtifactEditor />
       <Box display="flex" flexDirection="column" gap={1.5}>
         <Box display="flex" justifyContent="space-between">
@@ -74,7 +74,7 @@ export const Editor = () => {
               {t("filter.filtered")} 16/{artifacts.length}
             </Typography>
             <IconTextButton
-              text={t("common:action.reset")}
+              text={t("common:action.reset")!}
               icon={faRotateRight}
               color={theme.palette.error.dark}
             />
@@ -167,16 +167,16 @@ export const Editor = () => {
           </ButtonGroup>
         </Box>
         <IconTextButton
-          text={t("artifacts.addNew")}
+          text={t("artifacts.addNew")!}
           icon={faAdd}
           color={theme.palette.success.dark}
-          onClick={() => change(true)}
+          onClick={() => editor.change(true)}
         />
-        <Grid container sx={{}} spacing={1.5}>
+        <Grid container spacing={1.5}>
           {artifactsRendered}
         </Grid>
       </Box>
-    </Suspense>
+    </Box>
   );
 };
 

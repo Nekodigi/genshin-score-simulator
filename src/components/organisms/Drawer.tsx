@@ -34,7 +34,7 @@ export const PageDrawer = () => {
   const { t, i18n } = useTranslation();
   const { setTheme } = useContext(ThemeContext);
 
-  const { openDrawer, setOpenDrawer } = useContext(EditorContext);
+  const { drawer, importer } = useContext(EditorContext);
   const [language, setLanguage] = useState(i18n.language.substring(0, 2));
   const [checked, setChecked] = useState(
     localStorage.getItem("theme") === "true"
@@ -42,8 +42,8 @@ export const PageDrawer = () => {
 
   return (
     <Drawer
-      open={openDrawer}
-      onClose={() => setOpenDrawer(false)}
+      open={drawer.open}
+      onClose={() => drawer.setOpen(false)}
       anchor="right"
       sx={{
         display: "flex",
@@ -67,13 +67,14 @@ export const PageDrawer = () => {
             text={t("sidebar.artifact")}
             icon={<FontAwesomeSvgIcon icon={faFlower} sx={{ fontSize: 24 }} />}
           />
-          <TextIconButton
+          {/* <TextIconButton
             text={t("sidebar.guide")}
             icon={<FontAwesomeIcon icon={faBook} fontSize={24} />}
-          />
+          /> */}
           <TextIconButton
             text={t("sidebar.import")}
             icon={<FontAwesomeIcon icon={faFileImport} fontSize={24} />}
+            onClick={() => importer.setOpen(true)}
           />
         </Box>
         <Box>
@@ -161,13 +162,14 @@ const itemBox = (theme: Theme) =>
 type TextIconButtonProps = {
   icon: React.ReactNode;
   text: string;
+  onClick?: () => void;
 };
 const TextIconButton = (props: TextIconButtonProps) => {
-  const { icon, text } = props;
+  const { icon, text, onClick } = props;
   const theme = useTheme();
 
   return (
-    <Button css={itemBox(theme)}>
+    <Button css={itemBox(theme)} onClick={onClick}>
       <Box css={iconBox}>{icon}</Box>
       <Typography css={baseFont(theme)}>{text}</Typography>
     </Button>
