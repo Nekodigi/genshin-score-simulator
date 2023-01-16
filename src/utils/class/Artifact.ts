@@ -23,6 +23,21 @@ export class Artifact {
     this.upgradeLeftByLevel();
   }
 
+  //Japanese Remove spacing. ④=>4
+  // 攻 撃 カ +④①
+  // 攻 撃 カ +④.①%
+  
+  // 会 心 ダ メ ー ジ +①⑦.⑨%
+  // 会 心 率 +③.⑤%
+
+
+  //English
+  // ATK+5.3%
+  // HP+11.1%
+
+  // CRIT DMG+13.2%
+  // DEF+81
+
   static fromString(str: string, level = 0) {
     var strs = str.split("\n");
     strs = strs.filter((str) => str !== "");
@@ -81,7 +96,10 @@ export class Artifact {
         (acum, substat) => (substat.key !== "ERR" ? acum + 1 : acum),
         0
       );
-    this.upgradeLeft = Math.ceil((20 - this.level) / 4) - substatFillConsume;
+    this.upgradeLeft = Math.max(
+      0,
+      Math.ceil((20 - this.level) / 4) - substatFillConsume
+    );
   }
 
   upgradeMax() {
