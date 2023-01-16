@@ -1,4 +1,5 @@
 import { substatDef } from "../consts/Substat";
+import { similarity } from "../func/string";
 import { SubstatKeys, SubstatValue } from "../types/Substat";
 
 type FourOption = 0 | 1 | 2 | 3;
@@ -29,27 +30,59 @@ export class Substat {
   //ATK+4.1%
   //攻 撃 カ +④①
   static fromString(str: string): SubstatValue {
-    let datas = str.split("+");
+    let datas = str.split("+"); //plus could be lost
+    if (datas.length === 1) {
+      console.log("+ error");
+      //could be plus detection ERROR
+      for (let i = 0; i < datas[0].length; i++) {
+        if ("⓪①②③④⑤⑥⑦⑧⑨0123456789".includes(datas[0][i])) {
+          datas[1] = datas[0].substring(i);
+          datas[0] = datas[0].substring(0, i);
+          console.log(`split at ${i} ${datas[0]} ${datas[1]}`);
+          break;
+        }
+      }
+    }
     let first = str.charAt(1);
 
-    let key = datas[0] + (str.slice(-1) === "%" ? "%" : "");
+    let key_ = datas[0] + (str.slice(-1) === "%" ? "%" : "");
     var value_ = datas[1].replace("%", ""); //10% => 10
+    let key = "ERR";
     if ("A" <= first && first <= "z") {
       console.log(str, "EN");
+      key = Object.keys(substatDef).filter(
+        (substatKey) => substatDef[substatKey as SubstatKeys].name.en === key_
+      )[0];
     } else {
       console.log(str, "JP");
-      key = key.replaceAll(" ", "");
+      const replaceList = [
+        ["⓪", "0"],
+        ["①", "1"],
+        ["②", "2"],
+        ["③", "3"],
+        ["④", "4"],
+        ["⑤", "5"],
+        ["⑥", "6"],
+        ["⑦", "7"],
+        ["⑧", "8"],
+        ["⑨", "9"],
+      ];
+      key_ = key_.replaceAll(" ", "").replaceAll("カ", "力");
+      replaceList.forEach((replaceItem) => {
+        value_ = value_.replaceAll(replaceItem[0], replaceItem[1]);
+      });
+      //some letter could be lost.
+      //use nearest!
+      key = Object.keys(substatDef).sort(
+        (a, b) =>
+          similarity(substatDef[b as SubstatKeys].name.ja, key_) -
+          similarity(substatDef[a as SubstatKeys].name.ja, key_)
+      )[0];
     }
     let value = Number(value_);
 
-    console.log(
-      key,
-      datas,
-      datas[0] + (str.slice(-1) === "%" ? "%" : "undefined")
-    );
-    let sk = Object.keys(substatDef).filter(
-      (substatKey) => substatDef[substatKey as SubstatKeys].name.en === key
-    )[0];
+    console.log(key_, value_, value, key);
+
     // var ext =
     //   datas[0].split(" ").length === 2
     //     ? datas[0].split(" ")[1].substring(0, 1)
@@ -63,7 +96,7 @@ export class Substat {
     // let sk = Object.keys(substatDef).filter(
     //   (substatKey) => substatDef[substatKey].abri === key
     // )[0];
-    return { key: sk as SubstatKeys, value };
+    return { key: key as SubstatKeys, value };
   }
 
   toJson(): string {

@@ -61,7 +61,7 @@ const substatDef = {
   },
   critRate_: {
     weight: 2,
-    name: { en: "CRIT Rate%", ja: "会心率" },
+    name: { en: "CRIT Rate%", ja: "会心率%" },
     icon: faCritRate,
     table: [2.72, 3.11, 3.5, 3.89],
   },

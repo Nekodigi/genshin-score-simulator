@@ -33,19 +33,24 @@ test("Artifact from string test", () => {
   );
 
   //give lang as arg??
-  // const artifactJp = Artifact.fromString(
-  //   "攻 撃 カ +④①\n攻 撃 カ +④.①%\n会 心 ダ メ ー ジ +①⑦.⑨%\n会 心 率 +③.⑤%"
-  // );
-  // expect(artifactJp).toEqual(
-  //   new Artifact({
-  //     level: 0,
-  //     substats: [
-  //       { key: "atk", value: 41 },
-  //       { key: "atk_", value: 4.1 },
-  //       { key: "critDMG_", value: 17.9 },
-  //       { key: "critRate_", value: 3.5 },
-  //     ],
-  //   })
-  // );
+  const artifactJp = Artifact.fromString(
+    // "攻 撃 カ +④①\n攻 撃 カ +④.①%\n会 心 ダ メ ー ジ +①⑦.⑨%\n会 心 率 +③.⑤%"
+    "攻 撃 カ ③.④%\n会 ダ メ ー ジ ④.⑧%\n防 御 カ +②③\n会 率 +①0.⑤%\n"
+  );
+  expect(artifactJp).toEqual(
+    new Artifact({
+      level: 0,
+      substats: [
+        { key: "atk_", value: 3.4 },
+        { key: "critDMG_", value: 4.8 },
+        { key: "def", value: 23 },
+        { key: "critRate_", value: 10.5 },
+      ],
+    })
+  );
+  //   攻 撃 カ +①③.④%
+  // 会 ダ メ ー ジ +①④.⑧%
+  // 防 御 カ +②③
+  // 会 心 率 +①0.⑤%
   // 攻 撃 カ +④①\n攻 撃 カ +④.①%\n会 心 ダ メ ー ジ +①⑦.⑨%\n会 心 率 +③.⑤%
 });

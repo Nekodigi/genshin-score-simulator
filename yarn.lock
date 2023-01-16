@@ -10779,6 +10779,11 @@ opencollective-postinstall@^2.0.2:
   resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz#7a0fff978f6dbfa4d006238fbac98ed4198c3259"
   integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
 
+opencv-react@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/opencv-react/-/opencv-react-0.0.6.tgz#a0710cc5cbdbba00c40ce6e747a43a960e736d33"
+  integrity sha512-QavT+g4DPA4bnRQK1XEVhCvgal5qIO4S4dG3HLrlwLOQBHUqbmUenPsmfZqx92JcZUCYVU/r1OzPwPsKBf1U2w==
+
 optionator@^0.8.1:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/optionator/-/optionator-0.8.3.tgz#84fa1d036fe9d3c7e21d99884b601167ec8fb495"
