@@ -39,7 +39,6 @@ export class Substat {
     } else {
       console.log(str, "JP");
       key = key.replaceAll(" ", "");
-      value_ = value_.ma
     }
     let value = Number(value_);
 
