@@ -8,6 +8,7 @@ import {
   Button,
   SxProps,
   useTheme,
+  CircularProgress,
 } from "@mui/material";
 import {
   AddRounded,
@@ -37,6 +38,8 @@ import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconButton } from "../molecules/IconButton";
 import { StyledModal } from "../molecules/StyledModal";
+import { AutoFillButton } from "../molecules/AutoFillButton";
+import { Suspense } from "react";
 
 const style: SxProps = {
   position: "absolute" as "absolute",
@@ -85,33 +88,6 @@ export const ArtifactEditor = () => {
     }
     editor.change(false);
   };
-
-  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files === null) return;
-    setArtifactFromImage(e.target.files[0]);
-  };
-
-  const pasteImage = (files) => {
-    setArtifactFromImage(files[0]);
-  };
-
-  const setArtifactFromImage = async (file) => {
-    let path = URL.createObjectURL(file);
-    let result = await Tesseract.recognize(path, "jpn");
-    console.log(result.data);
-    let text = result.data.text;
-    let artifact_ = Artifact.fromString(text);
-    editor.setArtifact(artifact_);
-    console.log(text);
-  };
-
-  useEffect(() => {
-    const pasteFunc = (e) => pasteImage(e.clipboardData.files);
-    window.addEventListener("paste", pasteFunc);
-    return () => {
-      window.removeEventListener("paste", pasteFunc);
-    };
-  }, []);
 
   return (
     <StyledModal open={editor.open} onClose={() => editor.change(false)}>
@@ -170,13 +146,9 @@ export const ArtifactEditor = () => {
 
       {/* <Typography css={fontTypes(theme).subtitle}>Auto fill</Typography> */}
       <Typography css={fontTypes(theme).subtitle}>Auto Fill</Typography>
-      <IconTextButton
-        text="Upload Screen Shot"
-        icon={faCamera}
-        color={theme.palette.info.dark}
-      >
-        <input hidden onChange={uploadImage} type="file" accept="image/*" />
-      </IconTextButton>
+      <Suspense fallback={<CircularProgress />}>
+        <AutoFillButton />
+      </Suspense>
       <Typography css={fontTypes(theme).subtitle}>
         {t("editor.estimScore")}
       </Typography>
