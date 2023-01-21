@@ -71,6 +71,7 @@ const Header = () => {
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"
           rel="stylesheet"
         />
+        <script async src="opencv.js" type="text/javascript"></script>
       </head>
 
       <AppBar sx={{ background: theme.palette.local.white }}>

@@ -37,6 +37,7 @@ import { SubstatValue, SubstatWeight } from "./utils/types/Substat";
 import { Filter } from "./utils/types/Filter";
 import { Sort } from "./utils/types/Sort";
 import { ArtifactImporter } from "./components/organisms/ArtifactImporter";
+import { Test } from "./pages/Test";
 
 function App() {
   if (localStorage.getItem("theme") === null)
@@ -161,6 +162,7 @@ const Content = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/test" element={<Test />} />
           <Route
             path="/editor"
             element={
