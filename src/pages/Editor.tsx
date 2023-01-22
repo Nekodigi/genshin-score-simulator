@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import {
+  Autocomplete,
   Box,
   Button,
   ButtonGroup,
@@ -8,14 +9,16 @@ import {
   FormControl,
   Grid,
   MenuItem,
+  Pagination,
   Select,
   Slider,
+  TextField,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
   useTheme,
 } from "@mui/material";
-import { useContext, useMemo, useState, Suspense } from "react";
+import { useContext, useMemo, useState, Suspense, lazy } from "react";
 import { fontTypes } from "../utils/styles/fonts";
 import { css } from "@emotion/react";
 import { RangeInput } from "../components/molecules/RangeInput";
@@ -26,18 +29,22 @@ import {
   faArrowUpWideShort,
   faRotateRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { substatDef } from "../utils/consts/Substat";
 import { useTranslation } from "react-i18next";
 import { EditorContext } from "../utils/contexts/EditorContext";
 import { FormulaDisplay } from "../components/molecules/FormulaDisplay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ArtifactEditor } from "../components/organisms/ArtifactEditor";
 import { AddRounded } from "@mui/icons-material";
 import { ArtifactsContext } from "../utils/contexts/ArtifactsContext";
 import ArtifactCard from "../components/organisms/ArtifactCard";
 import { Sort, SortKey } from "../utils/types/Sort";
 import { ArtifactComparator, ArtifactFilter } from "../utils/reducers/Artifact";
 import { toSortKeyScore } from "../utils/func/Sort";
+import { ArtifactType } from "../utils/types/Artifact";
+import { statKey } from "../utils/consts/Stat";
+//import { ArtifactEditor } from "../components/organisms/ArtifactEditor";
+const ArtifactEditor = lazy(
+  () => import("../components/organisms/ArtifactEditor")
+);
 
 export const Editor = () => {
   const theme = useTheme();
@@ -45,6 +52,8 @@ export const Editor = () => {
   const { editor, sort, setSort, filter, setFilter } =
     useContext(EditorContext);
   const { artifacts } = useContext(ArtifactsContext);
+  const [page, setPage] = useState(1);
+  const pageN = 24;
 
   const disc = css([
     fontTypes(theme).disc,
@@ -52,18 +61,25 @@ export const Editor = () => {
   ]);
 
   //original artifacts should not be changed
-  const artifactsRendered = useMemo(() => {
+  const filtered = useMemo(() => {
     return [...artifacts]
       .filter((a) => ArtifactFilter(a, filter, sort))
-      .sort((a, b) => ArtifactComparator(a, b, sort))
+      .sort((a, b) => ArtifactComparator(a, b, sort));
+  }, [artifacts, filter, sort]);
+
+  const artifactsRendered = useMemo(() => {
+    return filtered
+      .slice((page - 1) * pageN, page * pageN)
       .map((artifact, id) => (
         <ArtifactCard targetId={artifact.id!} key={id} artifact={artifact} />
       ));
-  }, [artifacts, sort, filter]);
+  }, [filtered, page]);
 
   return (
     <Box>
-      <ArtifactEditor />
+      <Suspense>
+        <ArtifactEditor />
+      </Suspense>
       <Box display="flex" flexDirection="column" gap={1.5}>
         <Box display="flex" justifyContent="space-between">
           <Typography css={fontTypes(theme).title}>
@@ -71,15 +87,17 @@ export const Editor = () => {
           </Typography>
           <Box display="flex" gap={2} alignItems="baseline">
             <Typography css={[fontTypes(theme).body]}>
-              {t("filter.filtered")} 16/{artifacts.length}
+              {t("filter.filtered")} {filtered.length}/{artifacts.length}
             </Typography>
             <IconTextButton
               text={t("common:action.reset")!}
               icon={faRotateRight}
               color={theme.palette.error.dark}
+              onClick={() => setFilter({ level: [0, 20], score: [0, 61] })}
             />
           </Box>
         </Box>
+
         <RangeInput
           name={t("artifact.level")}
           min={0}
@@ -100,6 +118,18 @@ export const Editor = () => {
             setFilter({ ...filter });
           }}
         />
+        {/* <Autocomplete
+          options={statKey}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              css={fontTypes(theme).disc}
+              sx={{ minHeight: 0 }}
+              variant="standard"
+              label="Artifact Sets"
+            />
+          )}
+        /> */}
 
         <Typography css={fontTypes(theme).title}>
           {t("formula.title")}
@@ -111,60 +141,77 @@ export const Editor = () => {
         </Typography>
         <Box
           display="flex"
-          alignItems="center"
+          flexWrap="wrap"
           gap={1}
-          justifyContent="flex-end"
+          justifyContent="space-between"
         >
-          <Typography css={disc}>{t("artifacts.sortBy")}:</Typography>
-          <ButtonGroup
-            variant="contained"
-            aria-label="outlined primary button group"
-            sx={{ height: 32 }}
+          <Pagination
+            page={page}
+            onChange={(e, value) => setPage(value)}
+            count={Math.ceil(filtered.length / pageN)}
+            color="primary"
+          />
+          <Box
+            display="flex"
+            flexWrap="wrap"
+            alignItems="center"
+            justifyContent="flex-end"
+            flexGrow={1}
+            gap={1}
           >
-            <Button sx={{ px: 0 }}>
-              <FormControl variant="standard">
-                <Select
-                  label="Key"
-                  value={sort.key}
-                  onChange={(e) => {
-                    sort.key = e.target.value as SortKey;
-                    setSort({ ...sort });
-                  }}
-                  css={disc}
-                  sx={{
-                    width: 112,
-                    height: "100%",
-                    background: theme.palette.primary.main,
-                  }}
-                  disableUnderline
-                >
-                  <MenuItem css={disc} value="minScore">
-                    {t("filters.minScore")}
-                  </MenuItem>
-                  <MenuItem css={disc} value="avgScore">
-                    {t("filters.avgScore")}
-                  </MenuItem>
-                  <MenuItem css={disc} value="maxScore">
-                    {t("filters.maxScore")}
-                  </MenuItem>
-                </Select>
-              </FormControl>
-            </Button>
-            <Button
-              startIcon={
-                <FontAwesomeIcon
-                  icon={sort.desc ? faArrowUpWideShort : faArrowUpShortWide}
-                />
-              }
-              onClick={() => {
-                sort.desc = !sort.desc;
-                setSort({ ...sort });
-              }}
-              sx={{ textTransform: "none" }}
+            <Typography css={[disc, { color: theme.palette.local.black }]}>
+              {t("artifacts.sortBy")}:
+            </Typography>
+            <ButtonGroup
+              variant="contained"
+              aria-label="outlined primary button group"
+              sx={{ height: 32 }}
             >
-              {sort.desc ? t("order.desc") : t("order.asc")}
-            </Button>
-          </ButtonGroup>
+              <Button sx={{ px: 0 }}>
+                <FormControl variant="standard">
+                  <Select
+                    label="Key"
+                    value={sort.key}
+                    onChange={(e) => {
+                      sort.key = e.target.value as SortKey;
+                      setSort({ ...sort });
+                    }}
+                    css={disc}
+                    sx={{
+                      width: 112,
+                      height: "100%",
+                      background: theme.palette.primary.main,
+                    }}
+                    disableUnderline
+                  >
+                    <MenuItem css={disc} value="minScore">
+                      {t("filters.minScore")}
+                    </MenuItem>
+                    <MenuItem css={disc} value="avgScore">
+                      {t("filters.avgScore")}
+                    </MenuItem>
+                    <MenuItem css={disc} value="maxScore">
+                      {t("filters.maxScore")}
+                    </MenuItem>
+                  </Select>
+                </FormControl>
+              </Button>
+              <Button
+                startIcon={
+                  <FontAwesomeIcon
+                    icon={sort.desc ? faArrowUpWideShort : faArrowUpShortWide}
+                  />
+                }
+                onClick={() => {
+                  sort.desc = !sort.desc;
+                  setSort({ ...sort });
+                }}
+                sx={{ textTransform: "none" }}
+              >
+                {sort.desc ? t("order.desc") : t("order.asc")}
+              </Button>
+            </ButtonGroup>
+          </Box>
         </Box>
         <IconTextButton
           text={t("artifacts.addNew")!}

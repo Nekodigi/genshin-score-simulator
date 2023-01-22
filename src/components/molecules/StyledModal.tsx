@@ -11,13 +11,18 @@ export const StyledModal = ({ open, onClose, children }: StyledModalProps) => {
   const theme = useTheme();
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal keepMounted open={open} onClose={onClose}>
       <Box
         sx={style}
         display="flex"
         flexDirection="column"
+        overflow="hidden"
         gap={1.5}
-        style={{ background: theme.palette.local.modal }}
+        maxHeight="100vh"
+        style={{
+          background: theme.palette.local.modal,
+          overflowY: "auto",
+        }}
       >
         <IconButton
           icon={faClose}

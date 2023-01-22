@@ -1,14 +1,14 @@
-import { ArtifactValue, Scores } from "../types/Artifact";
-import { SubstatValue } from "../types/Substat";
+import { ArtifactType, Scores } from "../types/Artifact";
+import { SubstatType } from "../types/Substat";
 import { Substat } from "./Substat";
 
 export class Artifact {
-  substats: SubstatValue[];
+  substats: SubstatType[];
   level: number;
   upgradeLeft: number = 0;
 
   constructor(
-    props: ArtifactValue = {
+    props: ArtifactType = {
       substats: [
         { key: "ERR", value: 0 },
         { key: "ERR", value: 0 },
@@ -26,10 +26,9 @@ export class Artifact {
   //Japanese Remove spacing. ④=>4
   // 攻 撃 カ +④①
   // 攻 撃 カ +④.①%
-  
+
   // 会 心 ダ メ ー ジ +①⑦.⑨%
   // 会 心 率 +③.⑤%
-
 
   //English
   // ATK+5.3%
@@ -52,7 +51,7 @@ export class Artifact {
     return JSON.stringify(this);
   }
 
-  toValue(): ArtifactValue {
+  toValue(): ArtifactType {
     return { level: this.level, substats: [...this.substats] };
   }
 
@@ -81,7 +80,7 @@ export class Artifact {
 
   score() {
     return this.substats.reduce(
-      (acum: number, current: SubstatValue): number =>
+      (acum: number, current: SubstatType): number =>
         acum + new Substat(current).score(),
       0
     );

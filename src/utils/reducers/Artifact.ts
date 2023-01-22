@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { Artifact } from "../class/Artifact";
 import { EditorContext } from "../contexts/EditorContext";
-import { ArtifactValue } from "../types/Artifact";
+import { ArtifactType } from "../types/Artifact";
 import { Filter } from "../types/Filter";
 import { Sort } from "../types/Sort";
 
@@ -9,12 +9,12 @@ type ArtifactsActionType = "ADD" | "DELETE" | "UPDATE" | "SORT";
 
 type ArtifactsAction = {
   type: ArtifactsActionType;
-  artifact?: ArtifactValue;
-  id?: number;
+  artifact?: ArtifactType;
+  id?: string;
 };
 
 export const ArtifactFilter = (
-  artifact: ArtifactValue,
+  artifact: ArtifactType,
   filter: Filter,
   sort: Sort
 ) => {
@@ -33,8 +33,8 @@ export const ArtifactFilter = (
 };
 
 export const ArtifactComparator = (
-  a: ArtifactValue,
-  b: ArtifactValue,
+  a: ArtifactType,
+  b: ArtifactType,
   sort: Sort
 ) => {
   // const sort: Sort = { key: "avgScore", desc: true };
@@ -61,15 +61,15 @@ export const ArtifactComparator = (
 };
 
 export const ArtifactsReducer = (
-  state: ArtifactValue[],
+  state: ArtifactType[],
   action: ArtifactsAction
-): ArtifactValue[] => {
+): ArtifactType[] => {
   const { type, artifact, id } = action;
 
   switch (type) {
     case "ADD":
       if (artifact !== undefined) {
-        artifact.id = state.length;
+        artifact.id = state.length.toString();
         state.push(artifact);
         //auto desc sort by score
         break;
@@ -81,7 +81,9 @@ export const ArtifactsReducer = (
       } else throw new Error("UPDATE : id or artifact missing");
     case "DELETE":
       if (id !== undefined) {
-        state.splice(id, 1);
+        state = state.filter((a) => a.id !== id);
+        //state.splice(id, 1);
+
         break;
       } else throw new Error("DELETE : id missing");
     case "SORT":

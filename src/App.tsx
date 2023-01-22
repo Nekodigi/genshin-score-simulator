@@ -6,16 +6,15 @@ import React, {
   useState,
   Suspense,
 } from "react";
-import { ArtifactEditor } from "./components/organisms/ArtifactEditor";
 import Header from "./components/organisms/Header";
 
 import { darkTheme } from "./themes/dark";
 import {
   EditorContext,
   EditorContextProps,
+  Info,
 } from "./utils/contexts/EditorContext";
 import { ArtifactsContext } from "./utils/contexts/ArtifactsContext";
-import { ArtifactValue } from "./utils/types/Artifact";
 import { ArtifactsReducer } from "./utils/reducers/Artifact";
 import { Artifact } from "./utils/class/Artifact";
 import { Box, Container, ThemeProvider, useTheme } from "@mui/material";
@@ -33,11 +32,12 @@ import {
 } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Editor } from "./pages/Editor";
-import { SubstatValue, SubstatWeight } from "./utils/types/Substat";
+import { SubstatWeight } from "./utils/types/Substat";
 import { Filter } from "./utils/types/Filter";
 import { Sort } from "./utils/types/Sort";
 import { ArtifactImporter } from "./components/organisms/ArtifactImporter";
 import { Test } from "./pages/Test";
+import { ArtifactType } from "./utils/types/Artifact";
 
 function App() {
   if (localStorage.getItem("theme") === null)
@@ -47,10 +47,11 @@ function App() {
   );
   const themeValue = { theme, setTheme };
 
-  const [openEditor, setOpenEditor] = useState(true);
+  const [openEditor, setOpenEditor] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openImporter, setOpenImporter] = useState(false);
-  const [target, setTarget] = useState<number | null>(null);
+  const [target, setTarget] = useState<string | null>(null);
+  const [info, setInfo] = useState<Info | undefined>();
   const [filter, setFilter] = useState({
     level: [0, 20],
     score: [0, 61],
@@ -71,17 +72,19 @@ function App() {
     critRate_: 2,
     critDMG_: 1,
   } as SubstatWeight);
-  const [artifact, setArtifact] = useState<ArtifactValue>(
+  const [artifact, setArtifact] = useState<ArtifactType>(
     new Artifact().toValue()
   );
-  const changeEditor = (open: boolean, id?: number) => {
+  const changeEditor = (open: boolean, id?: string) => {
     if (id !== undefined) {
       setTarget(id);
+      setInfo(undefined);
       console.log(id);
       setArtifact(artifacts[id]);
       setOpenEditor(open);
     } else {
       setTarget(null);
+      setInfo(undefined);
       setArtifact(new Artifact().toValue());
       setOpenEditor(open);
     }
@@ -90,6 +93,8 @@ function App() {
     editor: {
       open: openEditor,
       setOpen: setOpenEditor,
+      info,
+      setInfo,
       target,
       setTarget,
       artifact,
@@ -112,7 +117,7 @@ function App() {
     setSort,
   };
 
-  const testArtifact: ArtifactValue = {
+  const testArtifact: ArtifactType = {
     level: 12,
     substats: [
       { key: "hp", value: 250 },

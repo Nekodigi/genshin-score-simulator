@@ -21,7 +21,7 @@ import { ArtifactsContext } from "../../utils/contexts/ArtifactsContext";
 import { EditorContext } from "../../utils/contexts/EditorContext";
 import { ThemeContext } from "../../utils/contexts/ThemeContext";
 import { fontFamilies, fontSizes, fontTypes } from "../../utils/styles/fonts";
-import { ArtifactValue } from "../../utils/types/Artifact";
+import { ArtifactType } from "../../utils/types/Artifact";
 import { ArtifactSim } from "../atoms/ArtifactSim";
 
 const Header = () => {
@@ -33,30 +33,6 @@ const Header = () => {
   const [checked, setChecked] = useState(
     localStorage.getItem("theme") === "true"
   );
-  console.log(useContext(ThemeContext));
-
-  const addFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files === null) return;
-    let obj = JSON.parse(await e.target.files[0].text()) as any;
-    console.log(obj);
-
-    let artifact = obj.artifacts[1] as ArtifactValue;
-    console.log(new Artifact(artifact).score());
-    obj.artifacts.map((artifact: ArtifactValue) => {
-      artifact.substats = artifact.substats.map((substat) => {
-        return {
-          key: substat.key === "" ? "ERR" : substat.key,
-          value: substat.value,
-        };
-      });
-      if (artifact.substats.length === 3)
-        artifact.substats.push({ key: "ERR", value: 0 });
-      setArtifacts({
-        type: "ADD",
-        artifact,
-      });
-    });
-  };
 
   return (
     <div>

@@ -9,37 +9,27 @@ import {
   SxProps,
   useTheme,
   CircularProgress,
+  AlertColor,
 } from "@mui/material";
-import {
-  AddRounded,
-  DeleteForeverRounded,
-  DoDisturbRounded,
-  SaveRounded,
-} from "@mui/icons-material";
-import { NumberInput } from "../atoms/NumberInput";
-import React, { useState, useMemo, useContext, useEffect } from "react";
+import React, { useState, useMemo, useContext } from "react";
 import { SubstatInput } from "../molecules/SubstatInput";
 import { Artifact } from "../../utils/class/Artifact";
 import { EditorContext } from "../../utils/contexts/EditorContext";
 import { ArtifactsContext } from "../../utils/contexts/ArtifactsContext";
-import Tesseract from "tesseract.js";
 import { fontTypes } from "../../utils/styles/fonts";
 import { NumberOption } from "../molecules/NumberOption";
 import { IconTextButton } from "../molecules/IconTextButton";
 import {
   faAdd,
   faBan,
-  faCamera,
-  faClose,
   faFloppyDisk,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconButton } from "../molecules/IconButton";
 import { StyledModal } from "../molecules/StyledModal";
-import { AutoFillButton } from "../molecules/AutoFillButton";
-import { Suspense } from "react";
+//import { AutoFillButton } from "../molecules/AutoFillButton";
+import { Suspense, lazy } from "react";
+const AutoFillButton = lazy(() => import("../molecules/AutoFillButton"));
 
 const style: SxProps = {
   position: "absolute" as "absolute",
@@ -54,7 +44,7 @@ const style: SxProps = {
   p: 2,
 };
 
-export const ArtifactEditor = () => {
+const ArtifactEditor = () => {
   const { artifacts, setArtifacts } = useContext(ArtifactsContext);
   const theme = useTheme();
   const { t } = useTranslation(["editor", "common"]);
@@ -66,15 +56,15 @@ export const ArtifactEditor = () => {
     [editor.artifact]
   );
 
-  const error = useMemo(() => {
-    let allSubstate = true;
-    editor.artifact.substats.forEach((ss) => {
-      if (ss.key === "ERR") allSubstate = false;
-    });
-    //if (!allSubstate) return "Accurate score prediction requires 4 sub-stats.";
-    //else return undefined;
-    return undefined;
-  }, [editor.artifact]);
+  // const error = useMemo(() => {
+  //   let allSubstate = true;
+  //   editor.artifact.substats.forEach((ss) => {
+  //     if (ss.key === "ERR") allSubstate = false;
+  //   });
+  //   //if (!allSubstate) return "Accurate score prediction requires 4 sub-stats.";
+  //   //else return undefined;
+  //   return undefined;
+  // }, [editor.artifact]);
 
   const complete = () => {
     if (editor.target !== null) {
@@ -133,22 +123,23 @@ export const ArtifactEditor = () => {
         );
       })}
 
-      {error ? (
-        <Alert
-          variant="filled"
-          severity="warning"
-          css={[fontTypes(theme).disc, { color: theme.palette.com.white }]}
-          sx={{ px: 1 }}
-        >
-          {error}
-        </Alert>
-      ) : undefined}
-
       {/* <Typography css={fontTypes(theme).subtitle}>Auto fill</Typography> */}
-      <Typography css={fontTypes(theme).subtitle}>Auto Fill</Typography>
+      <Typography css={fontTypes(theme).subtitle}>{t("editor.autoFill")}</Typography>
       <Suspense fallback={<CircularProgress />}>
         <AutoFillButton />
       </Suspense>
+
+      {editor.info ? (
+        <Alert
+          variant="filled"
+          severity={editor.info.sevarity}
+          css={[fontTypes(theme).disc, { color: theme.palette.com.white }]}
+          sx={{ px: 1 }}
+        >
+          {editor.info.text}
+        </Alert>
+      ) : undefined}
+
       <Typography css={fontTypes(theme).subtitle}>
         {t("editor.estimScore")}
       </Typography>
@@ -217,3 +208,4 @@ export const ArtifactEditor = () => {
     </StyledModal>
   );
 };
+export default ArtifactEditor;

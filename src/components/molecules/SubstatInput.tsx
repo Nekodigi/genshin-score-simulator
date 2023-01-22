@@ -1,27 +1,15 @@
 /** @jsxImportSource @emotion/react */
 
-import {
-  Autocomplete,
-  Box,
-  MenuItem,
-  Select,
-  TextField,
-  useTheme,
-} from "@mui/material";
-import { NumberInput } from "../atoms/NumberInput";
-import { substatDef } from "../../utils/consts/Substat";
-import { SubstatKeys } from "../../utils/types/Substat";
-import { useState } from "react";
+import { Box, MenuItem, Select, useTheme } from "@mui/material";
 import { NumberOption } from "./NumberOption";
 import { fontTypes } from "../../utils/styles/fonts";
-import { style, textAlign } from "@mui/system";
-import FontAwesomeSvgIcon from "../atoms/FontAwesomeSvgIcon";
-import { faAtk } from "../atoms/faIcons/index";
-import { SubstatIcon } from "../atoms/SubstatIcon";
+import { substatKey, substatKeyType } from "../../utils/consts/Substat";
+import { statDef } from "../../utils/consts/Stat";
+import { StatIcon } from "../atoms/StatIcon";
 
 type SubstatInputProps = {
-  setKey: (value: SubstatKeys) => void;
-  key_?: SubstatKeys;
+  setKey: (value: substatKeyType) => void;
+  key_: substatKeyType;
   setValue: (value: number) => void;
   value: number;
 };
@@ -29,10 +17,6 @@ type SubstatInputProps = {
 export const SubstatInput = (props: SubstatInputProps) => {
   const { setKey, key_, setValue, value } = props;
   const theme = useTheme();
-
-  const options = Object.keys(substatDef).map((substat) => {
-    return substat as SubstatKeys;
-  });
 
   return (
     <Box display="flex" sx={{ mb: 1 }}>
@@ -54,11 +38,12 @@ export const SubstatInput = (props: SubstatInputProps) => {
           height: 32,
         }}
         onChange={(e) =>
-          e.target.value && setKey(e.target.value as SubstatKeys)
+          e.target.value !== undefined &&
+          setKey(e.target.value as substatKeyType)
         }
         disableUnderline
       >
-        {Object.keys(substatDef).map((key, i) => {
+        {substatKey.map((key, i) => {
           return (
             <MenuItem
               key={i}
@@ -66,7 +51,7 @@ export const SubstatInput = (props: SubstatInputProps) => {
               css={fontTypes(theme).disc}
               sx={{ minHeight: 0, display: "flex", alignItems: "center" }}
             >
-              <SubstatIcon statKey={key as SubstatKeys} />
+              <StatIcon statKey={key} />
               {/* {substatDef[key].name} */}
             </MenuItem>
           );
@@ -75,7 +60,7 @@ export const SubstatInput = (props: SubstatInputProps) => {
       <NumberOption
         value={value}
         setValue={setValue}
-        options={substatDef[key_ as SubstatKeys].table as any as number[]}
+        options={statDef[key_].table as any as number[]}
       />
     </Box>
   );

@@ -1,5 +1,3 @@
-//https://stackoverflow.com/questions/10473745/compare-strings-javascript-return-of-likely
-
 export const similarity = (s1: string, s2: string) => {
   var longer = s1;
   var shorter = s2;
@@ -36,4 +34,8 @@ export const editDistance = (s1: string, s2: string) => {
     if (i > 0) costs[s2.length] = lastValue;
   }
   return costs[s2.length];
+};
+
+export const isAlphabet = (char: string) => {
+  return "A" <= char && char <= "z";
 };

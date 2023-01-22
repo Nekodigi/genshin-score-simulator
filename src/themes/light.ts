@@ -1,4 +1,4 @@
-import { grey, indigo } from "@mui/material/colors";
+import { blue, grey, indigo } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 import { themeCommon } from "./theme";
 
@@ -10,6 +10,7 @@ const lightTheme = createTheme({
     mode: "light",
     com: themeCommon,
     primary: indigo,
+    secondary: blue,
     local: {
       bg: "#EEEEEE",
       modal: "F5F5F5",

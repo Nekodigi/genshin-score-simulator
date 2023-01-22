@@ -5,8 +5,8 @@ import { fontTypes } from "../../utils/styles/fonts";
 import { css } from "@emotion/react";
 import { useTranslation } from "react-i18next";
 import { useContext, useMemo } from "react";
-import { substatDef } from "../../utils/consts/Substat";
 import { EditorContext } from "../../utils/contexts/EditorContext";
+import { substatKey } from "../../utils/consts/Substat";
 
 export const FormulaDisplay = () => {
   const theme = useTheme();
@@ -15,7 +15,7 @@ export const FormulaDisplay = () => {
 
   const scoreFormula = useMemo(() => {
     let firstTime = true;
-    return Object.keys(substatDef).map((key) => {
+    return substatKey.map((key) => {
       let w = weight[key];
       if (w !== undefined && w !== 0) {
         let headStr = " + ";

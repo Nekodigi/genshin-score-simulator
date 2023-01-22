@@ -26,7 +26,7 @@ export const IconButton = ({ icon, color, onClick }: IconButtonProps) => {
       }}
       onClick={onClick}
     >
-      <FontAwesomeIcon icon={icon} />
+      <FontAwesomeIcon color={theme.palette.com.white} icon={icon} />
     </IconButton_>
   );
 };

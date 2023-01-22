@@ -1,11 +1,12 @@
-import { substatDef } from "../consts/Substat";
+import { statKeyType } from "../consts/Stat";
+import { substatKeyType } from "../consts/Substat";
 
-type SubstatValue = {
-  key: substatKeys;
+export type SubstatType = {
+  key: substatKeyType;
   value: number;
 };
 
-type SubstatWeight = {
+export type SubstatWeight = {
   hp: number;
   atk: number;
   def: number;
@@ -17,7 +18,3 @@ type SubstatWeight = {
   critRate_: number;
   critDMG_: number;
 };
-
-type SubstatKeys = keyof typeof substatDef;
-
-export type { SubstatKeys, SubstatValue, SubstatWeight };

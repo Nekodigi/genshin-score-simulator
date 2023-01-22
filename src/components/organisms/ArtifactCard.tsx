@@ -15,14 +15,17 @@ import { Substat } from "../../utils/class/Substat";
 import { ArtifactsContext } from "../../utils/contexts/ArtifactsContext";
 import { EditorContext } from "../../utils/contexts/EditorContext";
 import { fontTypes } from "../../utils/styles/fonts";
-import { ArtifactValue } from "../../utils/types/Artifact";
 import { toSortKeyScore } from "../../utils/func/Sort";
-import { SubstatIcon } from "../atoms/SubstatIcon";
 import { TwoCellText } from "../molecules/TwoCellText";
+import { StatIcon, StatValue2Str } from "../atoms/StatIcon";
+import { ArtifactType } from "../../utils/types/Artifact";
+import artifactsDB from "../../utils/consts/genshindb-partial.json";
+import { useTranslation } from "react-i18next";
+import { mainstatValueTable } from "../../utils/consts/Mainstat";
 
 type ArtifactCardProps = {
-  targetId: number;
-  artifact: ArtifactValue;
+  targetId: string;
+  artifact: ArtifactType;
 };
 
 const ArtifactCard = (props: ArtifactCardProps) => {
@@ -30,6 +33,7 @@ const ArtifactCard = (props: ArtifactCardProps) => {
   const theme = useTheme();
   const { artifacts } = useContext(ArtifactsContext);
   const { editor, sort } = useContext(EditorContext);
+  const { t, i18n } = useTranslation("artifact");
 
   const scores = useMemo(() => new Artifact(artifact).getScores(), [artifact]);
 
@@ -44,8 +48,16 @@ const ArtifactCard = (props: ArtifactCardProps) => {
           display="flex"
           flexDirection="column"
           gap={1}
+          position="relative"
+          overflow="hidden"
           sx={{ background: theme.palette.com.artifactBg, p: 1 }}
         >
+          {artifact.setKey !== undefined && artifact.slotKey !== undefined ? (
+            <img
+              style={{ position: "absolute", top: -16, right: "0", width: 192 }}
+              src={`Artifacts/${artifact.setKey}/${artifact.slotKey}.png`}
+            />
+          ) : undefined}
           <Typography
             css={[fontTypes(theme).title, { color: theme.palette.com.white }]}
           >
@@ -83,6 +95,19 @@ const ArtifactCard = (props: ArtifactCardProps) => {
               +{artifact.level}
             </Typography>
           </Box>
+          {artifact.mainStatKey !== undefined &&
+          artifact.rarity !== undefined ? (
+            <StatIcon
+              statKey={artifact.mainStatKey}
+              value={
+                mainstatValueTable[artifact.rarity][artifact.mainStatKey][
+                  artifact.level
+                ]
+              }
+              size={16}
+              full
+            />
+          ) : undefined}
         </Box>
 
         <Box
@@ -92,12 +117,14 @@ const ArtifactCard = (props: ArtifactCardProps) => {
           color={theme.palette.text.secondary}
           sx={{ background: theme.palette.local.paper, p: 1 }}
         >
-          {artifact.substats.map((substat) =>
+          {artifact.substats.map((substat, i) =>
             substat.key !== "ERR" ? (
-              <SubstatIcon
+              <StatIcon
+                key={i}
                 statKey={substat.key}
                 value={substat.value}
                 size={16}
+                full
               />
             ) : (
               <Box height={20} />

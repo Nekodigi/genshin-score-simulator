@@ -1,35 +1,36 @@
-import { substatDef } from "../consts/Substat";
+import { statDef } from "../consts/Stat";
+import { substatKey, substatKeyType } from "../consts/Substat";
 import { similarity } from "../func/string";
-import { SubstatKeys, SubstatValue } from "../types/Substat";
+import { SubstatType } from "../types/Substat";
 
 type FourOption = 0 | 1 | 2 | 3;
 
 export class Substat {
-  key: SubstatKeys;
+  key: substatKeyType;
   value: number;
   weight: number;
   valueTable: number[];
 
-  constructor(props: SubstatValue = { key: "ERR", value: 0 }) {
+  constructor(props: SubstatType = { key: "ERR", value: 0 }) {
     this.key = props.key;
     this.value = isNaN(props.value) ? 0 : props.value;
-    if (substatDef[props.key] === undefined) {
+    if (statDef[props.key] === undefined) {
       this.weight = 0;
-      this.valueTable = substatDef["ERR"].table as any;
+      this.valueTable = [...statDef[""].table];
     } else {
-      this.weight = substatDef[props.key].weight;
-      this.valueTable = substatDef[props.key as string].table;
+      this.weight = statDef[props.key].weight;
+      this.valueTable = [...statDef[props.key].table];
     }
   }
 
-  static plain(): SubstatValue {
+  static plain(): SubstatType {
     return { key: "ERR", value: 0 };
   }
 
   //possibly check lang by ascii
   //ATK+4.1%
   //攻 撃 カ +④①
-  static fromString(str: string): SubstatValue {
+  static fromString(str: string): SubstatType {
     let datas = str.split("+"); //plus could be lost
     if (datas.length === 1) {
       console.log("+ error");
@@ -50,8 +51,8 @@ export class Substat {
     let key = "ERR";
     if ("A" <= first && first <= "z") {
       console.log(str, "EN");
-      key = Object.keys(substatDef).filter(
-        (substatKey) => substatDef[substatKey as SubstatKeys].name.en === key_
+      key = substatKey.filter(
+        (substatKey) => statDef[substatKey].name.en === key_
       )[0];
     } else {
       console.log(str, "JP");
@@ -73,10 +74,10 @@ export class Substat {
       });
       //some letter could be lost.
       //use nearest!
-      key = Object.keys(substatDef).sort(
+      key = [...substatKey].sort(
         (a, b) =>
-          similarity(substatDef[b as SubstatKeys].name.ja, key_) -
-          similarity(substatDef[a as SubstatKeys].name.ja, key_)
+          similarity(statDef[b].name.ja, key_) -
+          similarity(statDef[a].name.ja, key_)
       )[0];
     }
     let value = Number(value_);
@@ -96,31 +97,28 @@ export class Substat {
     // let sk = Object.keys(substatDef).filter(
     //   (substatKey) => substatDef[substatKey].abri === key
     // )[0];
-    return { key: key as SubstatKeys, value };
+    return { key: key as substatKeyType, value };
   }
 
   toJson(): string {
     return JSON.stringify(this);
   }
 
-  clone(): SubstatValue {
+  clone(): SubstatType {
     return { key: this.key, value: this.value };
   }
 
   toString() {
-    return `${substatDef[this.key].name.en.replace(
-      "%",
-      ""
-    )}+${this.value.toFixed(1)}${
-      substatDef[this.key].name.en.slice(-1) === "%" ? "%" : ""
-    }`;
+    return `${statDef[this.key].name.en.replace("%", "")}+${this.value.toFixed(
+      1
+    )}${statDef[this.key].name.en.slice(-1) === "%" ? "%" : ""}`;
   }
 
   score() {
     return this.weight * this.value;
   }
 
-  upgrade(i: FourOption): SubstatValue {
+  upgrade(i: FourOption): SubstatType {
     this.value += this.valueTable[i];
     return this.clone();
   }

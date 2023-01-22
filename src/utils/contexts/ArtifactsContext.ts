@@ -1,10 +1,10 @@
 import { createContext } from "react";
-import { ArtifactValue } from "../types/Artifact";
+import { ArtifactType } from "../types/Artifact";
 import React from "react";
 import { ArtifactsAction } from "../reducers/Artifact";
 
 type ArtifactsContextProps = {
-  artifacts: ArtifactValue[];
+  artifacts: ArtifactType[];
   setArtifacts: React.Dispatch<ArtifactsAction>;
 };
 const ArtifactsContext = createContext({} as ArtifactsContextProps);
