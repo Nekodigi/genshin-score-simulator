@@ -69,10 +69,11 @@ function App() {
   );
   const changeEditor = (open: boolean, id?: string) => {
     if (id !== undefined) {
+      let target = 0;
+      artifacts.forEach((a, i) => (a.id === id ? (target = i) : undefined));
       setTarget(id);
       setInfo(undefined);
-      console.log(id);
-      setArtifact(artifacts[id]);
+      setArtifact(artifacts[target]);
       setOpenEditor(open);
     } else {
       setTarget(null);
@@ -113,24 +114,26 @@ function App() {
     setSort,
   };
 
-  const [artifacts, setArtifacts] = useReducer(ArtifactsReducer, []); //always use reducer to add! otherwise id go wrong!
+  const testArtifact: ArtifactType = {
+    setKey: "EmblemOfSeveredFate",
+    slotKey: "flower",
+    rarity: 5,
+    level: 4,
+    id: "test",
+    substats: [
+      { key: "hp", value: 239 },
+      { key: "atk_", value: 4.1 },
+      { key: "critDMG_", value: 5.4 },
+      { key: "def", value: 21 },
+    ],
+  };
+  if (localStorage.getItem("artifacts") === null)
+    localStorage.setItem("artifacts", JSON.stringify([testArtifact]));
+  const [artifacts, setArtifacts] = useReducer(
+    ArtifactsReducer,
+    JSON.parse(localStorage.getItem("artifacts")!)
+  ); //always use reducer to add! otherwise id go wrong!
   const artifactsValue = { artifacts, setArtifacts };
-
-  useEffect(() => {
-    const testArtifact: ArtifactType = {
-      setKey: "EmblemOfSeveredFate",
-      slotKey: "flower",
-      rarity: 5,
-      level: 4,
-      substats: [
-        { key: "hp", value: 239 },
-        { key: "atk_", value: 4.1 },
-        { key: "critDMG_", value: 5.4 },
-        { key: "def", value: 21 },
-      ],
-    };
-    setArtifacts({ type: "ADD", artifact: testArtifact });
-  }, []);
 
   return (
     <ThemeContext.Provider value={themeValue}>
@@ -145,11 +148,13 @@ function App() {
               }}
             >
               <CssBaseline />
-              <Header />
-              <PageDrawer />
-              <ArtifactImporter />
-              <Content />
-              <Footer />
+              <HashRouter>
+                <Header />
+                <PageDrawer />
+                <ArtifactImporter />
+                <Content />
+                <Footer />
+              </HashRouter>
             </Box>
           </EditorContext.Provider>
         </ArtifactsContext.Provider>
@@ -163,21 +168,19 @@ export default App;
 const Content = () => {
   return (
     <Container sx={{ minHeight: "100vh", p: 2 }}>
-      <HashRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/test" element={<Test />} />
-          <Route
-            path="/editor"
-            element={
-              <Suspense>
-                <Editor />
-              </Suspense>
-            }
-          />
-          <Route path="*" element={<Navigate to={"/"} />} />
-        </Routes>
-      </HashRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/test" element={<Test />} />
+        <Route
+          path="/editor"
+          element={
+            <Suspense>
+              <Editor />
+            </Suspense>
+          }
+        />
+        <Route path="*" element={<Navigate to={"/"} />} />
+      </Routes>
     </Container>
   );
 };

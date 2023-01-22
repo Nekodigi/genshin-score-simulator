@@ -1,4 +1,3 @@
-
 import { Artifact } from "../class/Artifact";
 import { ArtifactType } from "../types/Artifact";
 import { Filter } from "../types/Filter";
@@ -83,7 +82,10 @@ export const ArtifactsReducer = (
       } else throw new Error("DELETE : artifact missing");
     case "UPDATE":
       if (id !== undefined && artifact !== undefined) {
-        state[id] = artifact;
+        let target = 0;
+        state.forEach((a, i) => (a.id === id ? (target = i) : undefined));
+        console.log(target, id);
+        state[target] = artifact;
         break;
       } else throw new Error("UPDATE : id or artifact missing");
     case "DELETE":
@@ -96,8 +98,10 @@ export const ArtifactsReducer = (
     case "SORT":
       break;
     default:
+      localStorage.setItem("artifacts", JSON.stringify(state));
       return state;
   }
+  localStorage.setItem("artifacts", JSON.stringify(state));
   // state = state.sort((a, b) => ArtifactComparator(a, b, sort));
   return [...state]; //to assert it's updated
 };

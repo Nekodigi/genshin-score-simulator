@@ -2,6 +2,7 @@
 
 import { Typography, useTheme } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { fontFamilies, fontSizes } from "../../utils/styles/fonts";
 
 export const ArtifactSim = () => {
@@ -20,7 +21,9 @@ export const ArtifactSim = () => {
         WebkitTextFillColor: "transparent",
       }}
     >
-      {t("header.title")}
+      <Link to="/" style={{ textDecoration: "none" }}>
+        {t("header.title")}
+      </Link>
     </Typography>
   );
 };

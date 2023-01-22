@@ -1,6 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAdd,
+  faFileExport,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { Alert, Typography, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { Artifact } from "../../utils/class/Artifact";
@@ -72,6 +76,22 @@ export const ArtifactImporter = () => {
           {info.text}
         </Alert>
       ) : undefined}
+      <Typography css={fontTypes(theme).body}>
+        現在の聖遺物を.jsonファイルとして書き出します。デバイス間のデータ移行や、データのバックアップに使用できます。
+      </Typography>
+      <IconTextButton
+        text={"聖遺物を全て書き出す"}
+        icon={faFileExport}
+        color={theme.palette.info.dark}
+      />
+      <Typography css={fontTypes(theme).body}>
+        現在の聖遺物を全て削除します。別のデータで聖遺物を置き換える、聖遺物を一から登録し直す場合に便利です。
+      </Typography>
+      <IconTextButton
+        text={"聖遺物を全て削除"}
+        icon={faTrash}
+        color={theme.palette.error.dark}
+      />
     </StyledModal>
   );
 };

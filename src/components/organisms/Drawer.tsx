@@ -25,6 +25,7 @@ import { lightTheme } from "../../themes/light";
 import { faFlower } from "../atoms/faIcons";
 import FontAwesomeSvgIcon from "../atoms/FontAwesomeSvgIcon";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export const PageDrawer = () => {
   const theme = useTheme();
@@ -60,10 +61,14 @@ export const PageDrawer = () => {
           <Box m={2} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <ArtifactSim />
           </Box>
-          <TextIconButton
-            text={t("sidebar.artifact")}
-            icon={<FontAwesomeSvgIcon icon={faFlower} sx={{ fontSize: 24 }} />}
-          />
+          <Link to="/editor" style={{ textDecoration: "none" }}>
+            <TextIconButton
+              text={t("sidebar.artifact")}
+              icon={
+                <FontAwesomeSvgIcon icon={faFlower} sx={{ fontSize: 24 }} />
+              }
+            />
+          </Link>
           {/* <TextIconButton
             text={t("sidebar.guide")}
             icon={<FontAwesomeIcon icon={faBook} fontSize={24} />}
