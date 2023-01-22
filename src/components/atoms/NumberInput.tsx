@@ -1,53 +1,53 @@
-import { SxProps, TextField, TextFieldProps } from "@mui/material";
-import React, { useEffect, useState } from "react";
+/** @jsxImportSource @emotion/react */
+
+import { SxProps, TextField, useTheme } from "@mui/material";
+import { fontTypes } from "../../utils/styles/fonts";
+import { useState } from "react";
 
 type NumberInputProps = {
-  min: number;
-  max?: number;
+  value: number;
   setValue: (value: number) => void;
-  value?: number;
-  isInt?: boolean;
+  min?: number;
+  max?: number;
   sx?: SxProps;
-  textFieldProps?: TextFieldProps;
 };
-
-export const NumberInput = (props: NumberInputProps) => {
-  const { min, max, setValue, value, isInt, sx, textFieldProps } = props;
-  const [preValue, setPreValue] = useState(value ? String(value) : "0");
-
-  useEffect(() => {
-    //used when ctrl+v artifact input
-    setPreValue(String(value));
-  }, [value]);
-
-  const onChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    let raw = e.target.value;
-
-    let num = Number(raw);
-    let moreThenMin = Math.max(num, min);
-    let processed = max ? Math.min(moreThenMin, max) : moreThenMin;
-    setValue(processed);
-    setPreValue(String(processed));
-  };
+export const NumberInput = ({
+  value,
+  setValue,
+  min,
+  max,
+  sx,
+}: NumberInputProps) => {
+  const theme = useTheme();
+  const [inValue, setInValue] = useState(value);
 
   return (
     <TextField
-      value={preValue}
-      onChange={(e) => onChange(e)}
-      onKeyPress={(event) => {
-        //accept only number
-        if (isInt && !/[0-9]/.test(event.key)) {
-          event.preventDefault();
-        }
-      }}
-      label="Level"
       type="number"
-      size="small"
-      fullWidth
+      variant="standard"
+      style={{
+        background: theme.palette.local.paper,
+        paddingLeft: 8,
+        paddingRight: 8,
+        borderRadius: 4,
+      }}
       sx={sx}
-      {...textFieldProps}
+      css={fontTypes(theme).disc}
+      value={isNaN(value) ? inValue : value}
+      onChange={(e) => {
+        setInValue(parseFloat(e.target.value));
+        if (e.target.value !== "") setValue(parseFloat(e.target.value));
+        else setValue(0);
+      }}
+      onFocus={(event) => {
+        event.target.select();
+      }}
+      InputProps={{ disableUnderline: true }}
+      inputProps={{
+        min: min,
+        max: max,
+        inputMode: "numeric",
+      }}
     />
   );
 };

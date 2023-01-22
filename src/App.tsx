@@ -1,11 +1,5 @@
 import CssBaseline from "@mui/material/CssBaseline";
-import React, {
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-  Suspense,
-} from "react";
+import { useEffect, useReducer, useState, Suspense, lazy } from "react";
 import Header from "./components/organisms/Header";
 
 import { darkTheme } from "./themes/dark";
@@ -17,28 +11,22 @@ import {
 import { ArtifactsContext } from "./utils/contexts/ArtifactsContext";
 import { ArtifactsReducer } from "./utils/reducers/Artifact";
 import { Artifact } from "./utils/class/Artifact";
-import { Box, Container, ThemeProvider, useTheme } from "@mui/material";
+import { Box, Container, ThemeProvider } from "@mui/material";
 import { lightTheme } from "./themes/light";
 import { ThemeContext } from "./utils/contexts/ThemeContext";
 
 import { Footer } from "./components/organisms/Footer";
 import { PageDrawer } from "./components/organisms/Drawer";
-import {
-  BrowserRouter,
-  HashRouter,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Home } from "./pages/Home";
-import { Editor } from "./pages/Editor";
+
 import { SubstatWeight } from "./utils/types/Substat";
 import { Filter } from "./utils/types/Filter";
 import { Sort } from "./utils/types/Sort";
 import { ArtifactImporter } from "./components/organisms/ArtifactImporter";
 import { Test } from "./pages/Test";
 import { ArtifactType } from "./utils/types/Artifact";
-
+const Editor = lazy(() => import("./pages/Editor"));
 function App() {
   if (localStorage.getItem("theme") === null)
     localStorage.setItem("theme", "true");
@@ -50,11 +38,15 @@ function App() {
   const [openEditor, setOpenEditor] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openImporter, setOpenImporter] = useState(false);
+  const [openFormulaEditor, setOpenFormulaEditor] = useState(false);
   const [target, setTarget] = useState<string | null>(null);
   const [info, setInfo] = useState<Info | undefined>();
   const [filter, setFilter] = useState({
     level: [0, 20],
     score: [0, 61],
+    slot: ["flower", "plume", "sands", "goblet", "circlet"],
+    set: "",
+    mainstat: "",
   } as Filter);
   const [sort, setSort] = useState({
     key: "avgScore",
@@ -73,7 +65,7 @@ function App() {
     critDMG_: 1,
   } as SubstatWeight);
   const [artifact, setArtifact] = useState<ArtifactType>(
-    new Artifact().toValue()
+    new Artifact(weight).toValue()
   );
   const changeEditor = (open: boolean, id?: string) => {
     if (id !== undefined) {
@@ -85,7 +77,7 @@ function App() {
     } else {
       setTarget(null);
       setInfo(undefined);
-      setArtifact(new Artifact().toValue());
+      setArtifact(new Artifact(weight).toValue());
       setOpenEditor(open);
     }
   };
@@ -109,6 +101,10 @@ function App() {
       open: openImporter,
       setOpen: setOpenImporter,
     },
+    formulaEditor: {
+      open: openFormulaEditor,
+      setOpen: setOpenFormulaEditor,
+    },
     weight,
     setWeight,
     filter,
@@ -117,19 +113,22 @@ function App() {
     setSort,
   };
 
-  const testArtifact: ArtifactType = {
-    level: 12,
-    substats: [
-      { key: "hp", value: 250 },
-      { key: "atk_", value: 5.8 },
-      { key: "critDMG_", value: 7.2 },
-      { key: "critRate_", value: 3.2 },
-    ],
-  };
   const [artifacts, setArtifacts] = useReducer(ArtifactsReducer, []); //always use reducer to add! otherwise id go wrong!
   const artifactsValue = { artifacts, setArtifacts };
 
   useEffect(() => {
+    const testArtifact: ArtifactType = {
+      setKey: "EmblemOfSeveredFate",
+      slotKey: "flower",
+      rarity: 5,
+      level: 4,
+      substats: [
+        { key: "hp", value: 239 },
+        { key: "atk_", value: 4.1 },
+        { key: "critDMG_", value: 5.4 },
+        { key: "def", value: 21 },
+      ],
+    };
     setArtifacts({ type: "ADD", artifact: testArtifact });
   }, []);
 
@@ -164,7 +163,7 @@ export default App;
 const Content = () => {
   return (
     <Container sx={{ minHeight: "100vh", p: 2 }}>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
@@ -178,7 +177,7 @@ const Content = () => {
           />
           <Route path="*" element={<Navigate to={"/"} />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </Container>
   );
 };

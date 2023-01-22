@@ -10,7 +10,9 @@
     "filtered": "Filtered"
   },
   "formula": {
-    "title": "Formula"
+    "title": "Formula",
+    "editorTitle": "Formula Editor",
+    "weight": "Weight"
   },
   "artifacts": {
     "title": "Artifacts",

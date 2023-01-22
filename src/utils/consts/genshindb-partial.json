@@ -1450,5 +1450,14 @@
         "ja": "指揮者のハット"
       }
     }
+  },
+  "": {
+    "name": { "en": "All Artifacts", "ja": "全ての聖遺物" },
+    "circlet": {
+      "name": {
+        "en": "Artifact",
+        "ja": "聖遺物"
+      }
+    }
   }
 }

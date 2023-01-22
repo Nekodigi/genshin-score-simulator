@@ -2,26 +2,12 @@
 
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FileUploadRounded } from "@mui/icons-material";
-import {
-  AppBar,
-  Container,
-  IconButton,
-  Switch,
-  Tooltip,
-  useTheme,
-} from "@mui/material";
+import { AppBar, Container, IconButton, useTheme } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { useContext, useState } from "react";
-import { darkTheme } from "../../themes/dark";
-import { lightTheme } from "../../themes/light";
-import { Artifact } from "../../utils/class/Artifact";
 import { ArtifactsContext } from "../../utils/contexts/ArtifactsContext";
 import { EditorContext } from "../../utils/contexts/EditorContext";
-import { ThemeContext } from "../../utils/contexts/ThemeContext";
-import { fontFamilies, fontSizes, fontTypes } from "../../utils/styles/fonts";
-import { ArtifactType } from "../../utils/types/Artifact";
+import { fontTypes } from "../../utils/styles/fonts";
 import { ArtifactSim } from "../atoms/ArtifactSim";
 
 const Header = () => {

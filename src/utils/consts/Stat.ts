@@ -137,12 +137,12 @@ const statDef = {
     table: [0, 0, 0, 0],
     icon: faDendro,
   },
-  ERR: {
-    weight: 0,
-    name: { en: "Substat", ja: "サブステータス" },
-    table: [0, 0, 0, 0],
-    icon: undefined,
-  },
+  // ERR: {
+  //   weight: 0,
+  //   name: { en: "Substat", ja: "サブステータス" },
+  //   table: [0, 0, 0, 0],
+  //   icon: undefined,
+  // },
   "": {
     weight: 0,
     name: { en: "", ja: "" },
@@ -154,6 +154,7 @@ const statDef = {
 export { statDef };
 
 export const statKey = [
+  "",
   "hp",
   "hp_",
   "atk",
@@ -173,7 +174,6 @@ export const statKey = [
   "pyro_dmg_",
   "cryo_dmg_",
   "dendro_dmg_",
-  "ERR",
-  "",
+  // "ERR",
 ];
 export type statKeyType = keyof typeof statDef;

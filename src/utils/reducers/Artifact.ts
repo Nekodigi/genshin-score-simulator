@@ -1,9 +1,9 @@
-import { useContext, useEffect } from "react";
+
 import { Artifact } from "../class/Artifact";
-import { EditorContext } from "../contexts/EditorContext";
 import { ArtifactType } from "../types/Artifact";
 import { Filter } from "../types/Filter";
 import { Sort } from "../types/Sort";
+import { SubstatWeight } from "../types/Substat";
 
 type ArtifactsActionType = "ADD" | "DELETE" | "UPDATE" | "SORT";
 
@@ -14,12 +14,14 @@ type ArtifactsAction = {
 };
 
 export const ArtifactFilter = (
+  weight: SubstatWeight,
   artifact: ArtifactType,
   filter: Filter,
   sort: Sort
 ) => {
-  let score = new Artifact(artifact).getScores()[sort.key];
-  if (score === undefined) score = new Artifact(artifact).getScores().avgScore;
+  let score = new Artifact(weight, artifact).getScores()[sort.key];
+  if (score === undefined)
+    score = new Artifact(weight, artifact).getScores().avgScore;
   let ok = true;
   ok =
     ok &&
@@ -29,10 +31,15 @@ export const ArtifactFilter = (
     ok &&
     filter.score[0] <= score &&
     (filter.score[1] === 61 ? true : score < filter.score[1]);
+  if (filter.set !== "") ok = ok && filter.set === artifact.setKey;
+  if (filter.mainstat !== "")
+    ok = ok && filter.mainstat === artifact.mainStatKey;
+  if (artifact.slotKey) ok = ok && filter.slot.includes(artifact.slotKey);
   return ok;
 };
 
 export const ArtifactComparator = (
+  weight: SubstatWeight,
   a: ArtifactType,
   b: ArtifactType,
   sort: Sort
@@ -41,20 +48,20 @@ export const ArtifactComparator = (
   switch (sort.key) {
     case "minScore":
       return (
-        (new Artifact(b).getScores().minScore -
-          new Artifact(a).getScores().minScore) *
+        (new Artifact(weight, b).getScores().minScore -
+          new Artifact(weight, a).getScores().minScore) *
         (sort.desc ? 1 : -1)
       );
     case "avgScore":
       return (
-        (new Artifact(b).getScores().avgScore -
-          new Artifact(a).getScores().avgScore) *
+        (new Artifact(weight, b).getScores().avgScore -
+          new Artifact(weight, a).getScores().avgScore) *
         (sort.desc ? 1 : -1)
       );
     case "maxScore":
       return (
-        (new Artifact(b).getScores().maxScore -
-          new Artifact(a).getScores().maxScore) *
+        (new Artifact(weight, b).getScores().maxScore -
+          new Artifact(weight, a).getScores().maxScore) *
         (sort.desc ? 1 : -1)
       );
   }

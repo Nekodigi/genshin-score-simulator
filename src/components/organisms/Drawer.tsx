@@ -15,13 +15,10 @@ import {
 } from "@mui/material";
 import { useContext, useState } from "react";
 import { EditorContext } from "../../utils/contexts/EditorContext";
-import { fontSizes, fontTypes } from "../../utils/styles/fonts";
+import { fontTypes } from "../../utils/styles/fonts";
 import { ArtifactSim } from "../atoms/ArtifactSim";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBook, faFileImport } from "@fortawesome/free-solid-svg-icons";
-import Assets from "../../assets/Assets";
-import { display } from "@mui/system";
-import { text } from "stream/consumers";
+import { faFileImport } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContext } from "../../utils/contexts/ThemeContext";
 import { darkTheme } from "../../themes/dark";
 import { lightTheme } from "../../themes/light";
@@ -91,7 +88,7 @@ export const PageDrawer = () => {
               }}
             />
           </Box>
-          <Box
+          {/* <Box
             css={[itemBox(theme), { justifyContent: "space-between" }]}
             mb={4}
           >
@@ -99,7 +96,7 @@ export const PageDrawer = () => {
               {t("sidebar.proMode")}
             </Typography>
             <Switch />
-          </Box>
+          </Box> */}
           <Box
             css={[itemBox(theme), { justifyContent: "space-between" }]}
             mb={4}

@@ -30,12 +30,14 @@ export const ArtifactImporter = () => {
       obj.artifacts.map((artifact: ArtifactType) => {
         artifact.substats = artifact.substats.map((substat) => {
           return {
-            key: substat.key === "" ? "ERR" : substat.key,
+            key: substat.key,
             value: substat.value,
           };
         });
-        if (artifact.substats.length === 3)
-          artifact.substats.push({ key: "ERR", value: 0 });
+        for (let i = artifact.substats.length; i < 4; i++) {
+          artifact.substats.push({ key: "", value: 0 });
+        }
+
         setArtifacts({
           type: "ADD",
           artifact,

@@ -14,6 +14,7 @@ import {
 import { fontTypes } from "../../utils/styles/fonts";
 import { css } from "@emotion/react";
 import { useState } from "react";
+import { NumberInput } from "../atoms/NumberInput";
 
 type NumberOptionProps = {
   value: number;
@@ -65,31 +66,12 @@ export const NumberOption = (props: NumberOptionProps) => {
       sx={{ height: 32, flexGrow: 1 }}
       css={disc}
     >
-      <TextField
-        type="number"
-        variant="standard"
-        sx={{
-          bgcolor: theme.palette.local.paper,
-          px: 1,
-          borderRadius: 0.5,
-          width: 48,
-        }}
-        css={fontTypes(theme).disc}
-        value={value}
-        onChange={(e) => setValue(parseFloat(e.target.value))}
-        onFocus={(event) => {
-          event.target.select();
-        }}
-        InputProps={{ disableUnderline: true }}
-        inputProps={{
-          min: options[0],
-          max: options[options.length - 1],
-        }}
-      />
+      <NumberInput value={value} setValue={setValue} sx={{ width: 48 }} />
       {options.map((option, i) => (
         <Button
           key={i}
           onClick={() => setValue(InputRounded(option))}
+          css={fontTypes(theme).disc}
           sx={{
             bgcolor: theme.palette.com.main[200 + i * 100],
             ":focus": {

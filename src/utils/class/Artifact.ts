@@ -1,25 +1,28 @@
 import { ArtifactType, Scores } from "../types/Artifact";
-import { SubstatType } from "../types/Substat";
+import { SubstatType, SubstatWeight } from "../types/Substat";
 import { Substat } from "./Substat";
 
 export class Artifact {
   substats: SubstatType[];
   level: number;
   upgradeLeft: number = 0;
+  weight: SubstatWeight;
 
   constructor(
+    weight: SubstatWeight,
     props: ArtifactType = {
       substats: [
-        { key: "ERR", value: 0 },
-        { key: "ERR", value: 0 },
-        { key: "ERR", value: 0 },
-        { key: "ERR", value: 0 },
+        { key: "", value: 0 },
+        { key: "", value: 0 },
+        { key: "", value: 0 },
+        { key: "", value: 0 },
       ],
       level: 0,
     }
   ) {
     this.substats = props.substats;
     this.level = props.level;
+    this.weight = weight;
     this.upgradeLeftByLevel();
   }
 
@@ -37,14 +40,15 @@ export class Artifact {
   // CRIT DMG+13.2%
   // DEF+81
 
-  static fromString(str: string, level = 0) {
+  static fromString(weight: SubstatWeight, str: string, level = 0) {
     var strs = str.split("\n");
     strs = strs.filter((str) => str !== "");
     var ss1 = Substat.fromString(strs[0]);
     var ss2 = Substat.fromString(strs[1]);
     var ss3 = Substat.fromString(strs[2]);
-    var ss4 = strs.length >= 4 ? Substat.fromString(strs[3]) : new Substat();
-    return new Artifact({ substats: [ss1, ss2, ss3, ss4], level });
+    var ss4 =
+      strs.length >= 4 ? Substat.fromString(strs[3]) : new Substat(weight);
+    return new Artifact(weight, { substats: [ss1, ss2, ss3, ss4], level });
   }
 
   toJson() {
@@ -55,13 +59,13 @@ export class Artifact {
     return { level: this.level, substats: [...this.substats] };
   }
 
-  static fromJson(json: string) {
-    var artifact = Object.assign(new Artifact(), JSON.parse(json));
+  static fromJson(weight: SubstatWeight, json: string) {
+    var artifact = Object.assign(new Artifact(weight), JSON.parse(json));
     return artifact;
   }
 
   clone() {
-    return new Artifact(this.toValue());
+    return new Artifact(this.weight, this.toValue());
   }
 
   toString() {
@@ -81,7 +85,7 @@ export class Artifact {
   score() {
     return this.substats.reduce(
       (acum: number, current: SubstatType): number =>
-        acum + new Substat(current).score(),
+        acum + new Substat(this.weight, current).score(),
       0
     );
   }
@@ -92,7 +96,7 @@ export class Artifact {
     let substatFillConsume =
       4 -
       this.substats.reduce(
-        (acum, substat) => (substat.key !== "ERR" ? acum + 1 : acum),
+        (acum, substat) => (substat.key !== "" ? acum + 1 : acum),
         0
       );
     this.upgradeLeft = Math.max(
@@ -105,12 +109,14 @@ export class Artifact {
     var bestStatId = 0;
     this.substats.forEach((ss, i) => {
       if (
-        new Substat(ss).weight > new Substat(this.substats[bestStatId]).weight
+        new Substat(this.weight, ss).weight >
+        new Substat(this.weight, this.substats[bestStatId]).weight
       )
         bestStatId = i;
     });
     for (let i = 0; i < this.upgradeLeft; i++)
       this.substats[bestStatId] = new Substat(
+        this.weight,
         this.substats[bestStatId]
       ).upgrade(3);
     return this;
@@ -120,7 +126,7 @@ export class Artifact {
     var w = this.upgradeLeft / 4;
     if (this.upgradeLeft === 0) w = 0;
     this.substats = this.substats.map((substat) =>
-      new Substat(substat).upgradeAvgPartial(w)
+      new Substat(this.weight, substat).upgradeAvgPartial(w)
     );
     return this;
   }
@@ -129,12 +135,14 @@ export class Artifact {
     var worstStatId = 0;
     this.substats.forEach((ss, i) => {
       if (
-        new Substat(ss).weight < new Substat(this.substats[worstStatId]).weight
+        new Substat(this.weight, ss).weight <
+        new Substat(this.weight, this.substats[worstStatId]).weight
       )
         worstStatId = i;
     });
     for (let i = 0; i < this.upgradeLeft; i++)
       this.substats[worstStatId] = new Substat(
+        this.weight,
         this.substats[worstStatId]
       ).upgrade(3);
     return this;

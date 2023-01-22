@@ -66,7 +66,7 @@ export const str2stats = (str: string, lang: Language): str2statOut[] => {
 };
 
 export const str2stat = (str: string, lang: Language): str2statOut => {
-  if (str === "") return { key: "ERR", value: 0, confidence: 1 };
+  if (str === "") return { key: "", value: 0, confidence: 1 };
   let datas = str.split("+"); //plus could be lost
   if (datas.length === 1) {
     //console.log("+ error");
@@ -84,7 +84,7 @@ export const str2stat = (str: string, lang: Language): str2statOut => {
   let key_ = datas[0] + (str.includes("%") ? "%" : "");
   var value_ = str.includes("%") ? datas[1].split("%")[0] : datas[1]; //10% => 10
   let maxSim = 0;
-  let key: statKeyType = "ERR";
+  let key: statKeyType = "";
 
   const replaceList = [
     ["⓪", "0"],

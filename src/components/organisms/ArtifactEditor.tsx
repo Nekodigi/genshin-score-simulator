@@ -3,15 +3,11 @@
 import {
   Alert,
   Box,
-  Modal,
   Typography,
-  Button,
-  SxProps,
   useTheme,
   CircularProgress,
-  AlertColor,
 } from "@mui/material";
-import React, { useState, useMemo, useContext } from "react";
+import React, { useMemo, useContext } from "react";
 import { SubstatInput } from "../molecules/SubstatInput";
 import { Artifact } from "../../utils/class/Artifact";
 import { EditorContext } from "../../utils/contexts/EditorContext";
@@ -31,40 +27,16 @@ import { StyledModal } from "../molecules/StyledModal";
 import { Suspense, lazy } from "react";
 const AutoFillButton = lazy(() => import("../molecules/AutoFillButton"));
 
-const style: SxProps = {
-  position: "absolute" as "absolute",
-  outline: "none",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  maxWidth: 390,
-  width: "100vw",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 2,
-};
-
 const ArtifactEditor = () => {
-  const { artifacts, setArtifacts } = useContext(ArtifactsContext);
+  const { setArtifacts } = useContext(ArtifactsContext);
   const theme = useTheme();
   const { t } = useTranslation(["editor", "common"]);
-  let { editor } = useContext(EditorContext);
-  const [level, setLevel] = useState(0);
+  let { editor, weight } = useContext(EditorContext);
 
   const scores = useMemo(
-    () => new Artifact(editor.artifact).getScores(),
-    [editor.artifact]
+    () => new Artifact(weight, editor.artifact).getScores(),
+    [editor.artifact, weight]
   );
-
-  // const error = useMemo(() => {
-  //   let allSubstate = true;
-  //   editor.artifact.substats.forEach((ss) => {
-  //     if (ss.key === "ERR") allSubstate = false;
-  //   });
-  //   //if (!allSubstate) return "Accurate score prediction requires 4 sub-stats.";
-  //   //else return undefined;
-  //   return undefined;
-  // }, [editor.artifact]);
 
   const complete = () => {
     if (editor.target !== null) {
@@ -101,30 +73,34 @@ const ArtifactEditor = () => {
       </Typography>
       {/* TODO: useArtifact value */}
 
-      {[0, 1, 2, 3].map((index) => {
-        return (
-          <SubstatInput
-            value={editor.artifact.substats[index].value}
-            setValue={(value) =>
-              editor.setArtifact((prev) => {
-                prev.substats[index].value = value;
-                return { ...prev };
-              })
-            }
-            key={index}
-            key_={editor.artifact.substats[index].key}
-            setKey={(key) =>
-              editor.setArtifact((prev) => {
-                prev.substats[index].key = key;
-                return { ...prev };
-              })
-            }
-          />
-        );
-      })}
+      <Box>
+        {[0, 1, 2, 3].map((index) => {
+          return (
+            <SubstatInput
+              value={editor.artifact.substats[index].value}
+              setValue={(value) =>
+                editor.setArtifact((prev) => {
+                  prev.substats[index].value = value;
+                  return { ...prev };
+                })
+              }
+              key={index}
+              key_={editor.artifact.substats[index].key}
+              setKey={(key) =>
+                editor.setArtifact((prev) => {
+                  prev.substats[index].key = key;
+                  return { ...prev };
+                })
+              }
+            />
+          );
+        })}
+      </Box>
 
       {/* <Typography css={fontTypes(theme).subtitle}>Auto fill</Typography> */}
-      <Typography css={fontTypes(theme).subtitle}>{t("editor.autoFill")}</Typography>
+      <Typography css={fontTypes(theme).subtitle}>
+        {t("editor.autoFill")}
+      </Typography>
       <Suspense fallback={<CircularProgress />}>
         <AutoFillButton />
       </Suspense>

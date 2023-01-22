@@ -10,7 +10,9 @@
     "filtered": "厳選後"
   },
   "formula": {
-    "title": "計算式"
+    "title": "計算式",
+    "editorTitle": "計算式エディタ",
+    "weight": "重み"
   },
   "artifacts": {
     "title": "聖遺物",

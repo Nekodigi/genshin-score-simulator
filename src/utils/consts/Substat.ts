@@ -1,6 +1,7 @@
 import { statDef } from "./Stat";
 
 export const substatKey = [
+  "",
   "hp",
   "hp_",
   "atk",
@@ -11,8 +12,7 @@ export const substatKey = [
   "enerRech_",
   "critRate_",
   "critDMG_",
-  "ERR",
-  "",
+  // "ERR",
 ] as const;
 
 export type substatKeyType = (typeof substatKey)[number];

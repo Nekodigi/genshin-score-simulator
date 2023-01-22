@@ -25,6 +25,10 @@ export type EditorContextProps = {
     open: boolean;
     setOpen: (value: boolean) => void;
   };
+  formulaEditor: {
+    open: boolean;
+    setOpen: (value: boolean) => void;
+  };
 
   weight: SubstatWeight;
   setWeight: (value: SubstatWeight) => void;

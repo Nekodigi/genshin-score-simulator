@@ -1,7 +1,7 @@
 import { statDef } from "../consts/Stat";
 import { substatKey, substatKeyType } from "../consts/Substat";
 import { similarity } from "../func/string";
-import { SubstatType } from "../types/Substat";
+import { SubstatType, SubstatWeight } from "../types/Substat";
 
 type FourOption = 0 | 1 | 2 | 3;
 
@@ -11,20 +11,23 @@ export class Substat {
   weight: number;
   valueTable: number[];
 
-  constructor(props: SubstatType = { key: "ERR", value: 0 }) {
+  constructor(
+    weight: SubstatWeight,
+    props: SubstatType = { key: "", value: 0 }
+  ) {
     this.key = props.key;
     this.value = isNaN(props.value) ? 0 : props.value;
-    if (statDef[props.key] === undefined) {
+    if (props.key === "") {
       this.weight = 0;
       this.valueTable = [...statDef[""].table];
     } else {
-      this.weight = statDef[props.key].weight;
+      this.weight = weight[props.key];
       this.valueTable = [...statDef[props.key].table];
     }
   }
 
   static plain(): SubstatType {
-    return { key: "ERR", value: 0 };
+    return { key: "", value: 0 };
   }
 
   //possibly check lang by ascii
@@ -48,7 +51,7 @@ export class Substat {
 
     let key_ = datas[0] + (str.slice(-1) === "%" ? "%" : "");
     var value_ = datas[1].replace("%", ""); //10% => 10
-    let key = "ERR";
+    let key = "";
     if ("A" <= first && first <= "z") {
       console.log(str, "EN");
       key = substatKey.filter(

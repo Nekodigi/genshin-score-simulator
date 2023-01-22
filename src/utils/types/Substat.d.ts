@@ -1,4 +1,3 @@
-import { statKeyType } from "../consts/Stat";
 import { substatKeyType } from "../consts/Substat";
 
 export type SubstatType = {
@@ -17,4 +16,5 @@ export type SubstatWeight = {
   enerRech_: number;
   critRate_: number;
   critDMG_: number;
+  "": number;
 };

@@ -1,26 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
-import {
-  Box,
-  Card,
-  CardContent,
-  Divider,
-  Grid,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Card, Grid, Typography, useTheme } from "@mui/material";
 import { useContext, useMemo } from "react";
 import { Artifact } from "../../utils/class/Artifact";
-import { Substat } from "../../utils/class/Substat";
-import { ArtifactsContext } from "../../utils/contexts/ArtifactsContext";
 import { EditorContext } from "../../utils/contexts/EditorContext";
 import { fontTypes } from "../../utils/styles/fonts";
 import { toSortKeyScore } from "../../utils/func/Sort";
-import { TwoCellText } from "../molecules/TwoCellText";
-import { StatIcon, StatValue2Str } from "../atoms/StatIcon";
+import { StatIcon } from "../atoms/StatIcon";
 import { ArtifactType } from "../../utils/types/Artifact";
-import artifactsDB from "../../utils/consts/genshindb-partial.json";
-import { useTranslation } from "react-i18next";
 import { mainstatValueTable } from "../../utils/consts/Mainstat";
 
 type ArtifactCardProps = {
@@ -31,11 +18,12 @@ type ArtifactCardProps = {
 const ArtifactCard = (props: ArtifactCardProps) => {
   const { targetId, artifact } = props;
   const theme = useTheme();
-  const { artifacts } = useContext(ArtifactsContext);
-  const { editor, sort } = useContext(EditorContext);
-  const { t, i18n } = useTranslation("artifact");
+  const { editor, sort, weight } = useContext(EditorContext);
 
-  const scores = useMemo(() => new Artifact(artifact).getScores(), [artifact]);
+  const scores = useMemo(
+    () => new Artifact(weight, artifact).getScores(),
+    [weight, artifact]
+  );
 
   return (
     // minWidth: 304, flexGrow: 1, height: 240
@@ -56,6 +44,7 @@ const ArtifactCard = (props: ArtifactCardProps) => {
             <img
               style={{ position: "absolute", top: -16, right: "0", width: 192 }}
               src={`Artifacts/${artifact.setKey}/${artifact.slotKey}.png`}
+              alt={"artifact preview"}
             />
           ) : undefined}
           <Typography
@@ -118,7 +107,7 @@ const ArtifactCard = (props: ArtifactCardProps) => {
           sx={{ background: theme.palette.local.paper, p: 1 }}
         >
           {artifact.substats.map((substat, i) =>
-            substat.key !== "ERR" ? (
+            substat.key !== "" ? (
               <StatIcon
                 key={i}
                 statKey={substat.key}
@@ -127,7 +116,7 @@ const ArtifactCard = (props: ArtifactCardProps) => {
                 full
               />
             ) : (
-              <Box height={20} />
+              <Box key={i} height={20} />
             )
           )}
         </Box>

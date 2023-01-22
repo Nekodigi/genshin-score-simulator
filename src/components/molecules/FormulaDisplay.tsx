@@ -11,7 +11,7 @@ import { substatKey } from "../../utils/consts/Substat";
 export const FormulaDisplay = () => {
   const theme = useTheme();
   const { t } = useTranslation(["artifact", "editor"]);
-  const { weight } = useContext(EditorContext);
+  const { weight, formulaEditor } = useContext(EditorContext);
 
   const scoreFormula = useMemo(() => {
     let firstTime = true;
@@ -35,9 +35,10 @@ export const FormulaDisplay = () => {
       alignItems="center"
       px={1}
       py={0.75}
-      sx={{ background: theme.palette.local.paper }}
+      sx={{ background: theme.palette.local.paper, cursor: "pointer" }}
       gap={1}
       borderRadius={1}
+      onClick={() => formulaEditor.setOpen(true)}
     >
       <Typography css={fontTypes(theme).disc}>
         {`${t("editor:artifact.score")} = `}

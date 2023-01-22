@@ -1,3 +1,4 @@
+import { SubstatWeight } from "../types/Substat";
 import { Artifact } from "./Artifact";
 
 //TABLE
@@ -17,11 +18,25 @@ import { Artifact } from "./Artifact";
 //
 
 test("Artifact from string test", () => {
+  let weight = {
+    hp: 0,
+    atk: 0,
+    def: 0,
+    hp_: 0,
+    atk_: 1,
+    def_: 0,
+    eleMas: 0,
+    enerRech_: 0,
+    critRate_: 2,
+    critDMG_: 1,
+  } as SubstatWeight;
+
   const artifactEn = Artifact.fromString(
+    weight,
     "ATK+5.3%\nHP+11.1%\nCRIT DMG+13.2%\nDEF+81"
   );
   expect(artifactEn).toEqual(
-    new Artifact({
+    new Artifact(weight, {
       level: 0,
       substats: [
         { key: "atk_", value: 5.3 },
@@ -33,12 +48,12 @@ test("Artifact from string test", () => {
   );
 
   //give lang as arg??
-  const artifactJp = Artifact.fromString(
+  const artifactJp = Artifact.fromString(weight, 
     // "攻 撃 カ +④①\n攻 撃 カ +④.①%\n会 心 ダ メ ー ジ +①⑦.⑨%\n会 心 率 +③.⑤%"
     "攻 撃 カ ③.④%\n会 ダ メ ー ジ ④.⑧%\n防 御 カ +②③\n会 率 +①0.⑤%\n"
   );
   expect(artifactJp).toEqual(
-    new Artifact({
+    new Artifact(weight, {
       level: 0,
       substats: [
         { key: "atk_", value: 3.4 },

@@ -1,4 +1,5 @@
 export const setKey = [
+  "",
   "Adventurer", //Adventurer
   "ArchaicPetra", //Archaic Petra
   "Berserker", //Berserker
@@ -43,7 +44,7 @@ export const setKey = [
   "ViridescentVenerer", //Viridescent Venerer
   "WanderersTroupe",
 ] as const;
-export type setKeyType = typeof setKey[number];
+export type setKeyType = (typeof setKey)[number];
 
 export const slotKey = [
   "flower",
@@ -52,7 +53,7 @@ export const slotKey = [
   "goblet",
   "circlet",
 ] as const;
-export type slotKeyType = typeof slotKey[number];
+export type slotKeyType = (typeof slotKey)[number];
 
 //Wanderer's Troupe
 //   Adventurer: { name: { en: "Adventurer", ja: "" } },

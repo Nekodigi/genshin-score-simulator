@@ -1,4 +1,7 @@
 {
+  "mainstat": "Mainstat",
+  "substat": "Substat",
+  "set": "Artifact Set",
   "substatusAbbr": {
     "hp": "HP",
     "atk": "ATK",
@@ -19,7 +22,7 @@
     "pyro_dmg_": "Pyro DMG Bonus%",
     "cryo_dmg_": "Cryo DMG Bonus%",
     "dendro_dmg_": "Dendro DMG Bonus%",
-    "ERR": "Substat"
+    "": "No Status"
   },
   "substatusFull": {
     "hp": "HP",
@@ -41,6 +44,6 @@
     "pyro_dmg_": "Pyro DMG Bonus%",
     "cryo_dmg_": "Cryo DMG Bonus%",
     "dendro_dmg_": "Dendro DMG Bonus%",
-    "ERR": "Substat"
+    "": "All Status"
   }
 }
