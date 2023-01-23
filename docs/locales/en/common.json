@@ -8,12 +8,13 @@
     "add": "Add",
     "clear": "Clear",
     "delete": "Delete",
-    "save": "Save"
+    "save": "Save",
+    "ok": "OK"
   },
   "sidebar": {
     "artifact": "Artifact",
     "guide": "Guide",
-    "import": "Import",
+    "database": "Database",
     "darkMode": "Dark Mode",
     "proMode": "Pro Mode",
     "language": "Language"

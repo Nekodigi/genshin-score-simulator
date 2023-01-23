@@ -52,7 +52,11 @@ const ArtifactEditor = () => {
   };
 
   return (
-    <StyledModal open={editor.open} onClose={() => editor.change(false)}>
+    <StyledModal
+      open={editor.open}
+      onClose={() => editor.change(false)}
+      keepMounted
+    >
       <Typography css={fontTypes(theme).title}>{t("editor.title")}</Typography>
       <Typography css={fontTypes(theme).subtitle}>
         {t("editor.level")}

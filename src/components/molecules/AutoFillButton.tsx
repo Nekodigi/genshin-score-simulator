@@ -1,5 +1,5 @@
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
-import { Box, LinearProgress, useTheme } from "@mui/material";
+import { Box, CircularProgress, LinearProgress, useTheme } from "@mui/material";
 import cv, { Mat } from "@techstark/opencv-js";
 import { useContext, useEffect, useCallback } from "react";
 import Tesseract, { createWorker } from "tesseract.js";
@@ -114,14 +114,18 @@ const AutoFillButton = () => {
 
   return (
     <Box display="flex" flexDirection="column" gap={1}>
-      <IconTextButton
-        text={t("editor.uploadScreenShot")!}
-        icon={faCamera}
-        color={theme.palette.info.dark}
-      >
-        <input onChange={uploadImage} type="file" accept="image/*" hidden />
-        <canvas ref={dummyImgRef} style={{ display: "none" }} />
-      </IconTextButton>
+      {worker !== undefined && templateImgs !== undefined ? (
+        <IconTextButton
+          text={t("editor.uploadScreenShot")!}
+          icon={faCamera}
+          color={theme.palette.info.dark}
+        >
+          <input onChange={uploadImage} type="file" accept="image/*" hidden />
+          <canvas ref={dummyImgRef} style={{ display: "none" }} />
+        </IconTextButton>
+      ) : (
+        <CircularProgress />
+      )}
       {/* <img
         style={{ padding: 16, maxHeight: 256, objectFit: "contain" }}
         src={imgSrc}

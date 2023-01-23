@@ -36,7 +36,7 @@ export const SetInput = (props: SetInputProps) => {
     <FormControl variant="standard" sx={sx}>
       <InputLabel
         id={`stat-input${r}-label`}
-        css={fontTypes(theme).disc}
+        css={[fontTypes(theme).disc, { color: theme.palette.com.white }]}
         sx={{ pl: 1.5, pt: 0.5, zIndex: 1, pointerEvents: "none" }}
       >
         {t("set")}

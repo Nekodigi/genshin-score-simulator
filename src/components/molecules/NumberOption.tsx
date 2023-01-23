@@ -71,7 +71,7 @@ export const NumberOption = (props: NumberOptionProps) => {
         <Button
           key={i}
           onClick={() => setValue(InputRounded(option))}
-          css={fontTypes(theme).disc}
+          css={(fontTypes(theme).disc, { color: theme.palette.com.white })}
           sx={{
             bgcolor: theme.palette.com.main[200 + i * 100],
             ":focus": {

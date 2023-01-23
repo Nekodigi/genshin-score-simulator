@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, SxProps, Typography, useTheme } from "@mui/material";
 import { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { statDef, statKeyType } from "../../utils/consts/Stat";
@@ -9,6 +9,7 @@ import FontAwesomeSvgIcon from "./FontAwesomeSvgIcon";
 
 type StatIconProps = {
   statKey: statKeyType;
+  sx?: SxProps;
   value?: number;
   size?: number;
   full?: boolean;
@@ -37,17 +38,23 @@ export const StatValue2Str = (
 };
 
 export const StatIcon = (props: StatIconProps) => {
-  const { statKey, value, size, full } = props;
+  const { statKey, sx, value, size, full } = props;
   const theme = useTheme();
   const { t } = useTranslation("artifact");
   const text = StatValue2Str(t, statKey, value, full);
 
   return (
-    <Box display="flex" alignItems="center" gap={1} fontSize={size ? size : 14}>
+    <Box
+      display="flex"
+      alignItems="center"
+      gap={1}
+      sx={sx}
+      fontSize={size ? size : 14}
+    >
       {statDef[statKey].icon !== undefined ? (
         <FontAwesomeSvgIcon
           icon={statDef[statKey].icon}
-          sx={{ fontSize: "inherit" }}
+          style={{ fontSize: "inherit" }}
         />
       ) : null}
       <Typography

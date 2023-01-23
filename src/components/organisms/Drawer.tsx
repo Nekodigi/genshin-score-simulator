@@ -18,7 +18,7 @@ import { EditorContext } from "../../utils/contexts/EditorContext";
 import { fontTypes } from "../../utils/styles/fonts";
 import { ArtifactSim } from "../atoms/ArtifactSim";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileImport } from "@fortawesome/free-solid-svg-icons";
+import { faDatabase, faFileImport } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContext } from "../../utils/contexts/ThemeContext";
 import { darkTheme } from "../../themes/dark";
 import { lightTheme } from "../../themes/light";
@@ -74,8 +74,8 @@ export const PageDrawer = () => {
             icon={<FontAwesomeIcon icon={faBook} fontSize={24} />}
           /> */}
           <TextIconButton
-            text={t("sidebar.import")}
-            icon={<FontAwesomeIcon icon={faFileImport} fontSize={24} />}
+            text={t("sidebar.database")}
+            icon={<FontAwesomeIcon icon={faDatabase} fontSize={24} />}
             onClick={() => importer.setOpen(true)}
           />
         </Box>

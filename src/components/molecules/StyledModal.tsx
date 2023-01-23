@@ -6,12 +6,18 @@ type StyledModalProps = {
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  keepMounted?: boolean;
 };
-export const StyledModal = ({ open, onClose, children }: StyledModalProps) => {
+export const StyledModal = ({
+  open,
+  onClose,
+  children,
+  keepMounted,
+}: StyledModalProps) => {
   const theme = useTheme();
 
   return (
-    <Modal keepMounted open={open} onClose={onClose}>
+    <Modal keepMounted={keepMounted} open={open} onClose={onClose}>
       <Box
         sx={style}
         display="flex"

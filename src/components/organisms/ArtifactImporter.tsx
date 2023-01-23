@@ -17,16 +17,21 @@ import { StyledModal } from "../molecules/StyledModal";
 import { useState } from "react";
 import { useTransition } from "react";
 import { useTranslation } from "react-i18next";
+import { downloadJson } from "../../utils/func/download";
+import { artifacts } from "genshin-db";
+import { ConfirmDialog } from "../molecules/ConfirmDialog";
 
 export const ArtifactImporter = () => {
   const { importer } = useContext(EditorContext);
-  const { setArtifacts } = useContext(ArtifactsContext);
+  const { artifacts, setArtifacts } = useContext(ArtifactsContext);
   const theme = useTheme();
   const [info, setInfo] = useState<Info | undefined>();
   const { t } = useTranslation(["editor", "common"]);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const addFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === null) return;
+    setInfo({ sevarity: "info", text: t("common:info.loadStart") });
     try {
       let obj = JSON.parse(await e.target.files[0].text()) as any;
 
@@ -56,11 +61,13 @@ export const ArtifactImporter = () => {
   return (
     <StyledModal open={importer.open} onClose={() => importer.setOpen(false)}>
       <Typography css={fontTypes(theme).title}>
-        {t("importer.title")}
+        {t("database.title")}
       </Typography>
-      <Typography css={fontTypes(theme).body}>{t("importer.disc")}</Typography>
+      <Typography css={fontTypes(theme).body}>
+        {t("database.import.disc")}
+      </Typography>
       <IconTextButton
-        text={t("importer.importArtifacts")!}
+        text={t("database.import.importArtifacts")!}
         icon={faAdd}
         color={theme.palette.success.dark}
       >
@@ -76,21 +83,42 @@ export const ArtifactImporter = () => {
           {info.text}
         </Alert>
       ) : undefined}
-      <Typography css={fontTypes(theme).body}>
-        現在の聖遺物を.jsonファイルとして書き出します。デバイス間のデータ移行や、データのバックアップに使用できます。
+      <Typography css={fontTypes(theme).body} mt={2}>
+        {t("database.export.disc")}
       </Typography>
       <IconTextButton
-        text={"聖遺物を全て書き出す"}
+        text={t("database.export.exportArtifacts")!}
         icon={faFileExport}
         color={theme.palette.info.dark}
+        onClick={() =>
+          downloadJson(
+            {
+              artifacts: artifacts,
+              format: "GOOD",
+              version: 1,
+              source: "ArtifactSim",
+            },
+            "Artifact Sim.json"
+          )
+        }
       />
-      <Typography css={fontTypes(theme).body}>
-        現在の聖遺物を全て削除します。別のデータで聖遺物を置き換える、聖遺物を一から登録し直す場合に便利です。
+      <Typography css={fontTypes(theme).body} mt={2}>
+        {t("database.delete.disc")}
       </Typography>
       <IconTextButton
-        text={"聖遺物を全て削除"}
+        text={t("database.delete.deleteArtifacts")!}
         icon={faTrash}
         color={theme.palette.error.dark}
+        onClick={() => setConfirmOpen(true)}
+      />
+      <ConfirmDialog
+        open={confirmOpen}
+        setOpen={setConfirmOpen}
+        title={"本当に削除しますか？"}
+        disc={
+          "削除したデータは復元できないため、先に書き出してバックアップを取ることを推奨します。"
+        }
+        onOK={() => setArtifacts({ type: "CLEAR" })}
       />
     </StyledModal>
   );

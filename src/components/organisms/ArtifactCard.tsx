@@ -94,6 +94,7 @@ const ArtifactCard = (props: ArtifactCardProps) => {
                 ]
               }
               size={16}
+              sx={{ color: theme.palette.com.white }}
               full
             />
           ) : undefined}

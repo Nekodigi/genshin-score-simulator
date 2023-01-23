@@ -20,9 +20,11 @@ import { css, jsx } from "@emotion/react";
 import TextField from "@mui/material/TextField";
 import CssBaseline from "@mui/material/CssBaseline/CssBaseline";
 import { fontFamilies, fontSizes } from "../../utils/styles/fonts";
+import { useTranslation } from "react-i18next";
 
 export const Footer = () => {
   const theme = useTheme();
+  const { t } = useTranslation("home");
   return (
     <div>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -72,10 +74,10 @@ export const Footer = () => {
               <IconButton href="https://github.com/Nekodigi">
                 <FaGithub color="text.primary" />
               </IconButton>
-              <IconButton href="https://www.youtube.com/c/Nekodigi">
+              <IconButton href={t("socialMedia.links.youtube")}>
                 <FaYoutube color="text.primary" />
               </IconButton>
-              <IconButton href="https://nekodigi.hatenablog.com/archive">
+              <IconButton href={t("socialMedia.links.blog")}>
                 <MdArticle color="text.primary" />
               </IconButton>
               <IconButton href="https://play.google.com/store/apps/dev?id=8989861170574890555">

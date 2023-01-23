@@ -77,7 +77,11 @@ export const SlotOption = (props: SlotOptionProps) => {
             px: 0,
           }}
         >
-          <FontAwesomeSvgIcon icon={slotDef[option].icon} fontSize="small" />
+          <FontAwesomeSvgIcon
+            icon={slotDef[option].icon}
+            fontSize="small"
+            style={{ color: theme.palette.com.white }}
+          />
         </ToggleButton>
       ))}
     </ToggleButtonGroup>

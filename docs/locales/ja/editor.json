@@ -27,10 +27,20 @@
     "uploadScreenShot": "持ち物画面をアップロード",
     "estimScore": "スコア予測 (+20)"
   },
-  "importer": {
-    "title": "聖遺物インポート",
-    "disc": "Genshin Optimizer、Adepti Scanner等のツールから聖遺物をまとめて追加する事ができます。.jsonファイルをアップロードしてください。",
-    "importArtifacts": "聖遺物をまとめて追加"
+  "database": {
+    "title": "聖遺物データベース",
+    "import": {
+      "disc": "Genshin Optimizer、Adepti Scanner等のツールから聖遺物をまとめて追加する事ができます。.jsonファイルをアップロードしてください。",
+      "importArtifacts": "聖遺物インポート"
+    },
+    "export": {
+      "disc": "現在の聖遺物を.jsonファイルとして書き出します。デバイス間のデータ移行や、データのバックアップに便利です。",
+      "exportArtifacts": "聖遺物エクスポート"
+    },
+    "delete": {
+      "disc": "現在の聖遺物を全て削除します。別のデータで聖遺物を置き換える、聖遺物を一から登録し直す場合に使用できます。",
+      "deleteArtifacts": "聖遺物を全て削除"
+    }
   },
   "filters": {
     "minScore": "最低スコア",

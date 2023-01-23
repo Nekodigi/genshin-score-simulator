@@ -4,7 +4,7 @@ import { Filter } from "../types/Filter";
 import { Sort } from "../types/Sort";
 import { SubstatWeight } from "../types/Substat";
 
-type ArtifactsActionType = "ADD" | "DELETE" | "UPDATE" | "SORT";
+type ArtifactsActionType = "ADD" | "DELETE" | "UPDATE" | "SORT" | "CLEAR";
 
 type ArtifactsAction = {
   type: ArtifactsActionType;
@@ -95,6 +95,9 @@ export const ArtifactsReducer = (
 
         break;
       } else throw new Error("DELETE : id missing");
+    case "CLEAR":
+      state = [];
+      break;
     case "SORT":
       break;
     default:

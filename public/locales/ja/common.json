@@ -8,12 +8,13 @@
     "add": "追加",
     "clear": "クリア",
     "delete": "削除",
-    "save": "保存"
+    "save": "保存",
+    "ok": "はい"
   },
   "sidebar": {
     "artifact": "聖遺物",
     "guide": "ガイド",
-    "import": "インポート",
+    "database": "データベース",
     "darkMode": "ダークモード",
     "proMode": "Proモード",
     "language": "言語"

@@ -51,7 +51,7 @@ export const SortInput = () => {
               sort.key = e.target.value as SortKey;
               setSort({ ...sort });
             }}
-            css={disc}
+            css={[disc, { color: theme.palette.com.white }]}
             sx={{
               width: 112,
               height: "100%",
