@@ -16,7 +16,7 @@ export type ArtifactScanOut = {
   rarity: ScanResNum;
   level: ScanResNum;
   slotKey: ScanResSlotKey;
-  mainstatKey: ScanResStatKey;
+  mainStatKey: ScanResStatKey;
   substats: ScanResStat[];
   warning: string[];
   error: string[];
@@ -33,17 +33,17 @@ export type ArtifactScanStrOut = {
   substat: ScanRes;
 };
 
-export const ScanRes2GOOD = (scanned: ArtifactScanOut) => {
+export const ScanRes2GOOD = (scanned: ArtifactScanOut): ArtifactType => {
   return {
     setKey: scanned.setKey.key,
-    rarity: scanned.rarity.value,
+    rarity: scanned.rarity.value as 1 | 2 | 3 | 4 | 5,
     level: scanned.level.value,
     slotKey: scanned.slotKey.value,
-    mainstatKey: scanned.mainstatKey.key,
+    mainStatKey: scanned.mainStatKey.key,
     substats: scanned.substats.map((substat) => {
       return { key: substat.key, value: substat.value } as SubstatType;
     }),
-  } as ArtifactType;
+  };
 };
 
 export const ArtifactScan = async (
@@ -98,7 +98,7 @@ export const ArtifactScan = async (
     strs.mainKey.value + "+" + strs.mainValue.value,
     lang
   );
-  res.mainstatKey = { key: mainstat.key, confidence: mainstat.confidence };
+  res.mainStatKey = { key: mainstat.key, confidence: mainstat.confidence };
   if (mainstat.confidence < 0.6)
     mainstat.confidence > 0.3
       ? warning.push("mainstat")
