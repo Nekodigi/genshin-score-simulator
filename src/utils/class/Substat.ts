@@ -36,13 +36,13 @@ export class Substat {
   static fromString(str: string): SubstatType {
     let datas = str.split("+"); //plus could be lost
     if (datas.length === 1) {
-      console.log("+ error");
+      //console.log("+ error");
       //could be plus detection ERROR
       for (let i = 0; i < datas[0].length; i++) {
         if ("⓪①②③④⑤⑥⑦⑧⑨0123456789".includes(datas[0][i])) {
           datas[1] = datas[0].substring(i);
           datas[0] = datas[0].substring(0, i);
-          console.log(`split at ${i} ${datas[0]} ${datas[1]}`);
+          //console.log(`split at ${i} ${datas[0]} ${datas[1]}`);
           break;
         }
       }
@@ -53,12 +53,12 @@ export class Substat {
     var value_ = datas[1].replace("%", ""); //10% => 10
     let key = "";
     if ("A" <= first && first <= "z") {
-      console.log(str, "EN");
+      //console.log(str, "EN");
       key = substatKey.filter(
         (substatKey) => statDef[substatKey].name.en === key_
       )[0];
     } else {
-      console.log(str, "JP");
+      //console.log(str, "JP");
       const replaceList = [
         ["⓪", "0"],
         ["①", "1"],
@@ -85,7 +85,7 @@ export class Substat {
     }
     let value = Number(value_);
 
-    console.log(key_, value_, value, key);
+    //console.log(key_, value_, value, key);
 
     // var ext =
     //   datas[0].split(" ").length === 2

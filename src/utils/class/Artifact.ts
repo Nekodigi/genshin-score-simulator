@@ -108,12 +108,12 @@ export class Artifact {
   upgradeMax() {
     var bestStatId = 0;
     this.substats.forEach((ss, i) => {
-      if (
-        new Substat(this.weight, ss).weight >
-        new Substat(this.weight, this.substats[bestStatId]).weight
-      )
+      const s1 = new Substat(this.weight, ss);
+      const s2 = new Substat(this.weight, this.substats[bestStatId]);
+      if (s1.valueTable[3] * s1.weight > s2.valueTable[3] * s2.weight)
         bestStatId = i;
     });
+    console.log(this.upgradeLeft, bestStatId);
     for (let i = 0; i < this.upgradeLeft; i++)
       this.substats[bestStatId] = new Substat(
         this.weight,
@@ -134,17 +134,16 @@ export class Artifact {
   upgradeMin() {
     var worstStatId = 0;
     this.substats.forEach((ss, i) => {
-      if (
-        new Substat(this.weight, ss).weight <
-        new Substat(this.weight, this.substats[worstStatId]).weight
-      )
+      const s1 = new Substat(this.weight, ss);
+      const s2 = new Substat(this.weight, this.substats[worstStatId]);
+      if (s1.valueTable[0] * s1.weight < s2.valueTable[0] * s2.weight)
         worstStatId = i;
     });
     for (let i = 0; i < this.upgradeLeft; i++)
       this.substats[worstStatId] = new Substat(
         this.weight,
         this.substats[worstStatId]
-      ).upgrade(3);
+      ).upgrade(0);
     return this;
   }
 

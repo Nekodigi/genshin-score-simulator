@@ -48,7 +48,8 @@ test("Artifact from string test", () => {
   );
 
   //give lang as arg??
-  const artifactJp = Artifact.fromString(weight, 
+  const artifactJp = Artifact.fromString(
+    weight,
     // "攻 撃 カ +④①\n攻 撃 カ +④.①%\n会 心 ダ メ ー ジ +①⑦.⑨%\n会 心 率 +③.⑤%"
     "攻 撃 カ ③.④%\n会 ダ メ ー ジ ④.⑧%\n防 御 カ +②③\n会 率 +①0.⑤%\n"
   );
@@ -63,6 +64,28 @@ test("Artifact from string test", () => {
       ],
     })
   );
+
+  const critRate = new Artifact(weight, {
+    level: 0,
+    substats: [
+      { key: "atk", value: 14 },
+      { key: "atk_", value: 4.7 },
+      { key: "critRate_", value: 3.9 },
+      { key: "", value: 0 },
+    ],
+  });
+  expect(Math.round(critRate.getScores().maxScore * 10) / 10).toBe(43.6);
+
+  const critDMG = new Artifact(weight, {
+    level: 0,
+    substats: [
+      { key: "atk", value: 14 },
+      { key: "atk_", value: 4.7 },
+      { key: "critDMG_", value: 7.8 },
+      { key: "", value: 0 },
+    ],
+  });
+  expect(Math.round(critDMG.getScores().maxScore * 10) / 10).toBe(43.6);
   //   攻 撃 カ +①③.④%
   // 会 ダ メ ー ジ +①④.⑧%
   // 防 御 カ +②③
