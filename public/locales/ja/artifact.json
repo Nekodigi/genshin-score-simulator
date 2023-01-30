@@ -1,6 +1,7 @@
 {
   "mainstat": "メインステータス",
   "substat": "サブステータス",
+  "substatAbbr": "サブステ",
   "set": "聖遺物セット",
   "substatusAbbr": {
     "hp": "HP",

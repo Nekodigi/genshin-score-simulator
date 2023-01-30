@@ -113,7 +113,7 @@ export class Artifact {
       if (s1.valueTable[3] * s1.weight > s2.valueTable[3] * s2.weight)
         bestStatId = i;
     });
-    console.log(this.upgradeLeft, bestStatId);
+    //console.log(this.upgradeLeft, bestStatId);
     for (let i = 0; i < this.upgradeLeft; i++)
       this.substats[bestStatId] = new Substat(
         this.weight,

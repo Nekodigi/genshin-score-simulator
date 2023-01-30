@@ -44,6 +44,7 @@ function App() {
   const [filter, setFilter] = useState({
     level: [0, 20],
     score: [0, 61],
+    substat: [1, 4],
     slot: ["flower", "plume", "sands", "goblet", "circlet"],
     set: "",
     mainstat: "",

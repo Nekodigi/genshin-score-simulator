@@ -19,6 +19,10 @@ export const ArtifactFilter = (
   sort: Sort
 ) => {
   let score = new Artifact(weight, artifact).getScores()[sort.key];
+  const ssCount = artifact.substats.reduce(
+    (acum, ss) => (ss.key !== "" ? acum + 1 : acum),
+    0
+  );
   if (score === undefined)
     score = new Artifact(weight, artifact).getScores().avgScore;
   let ok = true;
@@ -29,7 +33,8 @@ export const ArtifactFilter = (
   ok =
     ok &&
     filter.score[0] <= score &&
-    (filter.score[1] === 61 ? true : score < filter.score[1]);
+    (filter.score[1] === 61 ? true : score <= filter.score[1]);
+  ok = ok && filter.substat[0] <= ssCount && ssCount <= filter.substat[1];
   if (filter.set !== "") ok = ok && filter.set === artifact.setKey;
   if (filter.mainstat !== "")
     ok = ok && filter.mainstat === artifact.mainStatKey;

@@ -69,6 +69,7 @@ const Editor = () => {
                 setFilter({
                   level: [0, 20],
                   score: [0, 61],
+                  substat: [1, 4],
                   slot: ["flower", "plume", "sands", "goblet", "circlet"],
                   set: "",
                   mainstat: "",
@@ -95,6 +96,16 @@ const Editor = () => {
           value={filter.score} //target automatically change based on sort
           setValue={(value) => {
             filter.score = value;
+            setFilter({ ...filter });
+          }}
+        />
+        <RangeInput
+          name={t(`artifact:substat`)}
+          min={1}
+          max={4}
+          value={filter.substat} //target automatically change based on sort
+          setValue={(value) => {
+            filter.substat = value;
             setFilter({ ...filter });
           }}
         />

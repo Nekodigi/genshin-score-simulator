@@ -3,12 +3,6 @@
 import { faArrowUpWideShort } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  Button,
-  ButtonGroup,
-  FormControl,
-  MenuItem,
-  Select,
-  TextField,
   ToggleButton,
   ToggleButtonGroup,
   useTheme,
@@ -29,6 +23,7 @@ type SlotOptionProps = {
 //Display value will be rounded!
 //x < 10 digit 1 after decimal point
 //x > 10 integer
+
 
 export const SlotOption = (props: SlotOptionProps) => {
   const { slot, setSlot } = props;
