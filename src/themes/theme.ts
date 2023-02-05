@@ -62,7 +62,7 @@ export const themeCommon = {
   gray400: "#BDBDBD",
   gray500Op50: "rgba(158, 158, 158, 0.5);",
   artifactBg: "linear-gradient(117.46deg, #6D5654 0.71%, #E3AA54 101.54%);",
-  dawn: "linear-gradient(160.54deg, rgba(204, 32, 142, 0.4) 9.46%, rgba(103, 19, 210, 0.4) 91.43%), #434343;",
+  dawn: " linear-gradient(156.05deg, #FF0000 -55.32%, #FFB199 111.96%);",
   main: {
     A100: indigo["A100"],
     A200: indigo["A200"],

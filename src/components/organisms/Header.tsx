@@ -4,7 +4,8 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AppBar, Container, IconButton, useTheme } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ArtifactsContext } from "../../utils/contexts/ArtifactsContext";
 import { EditorContext } from "../../utils/contexts/EditorContext";
 import { fontTypes } from "../../utils/styles/fonts";
@@ -15,27 +16,18 @@ const Header = () => {
   const { drawer } = useContext(EditorContext);
 
   const theme = useTheme();
+  const { t, i18n } = useTranslation("common");
 
   const [checked, setChecked] = useState(
     localStorage.getItem("theme") === "true"
   );
 
+  useEffect(() => {
+    document.title = t("header.title");
+  }, [i18n.language]);
+
   return (
     <div>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin=""
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
-        <script async src="opencv.js" type="text/javascript"></script>
-      </head>
-
       <AppBar sx={{ background: theme.palette.local.white }}>
         <Container style={{ paddingLeft: 0, paddingRight: 0 }}>
           <Toolbar>

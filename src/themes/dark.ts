@@ -18,7 +18,8 @@ const darkTheme = createTheme({
       white: "#212121",
       black: black,
       gray: gray,
-      nekodigi: "linear-gradient(156.05deg, #FF0000 -55.32%, #FFB199 111.96%)",
+      nekodigi:
+        " linear-gradient(156.05deg, #FF0000 -55.32%, #FFB199 111.96%);",
     },
     text: {
       primary: black,

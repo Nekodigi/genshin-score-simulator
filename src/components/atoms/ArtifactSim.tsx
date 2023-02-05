@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { fontFamilies, fontSizes } from "../../utils/styles/fonts";
@@ -10,20 +10,20 @@ export const ArtifactSim = () => {
   const { t } = useTranslation();
 
   return (
-    <Typography
-      css={[fontFamilies.Jp, fontSizes.px24]}
-      component="div"
-      flexGrow={1}
-      sx={{
-        fontWeight: 700,
-        background: theme.palette.local.nekodigi,
-        backgroundClip: "text",
-        WebkitTextFillColor: "transparent",
-      }}
-    >
-      <Link to="/" style={{ textDecoration: "none" }}>
-        {t("header.title")}
-      </Link>
-    </Typography>
+    <Box display="flex" alignItems="flex-start" flexGrow={1}>
+      <Typography
+        css={[fontFamilies.Jp, fontSizes.px24]}
+        sx={{
+          fontWeight: 700,
+          background: theme.palette.local.nekodigi,
+          backgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+      >
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+          {t("header.title")}
+        </Link>
+      </Typography>
+    </Box>
   );
 };
