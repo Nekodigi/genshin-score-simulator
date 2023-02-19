@@ -8,7 +8,7 @@ ArtifactSim is a tool for Genshin Impact that helps players to get best artifact
 - JP/EN Light/Dark mode
 - Powerful sort and filter
 ## How to use
-### [Artifact Sim](https://artifact.nekodigi.com/)  
+# [Artifact Sim](https://artifact.nekodigi.com/)  
 [Tutorial for Japanese](https://nekodigi.hatenablog.com/entry/2023/02/05/%E3%80%90%E5%8E%9F%E7%A5%9E%E3%80%91%E6%9C%80%E5%B0%8F%E3%81%AE%E3%83%A2%E3%83%A9%E3%81%A7%E3%80%81%E6%9C%80%E9%AB%98%E3%81%AE%E8%81%96%E9%81%BA%E7%89%A9%E3%82%92%EF%BC%81%E6%96%B0%E3%81%97%E3%81%8F)
 ### Step1 : Preparation for Screenshots
 
@@ -58,7 +58,7 @@ You can bulk delete or migrate data from the database.
 
 # Use it for free.
 Anyone can use "Artifact Sim" for free! You can easily try it on the web, so please use it.  
-[Artifact Sim](https://artifact.nekodigi.com/)
+# [Artifact Sim](https://artifact.nekodigi.com/)
 
 # For Developer
 For this development, I referred to Genshin Optimizer by Frzyc.  
