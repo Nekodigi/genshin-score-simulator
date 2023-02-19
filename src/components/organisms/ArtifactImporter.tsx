@@ -114,10 +114,8 @@ export const ArtifactImporter = () => {
       <ConfirmDialog
         open={confirmOpen}
         setOpen={setConfirmOpen}
-        title={"本当に削除しますか？"}
-        disc={
-          "削除したデータは復元できないため、先に書き出してバックアップを取ることを推奨します。"
-        }
+        title={t("database.delete.confirmTitle")}
+        disc={t("database.delete.confirmDisc")}
         onOK={() => setArtifacts({ type: "CLEAR" })}
       />
     </StyledModal>

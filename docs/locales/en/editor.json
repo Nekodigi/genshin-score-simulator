@@ -39,7 +39,9 @@
     },
     "delete": {
       "disc": "Delete all current artifacts. Can be used to replace artifacts with different data or to re-register artifacts from scratch.",
-      "deleteArtifacts": "Delete all Artifacts"
+      "deleteArtifacts": "Delete all Artifacts",
+      "confirmTitle": "Confirm Delete",
+      "confirmDisc": "Deleted data cannot be restored, so we recommend exporting and backing up your data before proceeding."
     }
   },
   "filters": {

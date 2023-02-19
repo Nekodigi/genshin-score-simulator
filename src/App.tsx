@@ -26,7 +26,13 @@ import { Sort } from "./utils/types/Sort";
 import { ArtifactImporter } from "./components/organisms/ArtifactImporter";
 import { Test } from "./pages/Test";
 import { ArtifactType } from "./utils/types/Artifact";
+import ReactGA from "react-ga4";
+
 const Editor = lazy(() => import("./pages/Editor"));
+
+ReactGA.initialize(process.env.REACT_APP_ANALYTICS!);
+ReactGA.send("pageview");
+
 function App() {
   if (localStorage.getItem("theme") === null)
     localStorage.setItem("theme", "true");
