@@ -23,6 +23,15 @@ export const Home = () => {
         <Typography css={fontTypes(theme).body}>{t("intro.body")}</Typography>
         <Typography css={fontTypes(theme).title}>{t("usage.title")}</Typography>
         <Typography css={fontTypes(theme).body}>{t("usage.body")}</Typography>
+        <iframe
+          width="560"
+          height="315"
+          src={t("usage.video")!}
+          title="YouTube video player"
+          frameBorder={0}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        ></iframe>
         <Typography css={fontTypes(theme).title}>
           {t("toEditor.title")}
         </Typography>
