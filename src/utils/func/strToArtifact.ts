@@ -82,7 +82,9 @@ export const str2stat = (str: string, lang: Language): str2statOut => {
   }
 
   let key_ = datas[0] + (str.includes("%") ? "%" : "");
-  var value_ = str.includes("%") ? datas[1].split("%")[0] : datas[1]; //10% => 10
+  var value_ = str.includes("%")
+    ? datas[1].split("%")[0].replaceAll("%", "").replaceAll(" ", "")
+    : datas[1]; //10% => 10
   let maxSim = 0;
   let key: statKeyType = "";
 
@@ -124,6 +126,7 @@ export const str2stat = (str: string, lang: Language): str2statOut => {
     });
   }
   let value = Number(value_);
+  if (isNaN(value)) console.log("NaN", value_, key_, str);
 
   //console.log(key_, value_, value, key);
 

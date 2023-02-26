@@ -26,7 +26,7 @@ export const StatValue2Str = (
       full === undefined ? "substatusAbbr" : "substatusFull"
     }.${statKey}`
   ) as string;
-  if (value !== undefined) {
+  if (value !== undefined && value !== null) {
     if (text.charAt(text.length - 1) === "%") {
       text = text.slice(0, -1);
       text += `+${value.toFixed(1)}%`;
