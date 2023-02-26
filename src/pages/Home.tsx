@@ -38,8 +38,7 @@ export const Home = () => {
         <Typography css={fontTypes(theme).title}>{t("usage.title")}</Typography>
         <Typography css={fontTypes(theme).body}>{t("usage.body")}</Typography>
         <iframe
-          width="560"
-          height="315"
+          style={{ maxWidth: 560, aspectRatio: 16 / 9 }}
           src={t("usage.video")!}
           title="YouTube video player"
           frameBorder={0}
