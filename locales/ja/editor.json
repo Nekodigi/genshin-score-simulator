@@ -1,0 +1,56 @@
+{
+  "artifact": {
+    "artifacts": "聖遺物",
+    "substatus": "サブステータス",
+    "level": "レベル",
+    "score": "スコア"
+  },
+  "filter": {
+    "title": "フィルター",
+    "filtered": "厳選後"
+  },
+  "formula": {
+    "title": "計算式",
+    "editorTitle": "計算式エディタ",
+    "weight": "重み"
+  },
+  "artifacts": {
+    "title": "聖遺物",
+    "sortBy": "並び替え",
+    "addNew": "聖遺物を追加"
+  },
+  "editor": {
+    "title": "聖遺物エディタ",
+    "level": "レベル",
+    "substatus": "サブステータス",
+    "autoFill": "自動入力",
+    "uploadScreenShot": "持ち物画面をアップロード",
+    "estimScore": "スコア予測 (+20)"
+  },
+  "database": {
+    "title": "聖遺物データベース",
+    "import": {
+      "disc": "Genshin Optimizer、Adepti Scanner等のツールから聖遺物をまとめて追加する事ができます。.jsonファイルをアップロードしてください。",
+      "importArtifacts": "聖遺物インポート"
+    },
+    "export": {
+      "disc": "現在の聖遺物を.jsonファイルとして書き出します。デバイス間のデータ移行や、データのバックアップに便利です。",
+      "exportArtifacts": "聖遺物エクスポート"
+    },
+    "delete": {
+      "disc": "現在の聖遺物を全て削除します。別のデータで聖遺物を置き換える、聖遺物を一から登録し直す場合に使用できます。",
+      "deleteArtifacts": "聖遺物を全て削除",
+      "confirmTitle": "本当に削除しますか？",
+      "confirmDisc": "削除したデータは復元できないため、先に書き出してバックアップを取ることを推奨します。"
+    }
+  },
+  "filters": {
+    "minScore": "最低スコア",
+    "avgScore": "平均スコア",
+    "maxScore": "最高スコア"
+  },
+  "order": {
+    "desc": "大きい順",
+    "asc": "小さい順"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "header": {
+    "title": "Artifact Sim"
+  },
+  "action": {
+    "reset": "Reset",
+    "cancel": "Cancel",
+    "add": "Add",
+    "clear": "Clear",
+    "delete": "Delete",
+    "save": "Save",
+    "ok": "OK"
+  },
+  "sidebar": {
+    "artifact": "Artifact",
+    "guide": "Guide",
+    "database": "Database",
+    "darkMode": "Dark Mode",
+    "proMode": "Pro Mode",
+    "language": "Language"
+  },
+  "info": {
+    "loadStart": "Loading",
+    "loadSuccess": "Loading Success",
+    "loadWarning": "Possible partial loading failure",
+    "loadFailed": "Loading Failed"
+  }
+}

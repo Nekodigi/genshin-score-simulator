@@ -1,0 +1,25 @@
+{
+  "intro": {
+    "title": "Least Mora. Best Artifact.",
+    "body": "Artifact Sim has a unique artifact score prediction feature that can predict the artifact score at level 20 based on the it's status at level 0."
+  },
+  "usage": {
+    "title": "How to use",
+    "body": "You can use it on your phone with just a tap. Please see the tutorial first.",
+    "video": "https://youtube.com/embed/uUb5X8k5NAs",
+    "urls": []
+  },
+  "toEditor": {
+    "title": "Go to Editor",
+    "body": "If you are not sure how to use it, you can open the guide from the menu.",
+    "openEditor": "Open Editor"
+  },
+  "socialMedia": {
+    "title": "Social Media",
+    "body": "Development diaries and other works can be found on Youtube and our blog.",
+    "links": {
+      "youtube": "https://www.youtube.com/c/Nekodigi",
+      "blog": "https://nekodigi.com/en/"
+    }
+  }
+}

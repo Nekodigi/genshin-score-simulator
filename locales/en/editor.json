@@ -1,0 +1,56 @@
+{
+  "artifact": {
+    "artifacts": "Artifacts",
+    "substatus": "Substatus",
+    "level": "Level",
+    "score": "Score"
+  },
+  "filter": {
+    "title": "Filter",
+    "filtered": "Filtered"
+  },
+  "formula": {
+    "title": "Formula",
+    "editorTitle": "Formula Editor",
+    "weight": "Weight"
+  },
+  "artifacts": {
+    "title": "Artifacts",
+    "sortBy": "Sort by",
+    "addNew": "Add New Artifact"
+  },
+  "editor": {
+    "title": "Artifact Editor",
+    "level": "Level",
+    "substatus": "Substatus",
+    "autoFill": "Auto Fill",
+    "uploadScreenShot": "Upload Inventory Capture",
+    "estimScore": "Score Prediction (+20)"
+  },
+  "database": {
+    "title": "Artifact Database",
+    "import": {
+      "disc": "Artifacts can be added all at once from tools such as Genshin Optimizer, Adepti Scanner, etc. Please upload the .json file.",
+      "importArtifacts": "Import Artifacts"
+    },
+    "export": {
+      "disc": "Export current artifacts as a .json file. Useful for transferring data between devices or backing up data.",
+      "exportArtifacts": "Export Artifacts"
+    },
+    "delete": {
+      "disc": "Delete all current artifacts. Can be used to replace artifacts with different data or to re-register artifacts from scratch.",
+      "deleteArtifacts": "Delete all Artifacts",
+      "confirmTitle": "Confirm Delete",
+      "confirmDisc": "Deleted data cannot be restored, so we recommend exporting and backing up your data before proceeding."
+    }
+  },
+  "filters": {
+    "minScore": "MIN Score",
+    "avgScore": "AVG Score",
+    "maxScore": "MAX Score"
+  },
+  "order": {
+    "desc": "Descending",
+    "asc": "Ascending"
+  }
+}
