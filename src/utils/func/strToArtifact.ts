@@ -125,10 +125,6 @@ export const str2stat = (str: string, lang: Language): str2statOut => {
       }
     });
   }
-  let value = Number(value_);
-  if (isNaN(value)) console.log("NaN", value_, key_, str);
-
-  //console.log(key_, value_, value, key);
 
   statKey.forEach((key_) => {
     let sim = similarity(statDef[key_ as statKeyType].name[lang], str);
@@ -137,5 +133,12 @@ export const str2stat = (str: string, lang: Language): str2statOut => {
       maxSim = sim;
     }
   });
+
+  let value = Number(value_);
+  if (isNaN(value)) {
+    console.log("NaN", value_, key_, str);
+    value = 0;
+    maxSim = 0;
+  }
   return { key, value, confidence: maxSim };
 };
