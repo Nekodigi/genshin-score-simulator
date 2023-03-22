@@ -10,3 +10,11 @@ export const downloadJson = (obj: Object, name: string) => {
   a.click();
   window.URL.revokeObjectURL(url);
 };
+
+export const downloadImage = (ref: React.RefObject<HTMLCanvasElement>) => {
+  var url = ref.current?.toDataURL("image/png");
+  var link = document.createElement("a");
+  link.download = "filename.png";
+  link.href = url!;
+  link.click();
+};
