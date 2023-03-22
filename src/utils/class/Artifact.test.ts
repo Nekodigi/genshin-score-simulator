@@ -51,16 +51,16 @@ test("Artifact from string test", () => {
   const artifactJp = Artifact.fromString(
     weight,
     // "攻 撃 カ +④①\n攻 撃 カ +④.①%\n会 心 ダ メ ー ジ +①⑦.⑨%\n会 心 率 +③.⑤%"
-    "攻 撃 カ ③.④%\n会 ダ メ ー ジ ④.⑧%\n防 御 カ +②③\n会 率 +①0.⑤%\n"
+    "攻 撃 カ +①⑤.⑦%\n会 心 ダ メ ー ジ +①③.②%\n会 心 率 +⑨.③%\n攻 撃 カ +①⑥"
   );
   expect(artifactJp).toEqual(
     new Artifact(weight, {
       level: 0,
       substats: [
-        { key: "atk_", value: 3.4 },
-        { key: "critDMG_", value: 4.8 },
-        { key: "def", value: 23 },
-        { key: "critRate_", value: 10.5 },
+        { key: "atk_", value: 15.7 },
+        { key: "critDMG_", value: 13.2 },
+        { key: "critRate_", value: 9.3 },
+        { key: "atk", value: 16 },
       ],
     })
   );

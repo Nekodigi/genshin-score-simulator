@@ -48,8 +48,11 @@ const phyDMG2 = [5.2, 6.7, 8.2, 9.7, 11.2];
 const elemDMG1 = [3.1, 4.3, 5.5, 6.7, 7.9];
 const phyDMG1 = [3.9, 5.4, 6.9, 8.4, 9.9];
 
+const empty = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
 export const mainstatValueTable = {
   5: {
+    "": empty,
     hp: [
       717, 920, 1123, 1326, 1530, 1733, 1936, 2139, 2342, 2545, 2749, 2952,
       3155, 3358, 3561, 3764, 3967, 4171, 4374, 4577, 4780,
@@ -91,6 +94,7 @@ export const mainstatValueTable = {
     dendro_dmg_: elemDMG5,
   },
   4: {
+    "": empty,
     hp: [
       645, 828, 1011, 1194, 1377, 1559, 1742, 1925, 2108, 2291, 2474, 2657,
       2839, 3022, 3205, 3388, 3571,
@@ -132,6 +136,7 @@ export const mainstatValueTable = {
     dendro_dmg_: elemDMG4,
   },
   3: {
+    "": empty,
     hp: [
       430, 552, 674, 796, 918, 1040, 1162, 1283, 1405, 1527, 1649, 1771, 1893,
     ],
@@ -166,6 +171,7 @@ export const mainstatValueTable = {
     dendro_dmg_: elemDMG3,
   },
   2: {
+    "": empty,
     hp: [258, 331, 404, 478, 551],
     hp_: elemDMG2,
     atk: [17, 22, 26, 31, 36],
@@ -186,6 +192,7 @@ export const mainstatValueTable = {
     dendro_dmg_: elemDMG2,
   },
   1: {
+    "": empty,
     hp: [129, 178, 227, 275, 324],
     hp_: elemDMG1,
     atk: [8, 12, 15, 18, 21],

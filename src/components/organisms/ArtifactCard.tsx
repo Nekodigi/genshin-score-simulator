@@ -85,6 +85,7 @@ const ArtifactCard = (props: ArtifactCardProps) => {
             </Typography>
           </Box>
           {artifact.mainStatKey !== undefined &&
+          artifact.mainStatKey !== "" &&
           artifact.rarity !== undefined ? (
             <StatIcon
               statKey={artifact.mainStatKey}

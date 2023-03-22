@@ -9,6 +9,7 @@ import { imshowTrimmed } from "./opencv";
 import { isAlphabet } from "./string";
 import { str2artifactSet, str2stat, str2stats } from "./strToArtifact";
 import setChars from "../consts/set-charlist.json";
+import { downloadImage } from "./download";
 
 //PROCESSED
 export type ArtifactScanOut = {
@@ -72,7 +73,7 @@ export const ArtifactScan = async (
   let warning: string[] = [];
   let error: string[] = [];
 
-  let lang: Language = isAlphabet(strs.name.value.charAt(0)) ? "en" : "ja";
+  let lang: Language = isAlphabet(strs.slot.value.charAt(0)) ? "en" : "ja";
   let res = {} as ArtifactScanOut;
   let set = str2artifactSet(strs.name.value, lang);
   res.setKey = { key: set.key, confidence: set.confidence };
@@ -82,7 +83,7 @@ export const ArtifactScan = async (
       ? warning.push("set", "slot")
       : error.push("set", "slot");
   res.rarity = {
-    value: strs.star.value.replace(/\s/g, "").length,
+    value: Math.max(Math.min(strs.star.value.replace(/\s/g, "").length, 5), 1),
     confidence: strs.star.confidence,
   };
   if (strs.star.confidence < 0.5)
@@ -106,7 +107,7 @@ export const ArtifactScan = async (
 
   res.substats = str2stats(strs.substat.value, lang);
   res.substats.forEach((stat, i) => {
-    if (stat.confidence < 0.8)
+    if (stat.confidence < 0.7)
       stat.confidence > 0.5
         ? warning.push(`substat${i}`)
         : error.push(`substat${i}`);
@@ -201,7 +202,7 @@ export const ArtifactScanStr = async (
   // time = performance.now();
 
   let name1p = new cv.Point(17 * scale, 2 * scale);
-  let name2p = new cv.Point((17 + 295) * scale, (2 + 34) * scale);
+  let name2p = new cv.Point((17 + 295) * scale, (2 + 28) * scale);
   let part1p = new cv.Point(16 * scale, 46 * scale);
   let part2p = new cv.Point((16 + 130) * scale, (46 + 18) * scale);
   let mainKey1p = new cv.Point(16 * scale, 100 * scale);
@@ -226,15 +227,18 @@ export const ArtifactScanStr = async (
 
   const fname = async () => {
     imshowTrimmed(buf, trimmedImg, 0.75, -180, name1p, name2p);
-    await worker!.setParameters({
-      tessedit_char_whitelist: setChars,
-    });
+    downloadImage(buf);
+    //console.log(setChars.replace(/[A-z]/g, ""));
+    // await worker!.setParameters({
+    //   tessedit_char_whitelist: setChars.replace(/[A-z]/g, ""),
+    // });
     let result = await worker!.recognize(buf.current!.toDataURL()); //, "jpn"
-    await worker!.setParameters({
-      tessedit_char_whitelist: undefined,
-    });
+    // await worker!.setParameters({
+    //   tessedit_char_whitelist: undefined,
+    // });
     res.name = { value: result.data.text, confidence: result.data.confidence };
   };
+
   const fslot = async () => {
     imshowTrimmed(buf, trimmedImg, 1, -180, part1p, part2p);
     let result = await worker!.recognize(buf.current!.toDataURL()); //, "jpn"
@@ -243,6 +247,7 @@ export const ArtifactScanStr = async (
 
   const fmainKey = async () => {
     imshowTrimmed(buf, trimmedImg, 1, -135, mainKey1p, mainKey2p);
+    downloadImage(buf);
     let result = await worker!.recognize(buf.current!.toDataURL()); //, "jpn" //nograyscale
     res.mainKey = {
       value: result.data.text,
