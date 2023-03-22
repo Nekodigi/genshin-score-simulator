@@ -227,7 +227,7 @@ export const ArtifactScanStr = async (
 
   const fname = async () => {
     imshowTrimmed(buf, trimmedImg, 0.75, -180, name1p, name2p);
-    downloadImage(buf);
+    //downloadImage(buf);
     //console.log(setChars.replace(/[A-z]/g, ""));
     // await worker!.setParameters({
     //   tessedit_char_whitelist: setChars.replace(/[A-z]/g, ""),
@@ -247,7 +247,7 @@ export const ArtifactScanStr = async (
 
   const fmainKey = async () => {
     imshowTrimmed(buf, trimmedImg, 1, -135, mainKey1p, mainKey2p);
-    downloadImage(buf);
+    //downloadImage(buf);
     let result = await worker!.recognize(buf.current!.toDataURL()); //, "jpn" //nograyscale
     res.mainKey = {
       value: result.data.text,
