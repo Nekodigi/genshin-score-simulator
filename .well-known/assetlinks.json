@@ -1,0 +1,14 @@
+[
+    {
+      "relation": [
+        "delegate_permission/common.handle_all_urls"
+      ],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.nekodigi.artifact.twa",
+        "sha256_cert_fingerprints": [
+          "C7:38:75:44:A0:04:53:CC:24:21:E4:EE:9F:2C:4E:B6:52:68:3C:ED:8A:27:23:BC:E5:14:4A:11:FA:34:75:33"
+        ]
+      }
+    }
+  ]
